@@ -6,7 +6,7 @@ import ContinueAsGuest from "components/route/login/ContinueAsGuest"
 
 export default function Login() {
   return (
-    <div className="flex justify-center pt-20">
+    <div className="flex min-h-screen justify-center items-center">
       <Image
         src="/images/bg-login-register.svg"
         alt="background image"
@@ -16,8 +16,11 @@ export default function Login() {
 
       <h1 className="sr-only">Login</h1>
 
-      <Glass className="space-y-8">
-        <strong className="text-black text-5xl font-extrabold">
+      <Glass className="p-[2rem] space-y-4 md:space-y-10 xs:p-10 sm:p-14">
+        <strong
+          className="text-black text-4xl sm:text-5xl font-extrabold 
+        flex justify-center"
+        >
           Random Me.
         </strong>
         <LoginForm />

@@ -14,7 +14,7 @@ export default function LoginForm() {
     "w-full border-[1px] border-black-gray rounded flex justify-center items-center focus-within:border-teal-600 focus-within:ring-teal-600 overflow-hidden"
   const loginInputClass =
     "bg-transparent border-none flex-1 focus:ring-transparent focus:border-none"
-  const loginInputIconClass = "mx-2 w-5 h-5 text-black-gray/75"
+  const loginInputIconClass = "mx-2 w-5 h-5 text-black-gray/75 hidden sm:inline"
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -70,7 +70,9 @@ export default function LoginForm() {
         <button
           type="submit"
           className="w-full bg-yellow py-2 text-xl rounded shadow-md 
-        text-black mt-8 font-bold active:shadow-none focus-visible:outline-teal-600"
+        text-black mt-4 font-bold active:shadow-none 
+        focus-visible:outline-teal-600
+          md:mt-8"
         >
           LOGIN
         </button>
