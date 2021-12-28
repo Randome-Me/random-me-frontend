@@ -22,7 +22,7 @@ export default function Login() {
           <Glass className="p-[2rem] space-y-4 md:space-y-10 xs:p-10 sm:p-14">
             <strong
               className="text-black text-4xl sm:text-5xl font-extrabold
-            flex justify-center"
+            font-Sen flex justify-center"
             >
               Random Me.
             </strong>

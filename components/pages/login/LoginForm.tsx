@@ -66,11 +66,11 @@ export default function LoginForm() {
           />
         </div>
       </div>
-      <div>
+      <div className="space-y-1">
         <button
           type="submit"
-          className="w-full bg-yellow py-2 text-xl rounded shadow-md 
-        text-black mt-4 font-bold active:shadow-none 
+          className="font-Spartan font-bold w-full bg-yellow pb-2 pt-3 text-xl rounded shadow-md
+        text-black mt-4  active:shadow-none 
         focus-visible:outline-teal-600
           md:mt-8"
         >
@@ -78,12 +78,12 @@ export default function LoginForm() {
         </button>
         <div className="flex justify-between">
           <Link href="/register">
-            <a className="clickable-text-teal">Register</a>
+            <a className="clickable-text-teal text-sm">Register</a>
           </Link>
           <a
             onClick={handleForgotPassword}
             href=""
-            className="clickable-text-teal"
+            className="clickable-text-teal text-sm"
           >
             Forgot password?
           </a>
