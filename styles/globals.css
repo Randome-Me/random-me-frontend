@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply bg-teal-600 text-white;
+    @apply bg-teal-600 text-black-gray;
   }
 
   h1,
@@ -25,9 +25,33 @@
   h4 {
     @apply text-xl;
   }
+
+  [type="text"],
+  [type="email"],
+  [type="url"],
+  [type="password"],
+  [type="number"],
+  [type="date"],
+  [type="datetime-local"],
+  [type="month"],
+  [type="search"],
+  [type="tel"],
+  [type="time"],
+  [type="week"],
+  [multiple],
+  textarea,
+  select {
+    @apply border-black placeholder-black-gray/75 focus:border-teal-400 
+    focus:ring-teal-400 focus:ring-offset-1 focus:ring-offset-transparent 
+    caret-yellow;
+  }
 }
 
 @layer components {
+  .clickable-text-teal {
+    @apply font-bold text-teal-600 underline decoration-slice 
+    decoration-teal-600 cursor-pointer;
+  }
 }
 
 @layer utilities {
