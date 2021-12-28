@@ -32,7 +32,7 @@ export default function LoginForm() {
   return (
     <form onSubmit={handleSubmit} className="mt-8">
       <h2 className="sr-only">Login with username and password</h2>
-      <div className="flex flex-col space-y-4">
+      <div className="space-y-4">
         <LoginInputText
           value={username}
           placeholder="Username"
@@ -44,14 +44,9 @@ export default function LoginForm() {
           onChange={(e) => setPassword(e.target.value)}
         />
       </div>
+
       <div className="space-y-1">
-        <button
-          type="submit"
-          className="font-Spartan font-bold w-full bg-yellow pb-2 pt-3 text-xl rounded shadow-md
-        text-black mt-4  active:shadow-none 
-        focus-visible:outline-teal-600
-          md:mt-8"
-        >
+        <button type="submit" className="login-register-button">
           LOGIN
         </button>
         <div className="flex justify-between">

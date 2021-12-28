@@ -56,6 +56,13 @@
     @apply font-bold text-teal-600 underline decoration-slice 
     decoration-teal-600 cursor-pointer;
   }
+
+  .login-register-button {
+    @apply font-Spartan font-bold w-full bg-yellow pb-2 pt-3 text-xl rounded shadow-md
+        text-black mt-4  active:shadow-none 
+        focus-visible:outline-teal-600
+          md:mt-8;
+  }
 }
 
 @layer utilities {
