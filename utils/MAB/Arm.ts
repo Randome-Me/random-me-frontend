@@ -1,6 +1,8 @@
 import { BanditArm } from "types/mab"
 import Mutable from "types/mutable"
 
+export type ArmState = [number, number] // [pulls, reward]
+
 export class Arm {
   readonly name: string
   readonly bias: number
@@ -21,7 +23,7 @@ export class Arm {
   /**
    * Return a tuple [pulls, reward]
    */
-  state(): [number, number] {
+  state(): ArmState {
     return [this.pulls, this.reward]
   }
 
