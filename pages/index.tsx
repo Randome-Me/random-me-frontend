@@ -1,4 +1,4 @@
-import Button from "components/button";
+import Button from "components/button"
 
 export default function Home() {
   return (
@@ -6,5 +6,5 @@ export default function Home() {
       <h1>Yo</h1>
       <Button></Button>
     </div>
-  );
+  )
 }

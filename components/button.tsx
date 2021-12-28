@@ -1,7 +1,7 @@
 export interface ButtonProps {
-  children?: React.ReactNode;
-  className?: string;
-  onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  children?: React.ReactNode
+  className?: string
+  onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
 }
 
 export default function Button({ children, className, onClick }: ButtonProps) {
@@ -9,5 +9,5 @@ export default function Button({ children, className, onClick }: ButtonProps) {
     <button className={`${className || ""}`} onClick={onClick}>
       {children || "Button"}
     </button>
-  );
+  )
 }
