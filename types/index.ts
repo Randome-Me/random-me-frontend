@@ -6,6 +6,7 @@ export interface User {
   topics: {
     name: string
     policy: RandomPolicy
+    t: number
     options: BanditArm[]
   }[]
   // maybe user-specific random policy configs here if they're configurable?
@@ -18,6 +19,7 @@ export const dumbUser: User = {
     {
       name: "topic1",
       policy: RandomPolicy.EQUAL_WEIGHT,
+      t: 4 + 47 + 27,
       options: [
         {
           name: "option1",
@@ -34,7 +36,7 @@ export const dumbUser: User = {
         {
           name: "option3",
           bias: 4,
-          pulls: 47,
+          pulls: 27,
           reward: 10,
         },
       ],
@@ -42,6 +44,7 @@ export const dumbUser: User = {
     {
       name: "topic2",
       policy: RandomPolicy.SOFTMAX,
+      t: 0 + 10,
       options: [
         {
           name: "option1",
