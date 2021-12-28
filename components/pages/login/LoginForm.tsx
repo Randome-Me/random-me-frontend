@@ -60,7 +60,7 @@ export default function LoginForm() {
           </Link>
           <a
             onClick={handleForgotPassword}
-            href=""
+            href="#"
             className="clickable-text-teal text-sm"
           >
             Forgot password?
