@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer base {
+  * {
+    @apply focus-visible:outline-teal-600;
+  }
+
   body {
     @apply bg-teal-600 text-black-gray;
   }
@@ -43,7 +47,7 @@
   select {
     @apply border-black placeholder-black-gray/75 focus:border-teal-400 
     focus:ring-teal-400 focus:ring-offset-1 focus:ring-offset-transparent 
-    caret-yellow;
+    caret-teal-700;
   }
 }
 

@@ -13,7 +13,7 @@ export default function Login() {
   const minPasswordLength = 8
 
   const loginInputContainerClass =
-    "w-full border-[1px] border-black-gray rounded flex justify-center items-center focus-within:border-yellow focus-within:ring-yellow overflow-hidden"
+    "w-full border-[1px] border-black-gray rounded flex justify-center items-center focus-within:border-teal-600 focus-within:ring-teal-600 overflow-hidden"
   const loginInputClass =
     "bg-transparent border-none flex-1 focus:ring-transparent focus:border-none"
   const loginInputIconClass = "mx-2 w-5 h-5 text-black-gray/75"
@@ -32,6 +32,10 @@ export default function Login() {
     alert(`Logging in as ${username}`)
     setUsername("")
     setPassword("")
+  }
+
+  const handleForgotPassword = () => {
+    alert("Forgot password")
   }
 
   const loginWithGoogle = () => {
@@ -94,7 +98,7 @@ export default function Login() {
             <button
               type="submit"
               className="w-full bg-yellow py-2 text-xl rounded shadow-md 
-              text-black mt-8 font-bold active:shadow-none"
+              text-black mt-8 font-bold active:shadow-none focus-visible:outline-teal-600"
             >
               LOGIN
             </button>
@@ -102,7 +106,13 @@ export default function Login() {
               <Link href="/register">
                 <a className="clickable-text-teal">Register</a>
               </Link>
-              <span className="clickable-text-teal">Forgot password?</span>
+              <a
+                onClick={handleForgotPassword}
+                href=""
+                className="clickable-text-teal"
+              >
+                Forgot password?
+              </a>
             </div>
           </div>
         </form>
@@ -113,26 +123,35 @@ export default function Login() {
           </span>
           <div className="flex space-x-2">
             <h2 className="sr-only">Login with Google</h2>
-            <Icon
-              className="cursor-pointer w-9 h-9"
-              icon="flat-color-icons:google"
-              onClick={loginWithGoogle}
-            />
+            <a href="">
+              <Icon
+                className="cursor-pointer w-9 h-9"
+                icon="flat-color-icons:google"
+                onClick={loginWithGoogle}
+              />
+            </a>
             <h2 className="sr-only">Login with Facebook</h2>
-            <Icon
-              className="cursor-pointer text-[#4267b2] w-8 h-8"
-              icon="akar-icons:facebook-fill"
-              onClick={loginWithFacebook}
-            />
+            <a href="">
+              <Icon
+                className="cursor-pointer text-[#4267b2] w-8 h-8"
+                icon="akar-icons:facebook-fill"
+                onClick={loginWithFacebook}
+              />
+            </a>
           </div>
         </div>
 
         <span className="block text-center">
-          or <span className="clickable-text-teal">continue as guest</span>
-          <Icon
-            icon="bi:info-circle-fill"
-            className="inline clickable-text-teal ml-2"
-          />
+          or{" "}
+          <a href="" className="clickable-text-teal mr-2">
+            continue as guest
+          </a>
+          <a href="">
+            <Icon
+              icon="bi:info-circle-fill"
+              className="inline clickable-text-teal"
+            />
+          </a>
         </span>
       </Glass>
     </div>
