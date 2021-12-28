@@ -1,7 +1,5 @@
 import { randomInt } from "crypto"
-import { ArmState } from "./Arm"
-
-type ProbabilityOfEveryArm = number[]
+import { ArmState, ProbabilityOfEveryArm } from "types/mab"
 
 const BanditAgent = {
   getRate: (pulls: number, reward: number) => {
@@ -85,6 +83,10 @@ const BanditAgent = {
       const probabilities = states.map(() => 0)
       probabilities[selectedArmIndex] = 1
       return probabilities
+    },
+    multinomial: (biases: number[]): ProbabilityOfEveryArm => {
+      const biasSum = biases.reduce((prev, current) => prev + current, 0)
+      return biases.map((b) => b / biasSum)
     },
   },
 }

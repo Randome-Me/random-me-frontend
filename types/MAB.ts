@@ -1,8 +1,10 @@
 export enum RandomPolicy {
   EQUAL_WEIGHT,
+  RANDOMIZE,
+  EPSILON_GREEDY,
   SOFTMAX,
   UCB,
-  MULTINOMIAL,
+  MULTINOMIAL, // use user-provided option bias
 }
 
 export interface BanditArm {
@@ -11,3 +13,6 @@ export interface BanditArm {
   pulls: number
   reward: number
 }
+
+export type ArmState = [number, number] // [pulls, reward]
+export type ProbabilityOfEveryArm = number[]

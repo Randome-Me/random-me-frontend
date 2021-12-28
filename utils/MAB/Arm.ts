@@ -1,7 +1,5 @@
-import { BanditArm } from "types/mab"
+import { ArmState, BanditArm } from "types/mab"
 import Mutable from "types/mutable"
-
-export type ArmState = [number, number] // [pulls, reward]
 
 export class Arm {
   readonly name: string
