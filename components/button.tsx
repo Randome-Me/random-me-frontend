@@ -6,7 +6,7 @@ export interface ButtonProps {
 
 export default function Button({ children, className, onClick }: ButtonProps) {
   return (
-    <button className={`${className}`} onClick={onClick}>
+    <button className={`${className || ""}`} onClick={onClick}>
       {children || "Button"}
     </button>
   );
