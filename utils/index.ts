@@ -1,7 +1,7 @@
 import { Arm } from "./MAB/Arm"
 import store from "store"
 import { RandomPolicy } from "types/mab"
-import { getProbabilityOfEveryArm } from "./MAB/BanditAgent"
+import { getProbabilityOfEveryArm } from "./MAB"
 
 export const decodePolicy = (policy: RandomPolicy) => {
   switch (policy) {
@@ -36,10 +36,10 @@ const choice = <T>(array: T[], probabilities: number[]) => {
 
 export const randomMe = () => {
   const {
-    user: { selectedTopicId: selectedTopic, topics },
+    user: { selectedTopicId, topics },
   } = store.getState()
   const { options, t, policy } = topics.find(
-    (topic) => topic._id === selectedTopic
+    (topic) => topic._id === selectedTopicId
   )
   const arms = options.map((arm) => new Arm(arm))
   const states = arms.map((arm) => arm.state())
