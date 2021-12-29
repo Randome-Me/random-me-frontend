@@ -2,6 +2,7 @@ import { Icon } from "@iconify/react"
 import Glass from "components/common/Glass"
 import PageBackground from "components/common/PageBackground"
 import LoggedInLayout from "components/layout/LoggedInLayout"
+import ScreenCenterLayout from "components/layout/ScreenCenterLayout"
 import { useAppDispatch, useAppSelector } from "hooks"
 import Head from "next/head"
 import Link from "next/link"
@@ -46,7 +47,7 @@ export default function Home() {
 
       <PageBackground src="/images/bg-index.svg">
         <LoggedInLayout>
-          <div className="flex justify-center items-center h-screen">
+          <ScreenCenterLayout>
             <Glass className="space-y-10">
               <button
                 onClick={randomMe}
@@ -136,7 +137,7 @@ export default function Home() {
                 </div>
               </div>
             </Glass>
-          </div>
+          </ScreenCenterLayout>
         </LoggedInLayout>
       </PageBackground>
     </>
