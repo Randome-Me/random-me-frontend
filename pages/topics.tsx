@@ -1,8 +1,33 @@
+import Glass from "components/common/Glass"
 import PageBackground from "components/common/PageBackground"
 import LoggedInLayout from "components/layout/LoggedInLayout"
+import ScreenCenterLayout from "components/layout/ScreenCenterLayout"
 import Head from "next/head"
+import { Icon } from "@iconify/react"
+import { useAppDispatch, useAppSelector } from "hooks"
+import { FormEvent, useRef, useState } from "react"
 
 export default function Topics() {
+  const { topics } = useAppSelector((state) => state.user)
+  // const dispatch = useAppDispatch()
+
+  const [activeTopicId, setActiveTopicId] = useState(topics[0]._id)
+  const [addTopicText, setAddTopicText] = useState("")
+  const [addOptionText, setAddOptionText] = useState("")
+  const weightInput = useRef<HTMLInputElement>(null)
+
+  const handleTopicSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    console.log(addTopicText)
+    setAddTopicText("")
+  }
+
+  const handleOptionSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setAddOptionText("")
+    weightInput.current.value = undefined
+  }
+
   return (
     <>
       <Head>
@@ -14,7 +39,184 @@ export default function Topics() {
       </Head>
 
       <PageBackground src="/images/bg-topics.svg">
-        <LoggedInLayout></LoggedInLayout>
+        <LoggedInLayout>
+          <ScreenCenterLayout>
+            <Glass className="flex w-[69rem] h-4/5">
+              <div
+                className="flex flex-col w-[40rem] text-center
+              gap-y-12"
+              >
+                <h1 className="">Topics</h1>
+                <div className="bg-cyan-600">
+                  <div>
+                    <form
+                      onSubmit={handleTopicSubmit}
+                      className="flex w-full items-center space-x-4 px-4
+                    py-3"
+                    >
+                      <input
+                        value={addTopicText}
+                        onChange={(e) => setAddTopicText(e.target.value)}
+                        type="text"
+                        className="
+                          flex-1
+                          bg-transparent
+                          placeholder-slate-50/50
+                          border-0 border-b-2 border-slate-50/50
+                          focus:ring-transparent focus:border-slate-50
+                          caret-slate-50
+                          text-slate-100
+                        "
+                        placeholder="Add a topic"
+                      />
+                      <button type="submit">
+                        <Icon
+                          icon="akar-icons:plus"
+                          className="w-6 h-6 text-slate-50"
+                        />
+                      </button>
+                    </form>
+                  </div>
+                  {topics.map((topic) => (
+                    <div
+                      onClick={() => setActiveTopicId(topic._id)}
+                      key={topic._id}
+                      className={`w-full text-left text-lg px-4 py-4 text-slate-50
+                          cursor-pointer transition-colors flex items-center
+                        ${
+                          activeTopicId === topic._id
+                            ? "bg-sky-100 text-cyan-600"
+                            : ""
+                        }`}
+                    >
+                      <span className="flex-1">
+                        {topic.name} ({topic.options.length})
+                      </span>
+                      <Icon
+                        onClick={() => {}}
+                        className="w-5 h-5 cursor-pointer
+                                hover:text-slate-800/50"
+                        icon="clarity:edit-solid"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div
+                className="flex flex-col w-full text-center
+              gap-y-12"
+              >
+                <h1 className="">Options</h1>
+                <div className="w-full bg-slate-50 text-cyan-600">
+                  <form
+                    onSubmit={handleOptionSubmit}
+                    className="flex items-center space-x-4 px-4
+                    py-3"
+                  >
+                    <input
+                      type="number"
+                      ref={weightInput}
+                      min={1}
+                      max={10}
+                      required
+                      className="
+                          w-[7rem]
+                          bg-transparent
+                          placeholder:text-cyan-800/75
+                          border-0 border-b-2 border-slate-500/75
+                          focus:ring-transparent focus:border-slate-500
+                        "
+                      placeholder="Weight"
+                    />
+                    <input
+                      value={addOptionText}
+                      onChange={(e) => setAddOptionText(e.target.value)}
+                      type="text"
+                      className="
+                          flex-1
+                          bg-transparent
+                          placeholder:text-cyan-800/75
+                          border-0 border-b-2 border-slate-500/75
+                          focus:ring-transparent focus:border-slate-500
+                        "
+                      placeholder="Add an option"
+                    />
+                    <button type="submit">
+                      <Icon
+                        icon="akar-icons:plus"
+                        className="w-6 h-6 text-slate-800/75"
+                      />
+                    </button>
+                  </form>
+                  {topics
+                    .find((t) => t._id === activeTopicId)
+                    .options.map((option) => {
+                      return (
+                        <form
+                          key={option._id}
+                          className="flex items-center space-x-4 px-4
+                      py-3
+                      even:bg-sky-100"
+                        >
+                          <div className="flex w-[7rem] items-center">
+                            <input
+                              type="number"
+                              value={option.bias}
+                              onChange={(e) => {}}
+                              min={1}
+                              max={10}
+                              disabled
+                              className="
+                                    bg-transparent
+                                  placeholder:text-cyan-800/75
+                                    border-0 border-b-2 border-slate-500/75
+                                    focus:ring-transparent focus:border-slate-500
+                                    disabled:border-0"
+                            />
+                            <Icon
+                              onClick={() => {}}
+                              className="w-5 h-5 cursor-pointer text-slate-800/75
+                                hover:text-slate-800/50"
+                              icon="clarity:edit-solid"
+                            />
+                          </div>
+                          <input
+                            type="text"
+                            value={option.name}
+                            disabled
+                            className="
+                        flex-1
+                        bg-transparent
+                        placeholder:text-cyan-800/75
+                        border-0 border-b-2 border-slate-500/75
+                        focus:ring-transparent focus:border-slate-500
+                        disabled:border-0
+                      "
+                          />
+                          <div
+                            className="flex item-center text-slate-800/75
+                      space-x-2"
+                          >
+                            <Icon
+                              onClick={() => {}}
+                              className="w-5 h-5 cursor-pointer 
+                          hover:text-slate-800/50"
+                              icon="clarity:edit-solid"
+                            />
+                            <Icon
+                              className="w-5 h-5 cursor-pointer 
+                          hover:text-slate-800/50"
+                              icon="fluent:delete-24-filled"
+                            />
+                          </div>
+                        </form>
+                      )
+                    })}
+                </div>
+              </div>
+            </Glass>
+          </ScreenCenterLayout>
+        </LoggedInLayout>
       </PageBackground>
     </>
   )

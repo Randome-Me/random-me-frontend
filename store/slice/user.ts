@@ -41,11 +41,26 @@ export const userSlice = createSlice({
       option.reward += reward
       topic.t += 1
     },
+    setOptionWeight: (
+      state,
+      {
+        payload: { topicId, optionId, weight },
+      }: PayloadAction<{ topicId: string; optionId: string; weight: number }>
+    ) => {
+      state.topics
+        .find((topic) => topic._id === topicId)
+        .options.find((option) => option._id === optionId).bias = weight
+    },
   },
 })
 
-export const { setUser, selectTopic, changeTopicPolicy, pull } =
-  userSlice.actions
+export const {
+  setUser,
+  selectTopic,
+  changeTopicPolicy,
+  pull,
+  setOptionWeight,
+} = userSlice.actions
 
 const userReducer = userSlice.reducer
 export default userReducer

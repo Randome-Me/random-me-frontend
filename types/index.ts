@@ -1,16 +1,18 @@
 import { RandomPolicy, BanditArm } from "./mab"
 
+export interface Topic {
+  _id: string
+  name: string
+  policy: RandomPolicy
+  t: number
+  options: BanditArm[]
+}
+
 export interface User {
   _id: string
   username: string
   selectedTopicId: string // the current selected topic
-  topics: {
-    _id: string
-    name: string
-    policy: RandomPolicy
-    t: number
-    options: BanditArm[]
-  }[]
+  topics: Topic[]
   // maybe user-specific random policy configs here if they're configurable?
 }
 
