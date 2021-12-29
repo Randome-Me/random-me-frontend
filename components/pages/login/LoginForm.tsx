@@ -51,12 +51,12 @@ export default function LoginForm() {
         </button>
         <div className="flex justify-between">
           <Link href="/register">
-            <a className="clickable-text-teal text-sm">Register</a>
+            <a className="clickable-text-cyan text-sm">Register</a>
           </Link>
           <a
             onClick={handleForgotPassword}
             href="#"
-            className="clickable-text-teal text-sm"
+            className="clickable-text-cyan text-sm"
           >
             Forgot password?
           </a>

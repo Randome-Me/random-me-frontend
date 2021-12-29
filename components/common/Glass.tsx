@@ -6,7 +6,7 @@ export type GlassProps = {
 export default function Glass({ children, className }: GlassProps) {
   return (
     <div
-      className={`bg-gradient-to-br from-white/10 to-white/5 p-12 
+      className={`bg-gradient-to-br from-[#F7FAFC]/5 to-[#F7FAFC]/0 p-12 
       backdrop-blur-sm 
       shadow-md hover:shadow-lg
       rounded-xl

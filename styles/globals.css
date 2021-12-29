@@ -4,11 +4,11 @@
 
 @layer base {
   * {
-    @apply focus-visible:outline-teal-600;
+    @apply focus-visible:outline-cyan-600;
   }
 
   body {
-    @apply font-Montserrat bg-teal-600 text-black-gray;
+    @apply font-Montserrat bg-cyan-600 text-slate-800;
   }
 
   h1,
@@ -45,22 +45,22 @@
   [multiple],
   textarea,
   select {
-    @apply border-black placeholder-black-gray/75 focus:border-teal-400 
-    focus:ring-teal-400 focus:ring-offset-1 focus:ring-offset-transparent 
-    caret-teal-700;
+    @apply border-slate-800 placeholder-slate-500 focus:border-cyan-400 
+    focus:ring-cyan-400 focus:ring-offset-1 focus:ring-offset-transparent 
+    caret-cyan-600;
   }
 }
 
 @layer components {
-  .clickable-text-teal {
-    @apply font-bold text-teal-600 underline decoration-slice 
-    decoration-teal-600 cursor-pointer;
+  .clickable-text-cyan {
+    @apply font-bold text-cyan-600 underline decoration-slice 
+    decoration-cyan-600 cursor-pointer;
   }
 
   .login-register-button {
-    @apply font-Spartan font-bold w-full bg-yellow pb-2 pt-3 text-xl rounded shadow-md
-        text-black mt-4  active:shadow-none 
-        focus-visible:outline-teal-600
+    @apply font-Spartan font-bold w-full bg-yellow-400 pb-2 pt-3 text-xl rounded shadow-md
+        text-slate-800 mt-4  active:shadow-none 
+        focus-visible:outline-cyan-600
           md:mt-8;
   }
 }

@@ -58,7 +58,7 @@ export default function Register() {
             </button>
             <div className="flex justify-between">
               <Link href="/login">
-                <a className="clickable-text-teal text-sm">Back to login</a>
+                <a className="clickable-text-cyan text-sm">Back to login</a>
               </Link>
             </div>
           </div>

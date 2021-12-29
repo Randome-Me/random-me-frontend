@@ -16,7 +16,7 @@ export default function LoginRegisterLayout({
         <h1 className="sr-only">{topic}</h1>
         <Glass className="p-[2rem] space-y-4 md:space-y-10 xs:p-10 sm:p-14">
           <strong
-            className="text-black text-4xl sm:text-5xl font-extrabold
+            className="text-slate-700 text-4xl sm:text-5xl font-extrabold
       font-Sen flex justify-center"
           >
             Random Me.
