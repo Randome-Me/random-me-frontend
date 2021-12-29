@@ -173,7 +173,7 @@ export default function Home() {
                         <th className="px-4 py-2">Option</th>
                       </tr>
                     </thead>
-                    <tbody>
+                    <tbody className="font-medium">
                       {probabilityInfo.armsWithProbability.map(
                         ({ arm, probability }) => (
                           <tr key={arm._id} className="text-center">
