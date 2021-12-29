@@ -5,6 +5,7 @@ export interface User {
   username: string
   selectedTopic: string // the current selected topic
   topics: {
+    _id: string
     name: string
     policy: RandomPolicy
     t: number
@@ -19,6 +20,7 @@ export const dumbUser: User = {
   selectedTopic: "topic1",
   topics: [
     {
+      _id: "topic1",
       name: "topic1",
       policy: RandomPolicy.EQUAL_WEIGHT,
       t: 4 + 47 + 27,
@@ -44,6 +46,7 @@ export const dumbUser: User = {
       ],
     },
     {
+      _id: "topic2",
       name: "topic2",
       policy: RandomPolicy.SOFTMAX,
       t: 0 + 10,
