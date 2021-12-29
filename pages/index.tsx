@@ -76,7 +76,7 @@ export default function Home() {
                     {topics.map((topic) => (
                       <option
                         className="bg-yellow-500"
-                        key={topic.name}
+                        key={topic._id}
                         value={topic.name}
                       >
                         {topic.name}
