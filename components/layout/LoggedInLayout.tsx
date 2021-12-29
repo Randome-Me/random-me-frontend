@@ -7,7 +7,7 @@ interface LoggedInLayoutProps {
 export default function LoggedInLayout({ children }: LoggedInLayoutProps) {
   return (
     <>
-      <div className="absolute inset-16">
+      <div className="fixed inset-16">
         <Sidebar />
       </div>
       {children}
