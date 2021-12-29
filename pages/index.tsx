@@ -6,10 +6,10 @@ import ScreenCenterLayout from "components/layout/ScreenCenterLayout"
 import { useAppDispatch, useAppSelector } from "hooks"
 import Head from "next/head"
 import Link from "next/link"
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { changeTopicPolicy, selectTopic } from "store/slice/user"
 import { RandomPolicy } from "types/mab"
-import { decodePolicy, randomMe } from "utils"
+import { decodePolicy, getProbabilities, randomMe } from "utils"
 
 const policies: RandomPolicy[] = [
   RandomPolicy.EQUAL_WEIGHT,
@@ -26,11 +26,14 @@ export default function Home() {
   const [selectedPolicy, setSelectedPolicy] = useState<RandomPolicy>(
     topics.find((topic) => topic._id === selectedTopicId).policy
   )
+  const [probabilityInfo, setProbabilityInfo] = useState(getProbabilities())
+  const [showInfo, setShowInfo] = useState(false)
 
   useEffect(() => {
     setSelectedPolicy(
       topics.find((topic) => topic._id === selectedTopicId).policy
     )
+    setProbabilityInfo(getProbabilities())
   }, [topics, selectedTopicId])
 
   return (
@@ -46,7 +49,10 @@ export default function Home() {
       <PageBackground src="/images/bg-index.svg">
         <LoggedInLayout>
           <ScreenCenterLayout>
-            <Glass className="space-y-10">
+            <Glass
+              className="space-y-10 max-h-[95vh] overflow-y-auto
+            transition-all"
+            >
               <button
                 onClick={randomMe}
                 className="text-slate-50 text-shadow-lg text-8xl
@@ -59,7 +65,7 @@ export default function Home() {
               </button>
               <div className="flex flex-col items-center">
                 <div>
-                  <label className="flex item-center">
+                  <div className="flex item-center">
                     <h3
                       className="font-Sen
                     translate-y-2
@@ -100,8 +106,8 @@ export default function Home() {
                         add option
                       </a>
                     </Link>
-                  </label>
-                  <label className="flex item-center">
+                  </div>
+                  <div className="flex item-center">
                     <Link href="/random-policies">
                       <a
                         className="font-Sen
@@ -134,9 +140,62 @@ export default function Home() {
                         </option>
                       ))}
                     </select>
-                  </label>
+                    <div className="my-auto ml-[1ch] space-x-2">
+                      <input
+                        type="checkbox"
+                        onChange={() => setShowInfo(!showInfo)}
+                        className="rounded bg-transparent
+                        text-yellow-600
+                        focus:ring-0
+                        focus:ring-offset-transparent
+                        focus:ring-transparent
+                      "
+                      />
+                      <span className="self-center font-semibold hover:text-slate-700">
+                        see probabilities
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
+              {showInfo && (
+                <div className="grid items-center text-center">
+                  <h3
+                    className="capitalize underline decoration-wavy
+                decoration-yellow-400"
+                  >
+                    {probabilityInfo.policyName}
+                  </h3>
+                  <table className="table-auto">
+                    <thead>
+                      <tr>
+                        <th className="px-4 py-2">Probability</th>
+                        <th className="px-4 py-2">Option</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {probabilityInfo.armsWithProbability.map(
+                        ({ arm, probability }) => (
+                          <tr key={arm._id} className="text-center">
+                            <td
+                              className="
+                          border border-slate-800 px-4 py-2"
+                            >
+                              {(probability * 100).toFixed(2)}%
+                            </td>
+                            <td
+                              className="
+                          border border-slate-800 px-4 py-2"
+                            >
+                              {arm.name}
+                            </td>
+                          </tr>
+                        )
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+              )}
             </Glass>
           </ScreenCenterLayout>
         </LoggedInLayout>

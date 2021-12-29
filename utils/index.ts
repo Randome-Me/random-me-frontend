@@ -34,7 +34,7 @@ const choice = <T>(array: T[], probabilities: number[]) => {
   throw new Error("Should not reach here")
 }
 
-export const randomMe = () => {
+const getArmsWithProbabilities = () => {
   const {
     user: { selectedTopicId, topics },
   } = store.getState()
@@ -50,6 +50,24 @@ export const randomMe = () => {
     t,
     arms
   )
+  return { arms, probabilityOfEveryArm, policy }
+}
+
+export const getProbabilities = () => {
+  const { arms, probabilityOfEveryArm, policy } = getArmsWithProbabilities()
+  return {
+    armsWithProbability: arms
+      .map((a, index) => ({
+        arm: a,
+        probability: probabilityOfEveryArm[index],
+      }))
+      .sort((a, b) => b.probability - a.probability),
+    policyName: decodePolicy(policy),
+  }
+}
+
+export const randomMe = () => {
+  const { arms, probabilityOfEveryArm } = getArmsWithProbabilities()
   const selectedArm = choice(arms, probabilityOfEveryArm)
   const reward = confirm(
     `Selected ${selectedArm.name}\nDo you like this option?`
