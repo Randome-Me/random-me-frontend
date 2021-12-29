@@ -12,7 +12,7 @@ export default function LoginRegisterLayout({
 }: LoginRegisterLayoutProps) {
   return (
     <PageBackground src="/images/bg-login-register.svg">
-      <div className="flex min-h-screen justify-center items-center">
+      <main className="flex min-h-screen justify-center items-center">
         <h1 className="sr-only">{topic}</h1>
         <Glass className="p-[2rem] space-y-4 md:space-y-10 xs:p-10 sm:p-14">
           <strong
@@ -23,7 +23,7 @@ export default function LoginRegisterLayout({
           </strong>
           {children}
         </Glass>
-      </div>
+      </main>
     </PageBackground>
   )
 }
