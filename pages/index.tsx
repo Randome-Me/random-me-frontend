@@ -1,10 +1,10 @@
 import { Icon } from "@iconify/react"
 import Glass from "components/common/Glass"
 import PageBackground from "components/common/PageBackground"
+import { useAppDispatch, useAppSelector } from "hooks"
 import Head from "next/head"
 import Link from "next/link"
 import { useState } from "react"
-import { dumbUser } from "types"
 import { RandomPolicy } from "types/mab"
 import { decodePolicy } from "utils"
 
@@ -17,10 +17,11 @@ const policies: RandomPolicy[] = [
 ]
 
 export default function Home() {
-  const [selectedTopic, setSelectedTopic] = useState(dumbUser.topics[0])
-  const [selectedPolicy, setSelectedPolicy] = useState(
-    dumbUser.topics[0].policy
-  )
+  // const dispatch = useAppDispatch()
+  const user = useAppSelector((state) => state.user)
+
+  const [selectedTopic, setSelectedTopic] = useState(user.topics[0])
+  const [selectedPolicy, setSelectedPolicy] = useState(user.topics[0].policy)
 
   return (
     <>
@@ -56,13 +57,13 @@ export default function Home() {
                   <select
                     onChange={(e) =>
                       setSelectedTopic(
-                        dumbUser.topics.find((t) => t.name === e.target.value)
+                        user.topics.find((t) => t.name === e.target.value)
                       )
                     }
                     value={selectedTopic.name}
                     className="form-select"
                   >
-                    {dumbUser.topics.map((topic) => (
+                    {user.topics.map((topic) => (
                       <option key={topic.name} value={topic.name}>
                         {topic.name}
                       </option>
