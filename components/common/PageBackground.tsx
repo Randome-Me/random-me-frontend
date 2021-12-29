@@ -1,7 +1,7 @@
 import Image from "next/image"
 
 export interface PageBackgroundProps {
-  children: React.ReactNode
+  children?: React.ReactNode
   src: string
 }
 
