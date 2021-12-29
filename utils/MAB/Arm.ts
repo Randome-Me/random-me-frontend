@@ -1,3 +1,5 @@
+import store from "store"
+import { pull } from "store/slice/user"
 import { ArmState, BanditArm } from "types/mab"
 import Mutable from "types/mutable"
 
@@ -32,5 +34,6 @@ export class Arm {
     ;(this as Mutable<Arm>).reward += reward
     // save the state of this arm to the sever
     // save the state of this arm to the store
+    store.dispatch(pull({ reward, optionId: this._id }))
   }
 }

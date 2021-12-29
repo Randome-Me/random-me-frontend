@@ -22,11 +22,25 @@ export const decodePolicy = (policy: RandomPolicy) => {
   }
 }
 
+const choice = <T>(array: T[], probabilities: number[]) => {
+  const rand = Math.random()
+  let sum = 0
+  for (let i = 0; i < array.length; i++) {
+    sum += probabilities[i]
+    if (sum >= rand) {
+      return array[i]
+    }
+  }
+  throw new Error("Should not reach here")
+}
+
 export const randomMe = () => {
   const {
-    user: { selectedTopic, topics },
+    user: { selectedTopicId: selectedTopic, topics },
   } = store.getState()
-  const { options, t, policy } = topics.find((t) => t._id === selectedTopic)
+  const { options, t, policy } = topics.find(
+    (topic) => topic._id === selectedTopic
+  )
   const arms = options.map((arm) => new Arm(arm))
   const states = arms.map((arm) => arm.state())
 
@@ -36,6 +50,9 @@ export const randomMe = () => {
     t,
     arms
   )
-
-  console.log(probabilityOfEveryArm)
+  const selectedArm = choice(arms, probabilityOfEveryArm)
+  const reward = confirm(
+    `Selected ${selectedArm.name}\nDo you like this option?`
+  )
+  selectedArm.pull(reward ? 1 : 0)
 }

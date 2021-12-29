@@ -20,7 +20,9 @@ const policies: RandomPolicy[] = [
 
 export default function Home() {
   const dispatch = useAppDispatch()
-  const { selectedTopic, topics } = useAppSelector((state) => state.user)
+  const { selectedTopicId: selectedTopic, topics } = useAppSelector(
+    (state) => state.user
+  )
 
   const [selectedPolicy, setSelectedPolicy] = useState<RandomPolicy>(
     topics.find((topic) => topic.name === selectedTopic).policy
