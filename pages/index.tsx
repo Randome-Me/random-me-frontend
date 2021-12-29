@@ -74,7 +74,11 @@ export default function Home() {
                     className="form-select"
                   >
                     {topics.map((topic) => (
-                      <option key={topic.name} value={topic.name}>
+                      <option
+                        className="bg-yellow-500"
+                        key={topic.name}
+                        value={topic.name}
+                      >
                         {topic.name}
                       </option>
                     ))}
@@ -113,7 +117,11 @@ export default function Home() {
                     className="form-select"
                   >
                     {policies.map((policy) => (
-                      <option key={policy} value={policy}>
+                      <option
+                        className="bg-yellow-500"
+                        key={policy}
+                        value={policy}
+                      >
                         {decodePolicy(policy)}
                       </option>
                     ))}
