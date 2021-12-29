@@ -71,9 +71,7 @@ export default function Home() {
                       onChange={(e) =>
                         dispatch(
                           selectTopic({
-                            topicId: topics.find(
-                              (t) => t.name === e.target.value
-                            )._id,
+                            topicId: e.target.value,
                           })
                         )
                       }
@@ -84,7 +82,7 @@ export default function Home() {
                         <option
                           className="bg-yellow-500"
                           key={topic._id}
-                          value={topic.name}
+                          value={topic._id}
                         >
                           {topic.name}
                         </option>
