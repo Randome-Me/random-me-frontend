@@ -1,5 +1,5 @@
-import { randomInt } from "crypto"
-import { ArmState, ProbabilityOfEveryArm } from "types/mab"
+import { ArmState, ProbabilityOfEveryArm, RandomPolicy } from "types/mab"
+import { Arm } from "./Arm"
 
 const BanditAgent = {
   getRate: (pulls: number, reward: number) => {
@@ -18,11 +18,11 @@ const BanditAgent = {
     },
   },
   policy: {
-    equalWeight: (rates: number[]): ProbabilityOfEveryArm => {
-      return rates.map(() => 1 / rates.length)
+    equalWeight: (states: ArmState[]): ProbabilityOfEveryArm => {
+      return states.map(() => 1 / states.length)
     },
-    randomize: (rates: number[]): ProbabilityOfEveryArm => {
-      const randomProbabilities = rates.map(() => randomInt(0, 101))
+    randomize: (states: ArmState[]): ProbabilityOfEveryArm => {
+      const randomProbabilities = states.map(() => Math.random())
       const sum = randomProbabilities.reduce(
         (prev, current) => prev + current,
         0
@@ -36,8 +36,6 @@ const BanditAgent = {
       endEpsilon: number = 0.1,
       gamma: number = 0.99
     ): ProbabilityOfEveryArm => {
-      const rates = BanditAgent.getRates(states)
-      const bestArmIndex = BanditAgent.utils.argMaxOfNumbers(rates)
       const p = Math.random()
       const epsilon = BanditAgent.utils.getCurrentDecay(
         t,
@@ -45,8 +43,10 @@ const BanditAgent = {
         endEpsilon,
         gamma
       )
+      if (p > epsilon) return BanditAgent.policy.equalWeight(states)
 
-      if (p > epsilon) return BanditAgent.policy.equalWeight(rates)
+      const rates = BanditAgent.getRates(states)
+      const bestArmIndex = BanditAgent.utils.argMaxOfNumbers(rates)
       const probabilities = rates.map(() => 0)
       probabilities[bestArmIndex] = 1
       return probabilities
@@ -95,4 +95,27 @@ const BanditAgent = {
   },
 }
 
-export default BanditAgent
+export const getProbabilityOfEveryArm = (
+  policy: RandomPolicy,
+  states: ArmState[],
+  t: number,
+  arms: Arm[]
+) => {
+  switch (policy) {
+    case RandomPolicy.EQUAL_WEIGHT:
+      return BanditAgent.policy.equalWeight(states)
+    case RandomPolicy.RANDOMIZE:
+      return BanditAgent.policy.randomize(states)
+    case RandomPolicy.EPSILON_GREEDY:
+      return BanditAgent.policy.epsilonGreedy(states, t)
+    case RandomPolicy.SOFTMAX:
+      return BanditAgent.policy.softmax(states, t)
+    case RandomPolicy.UCB:
+      return BanditAgent.policy.ucb(states, t)
+    case RandomPolicy.MULTINOMIAL:
+      const biases = arms.map((arm) => arm.bias)
+      return BanditAgent.policy.multinomial(biases)
+    default:
+      throw new Error(`Unknown policy: ${policy}`)
+  }
+}

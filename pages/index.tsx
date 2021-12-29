@@ -8,7 +8,7 @@ import Link from "next/link"
 import { useEffect, useState } from "react"
 import { changeTopicPolicy, selectTopic } from "store/slice/user"
 import { RandomPolicy } from "types/mab"
-import { decodePolicy } from "utils"
+import { decodePolicy, randomMe } from "utils"
 
 const policies: RandomPolicy[] = [
   RandomPolicy.EQUAL_WEIGHT,
@@ -47,6 +47,7 @@ export default function Home() {
           <div className="flex justify-center items-center h-screen">
             <Glass className="space-y-10">
               <button
+                onClick={randomMe}
                 className="text-slate-50 text-shadow-lg text-8xl
                   font-Sen font-extrabold hover:text-yellow-300 underline
                   decoration-slate-50 hover:decoration-yellow-300

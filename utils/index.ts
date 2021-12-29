@@ -1,4 +1,7 @@
+import { Arm } from "./MAB/Arm"
+import store from "store"
 import { RandomPolicy } from "types/mab"
+import { getProbabilityOfEveryArm } from "./MAB/BanditAgent"
 
 export const decodePolicy = (policy: RandomPolicy) => {
   switch (policy) {
@@ -17,4 +20,22 @@ export const decodePolicy = (policy: RandomPolicy) => {
     default:
       throw new Error(`Unknown policy: ${policy}`)
   }
+}
+
+export const randomMe = () => {
+  const {
+    user: { selectedTopic, topics },
+  } = store.getState()
+  const { options, t, policy } = topics.find((t) => t._id === selectedTopic)
+  const arms = options.map((arm) => new Arm(arm))
+  const states = arms.map((arm) => arm.state())
+
+  const probabilityOfEveryArm = getProbabilityOfEveryArm(
+    policy,
+    states,
+    t,
+    arms
+  )
+
+  console.log(probabilityOfEveryArm)
 }
