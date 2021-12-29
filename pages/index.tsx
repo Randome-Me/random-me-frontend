@@ -51,25 +51,34 @@ export default function Home() {
           <ScreenCenterLayout>
             <Glass
               className="space-y-10 max-h-[95vh] overflow-y-auto
-            transition-all"
+            transition-all max-w-[95vw]
+            px-2
+            xs:px-10
+            md:px-24"
             >
               <button
                 onClick={randomMe}
-                className="text-slate-50 text-shadow-lg text-8xl
+                className="text-slate-50 text-shadow-lg 
                   font-Sen font-extrabold hover:text-yellow-300 underline
                   decoration-slate-50 hover:decoration-yellow-300
                   active:text-shadow-none block shadow-slate-50 tracking-tighter
-                  transition-all duration-300"
+                  transition-all duration-300
+                  mx-auto
+                  text-[2.5rem]
+                  xs:text-5xl
+                  sm:text-7xl
+                  md:text-8xl"
               >
                 Random Me!
               </button>
               <div className="flex flex-col items-center">
                 <div>
-                  <div className="flex item-center">
+                  <div className="flex item-center justify-center md:justify-start">
                     <h3
                       className="font-Sen
                     translate-y-2
-                    w-[7ch]"
+                    w-[7ch]
+                    hidden md:block"
                     >
                       Topics
                     </h3>
@@ -82,7 +91,7 @@ export default function Home() {
                         )
                       }
                       value={selectedTopicId}
-                      className="form-select"
+                      className="form-select max-w-[90%]"
                     >
                       {topics.map((topic) => (
                         <option
@@ -94,41 +103,45 @@ export default function Home() {
                         </option>
                       ))}
                     </select>
-                    <Link href="/topics">
-                      <a
-                        className="
-                        self-center
-                        font-semibold
-                        underline
-                        hover:text-slate-700
-                        ml-[1ch]"
-                      >
-                        add option
-                      </a>
-                    </Link>
+                    <div className="hidden md:flex">
+                      <Link href="/topics">
+                        <a
+                          className="
+                          self-center
+                          font-semibold
+                          underline
+                          hover:text-slate-700
+                          ml-[1ch]"
+                        >
+                          add option
+                        </a>
+                      </Link>
+                    </div>
                   </div>
-                  <div className="flex item-center">
-                    <Link href="/random-policies">
-                      <a
-                        className="font-Sen
-                      underline
-                      translate-y-2"
-                      >
-                        <h3 className="w-[7ch]">
-                          Policy
-                          <Icon
-                            icon="bi:info-circle-fill"
-                            className="inline w-3"
-                          />
-                        </h3>
-                      </a>
-                    </Link>
+                  <div className="flex flex-col justify-center md:flex-row item-center">
+                    <div className="hidden md:flex">
+                      <Link href="/random-policies">
+                        <a
+                          className="font-Sen
+                        underline
+                        translate-y-2"
+                        >
+                          <h3 className="w-[7ch]">
+                            Policy
+                            <Icon
+                              icon="bi:info-circle-fill"
+                              className="inline w-3"
+                            />
+                          </h3>
+                        </a>
+                      </Link>
+                    </div>
                     <select
                       value={selectedPolicy}
                       onChange={(e) =>
                         dispatch(changeTopicPolicy(+e.target.value))
                       }
-                      className="form-select"
+                      className="form-select max-w-[90%] self-center"
                     >
                       {policies.map((policy) => (
                         <option
@@ -140,7 +153,7 @@ export default function Home() {
                         </option>
                       ))}
                     </select>
-                    <div className="my-auto ml-[1ch] space-x-2">
+                    <div className="mx-auto md:my-auto md:ml-[1ch] space-x-2">
                       <input
                         type="checkbox"
                         onChange={() => setShowInfo(!showInfo)}
