@@ -11,6 +11,7 @@ import {
   addTopic,
   removeOption,
   removeTopic,
+  setOptionName,
   setOptionWeight,
   setTopicName,
 } from "store/slice/user"
@@ -73,6 +74,15 @@ export default function Topics() {
     if (!name) return
 
     dispatch(setTopicName({ topicId: activeTopicId, name }))
+  }
+
+  const editOptionName = (option: BanditArm) => {
+    const name = window.prompt("Enter the new name", option.name)
+    if (!name) return
+
+    dispatch(
+      setOptionName({ topicId: activeTopicId, optionId: option._id, name })
+    )
   }
 
   const deleteTopic = () => {
@@ -266,7 +276,7 @@ export default function Topics() {
                       space-x-2"
                           >
                             <Icon
-                              onClick={() => {}}
+                              onClick={() => editOptionName(option)}
                               className="w-5 h-5 cursor-pointer 
                           hover:text-slate-800/50"
                               icon="clarity:edit-solid"
