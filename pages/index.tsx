@@ -70,9 +70,11 @@ export default function Home() {
                     <select
                       onChange={(e) =>
                         dispatch(
-                          selectTopic(
-                            topics.find((t) => t.name === e.target.value).name
-                          )
+                          selectTopic({
+                            topicId: topics.find(
+                              (t) => t.name === e.target.value
+                            )._id,
+                          })
                         )
                       }
                       value={selectedTopic}

@@ -11,15 +11,17 @@ export const userSlice = createSlice({
     setUser: (state, action: PayloadAction<User>) => {
       state = action.payload
     },
-    selectTopic: (state, action: PayloadAction<string>) => {
+    selectTopic: (
+      state,
+      { payload: { topicId } }: PayloadAction<{ topicId: string }>
+    ) => {
       // TODO: update the user's selected topic in database
-      state.selectedTopicId = action.payload
+      state.selectedTopicId = topicId
     },
     changeTopicPolicy: (state, action: PayloadAction<RandomPolicy>) => {
       // TODO: update the policy of user's selected topic in database
-      state.topics.find(
-        (topic) => topic.name === state.selectedTopicId
-      ).policy = action.payload
+      state.topics.find((topic) => topic._id === state.selectedTopicId).policy =
+        action.payload
     },
     pull: (
       state,
