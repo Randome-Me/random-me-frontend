@@ -21,19 +21,17 @@ const policies: RandomPolicy[] = [
 
 export default function Home() {
   const dispatch = useAppDispatch()
-  const { selectedTopicId: selectedTopic, topics } = useAppSelector(
-    (state) => state.user
-  )
+  const { selectedTopicId, topics } = useAppSelector((state) => state.user)
 
   const [selectedPolicy, setSelectedPolicy] = useState<RandomPolicy>(
-    topics.find((topic) => topic.name === selectedTopic).policy
+    topics.find((topic) => topic._id === selectedTopicId).policy
   )
 
   useEffect(() => {
     setSelectedPolicy(
-      topics.find((topic) => topic.name === selectedTopic).policy
+      topics.find((topic) => topic._id === selectedTopicId).policy
     )
-  }, [topics, selectedTopic])
+  }, [topics, selectedTopicId])
 
   return (
     <>
@@ -77,7 +75,7 @@ export default function Home() {
                           })
                         )
                       }
-                      value={selectedTopic}
+                      value={selectedTopicId}
                       className="form-select"
                     >
                       {topics.map((topic) => (

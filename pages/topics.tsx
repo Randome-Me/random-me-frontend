@@ -6,26 +6,34 @@ import Head from "next/head"
 import { Icon } from "@iconify/react"
 import { useAppDispatch, useAppSelector } from "hooks"
 import { FormEvent, useRef, useState } from "react"
-import { setOptionWeight } from "store/slice/user"
+import {
+  addOption,
+  addTopic,
+  removeOption,
+  removeTopic,
+  setOptionWeight,
+  setTopicName,
+} from "store/slice/user"
 import { BanditArm } from "types/mab"
 
 export default function Topics() {
   const { topics } = useAppSelector((state) => state.user)
   const dispatch = useAppDispatch()
 
-  const [activeTopicId, setActiveTopicId] = useState(topics[0]._id)
+  const [activeTopicId, setActiveTopicId] = useState(topics[0]?._id)
   const [addTopicText, setAddTopicText] = useState("")
   const [addOptionText, setAddOptionText] = useState("")
   const weightInput = useRef<HTMLInputElement>(null)
 
   const handleTopicSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log(addTopicText)
+    dispatch(addTopic({ name: addTopicText }))
     setAddTopicText("")
   }
 
   const handleOptionSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    dispatch(addOption({ name: addOptionText, topicId: activeTopicId }))
     setAddOptionText("")
     weightInput.current.value = undefined
   }
@@ -55,6 +63,24 @@ export default function Topics() {
         weight: Number(weight),
       })
     )
+  }
+
+  const editTopicName = () => {
+    const name = window.prompt(
+      "Enter the new name",
+      topics.find((t) => t._id === activeTopicId).name
+    )
+    if (!name) return
+
+    dispatch(setTopicName({ topicId: activeTopicId, name }))
+  }
+
+  const deleteTopic = () => {
+    dispatch(removeTopic({ topicId: activeTopicId }))
+  }
+
+  const deleteOption = () => {
+    dispatch(removeOption({ topicId: activeTopicId, optionId: activeTopicId }))
   }
 
   return (
@@ -87,6 +113,7 @@ export default function Topics() {
                         value={addTopicText}
                         onChange={(e) => setAddTopicText(e.target.value)}
                         type="text"
+                        required
                         className="
                           flex-1
                           bg-transparent
@@ -121,12 +148,22 @@ export default function Topics() {
                       <span className="flex-1">
                         {topic.name} ({topic.options.length})
                       </span>
-                      <Icon
-                        onClick={() => {}}
-                        className="w-5 h-5 cursor-pointer
-                                hover:text-slate-800/50"
-                        icon="clarity:edit-solid"
-                      />
+                      {topic._id === activeTopicId && (
+                        <div className="flex item-center gap-2">
+                          <Icon
+                            onClick={() => editTopicName()}
+                            className="w-5 h-5 cursor-pointer
+                                  hover:text-slate-800/50"
+                            icon="clarity:edit-solid"
+                          />
+                          <Icon
+                            onClick={() => deleteTopic()}
+                            className="w-5 h-5 cursor-pointer
+                            hover:text-slate-800/50"
+                            icon="fluent:delete-24-filled"
+                          />
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>
@@ -179,7 +216,7 @@ export default function Topics() {
                   </form>
                   {topics
                     .find((t) => t._id === activeTopicId)
-                    .options.map((option) => {
+                    ?.options.map((option) => {
                       return (
                         <form
                           key={option._id}
@@ -233,6 +270,7 @@ export default function Topics() {
                               icon="clarity:edit-solid"
                             />
                             <Icon
+                              onClick={() => deleteOption()}
                               className="w-5 h-5 cursor-pointer 
                           hover:text-slate-800/50"
                               icon="fluent:delete-24-filled"

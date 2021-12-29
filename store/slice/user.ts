@@ -52,6 +52,81 @@ export const userSlice = createSlice({
         .find((topic) => topic._id === topicId)
         .options.find((option) => option._id === optionId).bias = weight
     },
+    setTopicName: (
+      state,
+      {
+        payload: { topicId, name },
+      }: PayloadAction<{ topicId: string; name: string }>
+    ) => {
+      // TODO: update the name of this topic in the database
+      state.topics.find((topic) => topic._id === topicId).name = name
+    },
+    setOptionName: (
+      state,
+      {
+        payload: { topicId, optionId, name },
+      }: PayloadAction<{ topicId: string; optionId: string; name: string }>
+    ) => {
+      // TODO: update the name of this option in the database
+      state.topics
+        .find((topic) => topic._id === topicId)
+        .options.find((option) => option._id === optionId).name = name
+    },
+    removeOption: (
+      state,
+      {
+        payload: { topicId, optionId },
+      }: PayloadAction<{ topicId: string; optionId: string }>
+    ) => {
+      // TODO: remove this option from the database
+      const { options } = state.topics.find((topic) => topic._id === topicId)
+      options.splice(
+        options.findIndex((option) => option._id === optionId),
+        1
+      )
+    },
+    removeTopic: (
+      state,
+      { payload: { topicId } }: PayloadAction<{ topicId: string }>
+    ) => {
+      // TODO: remove this topic from the database
+      state.topics.splice(
+        state.topics.findIndex((topic) => topic._id === topicId),
+        1
+      )
+    },
+    addTopic: (
+      state,
+      { payload: { name } }: PayloadAction<{ name: string }>
+    ) => {
+      // TODO: add this topic to the database
+      // const topic = get from db
+      state.topics.push({
+        _id: `${Math.random()}${Math.random()}`,
+        name,
+        options: [],
+        policy: RandomPolicy.MULTINOMIAL,
+        t: -1,
+      })
+    },
+    addOption: (
+      state,
+      {
+        payload: { topicId, name, weight = 1 },
+      }: PayloadAction<{ topicId: string; name: string; weight?: number }>
+    ) => {
+      // TODO: add this option to the database
+      // const option = get from database
+      state.topics
+        .find((topic) => topic._id === topicId)
+        .options.push({
+          _id: `${Math.random()}${Math.random()}`,
+          name,
+          pulls: 0,
+          reward: 0,
+          bias: weight,
+        })
+    },
   },
 })
 
@@ -61,6 +136,12 @@ export const {
   changeTopicPolicy,
   pull,
   setOptionWeight,
+  setTopicName,
+  setOptionName,
+  removeOption,
+  removeTopic,
+  addTopic,
+  addOption,
 } = userSlice.actions
 
 const userReducer = userSlice.reducer
