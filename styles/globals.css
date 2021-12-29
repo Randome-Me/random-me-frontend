@@ -73,7 +73,7 @@
     border-slate-800
     bg-transparent
     shadow-sm
-  focus:border-yellow-600 focus:border-b-2 focus:ring-0;
+  focus:border-yellow-600 focus:ring-yellow-600 focus:ring-offset-1 focus:ring-offset-transparent;
   }
 }
 

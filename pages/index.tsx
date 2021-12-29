@@ -88,15 +88,18 @@ export default function Home() {
                         </option>
                       ))}
                     </select>
-                    <button
-                      className="
-                      font-semibold
-                      underline
-                      hover:text-slate-700
-                      ml-[1ch]"
-                    >
-                      add option
-                    </button>
+                    <Link href="/topics">
+                      <a
+                        className="
+                        self-center
+                        font-semibold
+                        underline
+                        hover:text-slate-700
+                        ml-[1ch]"
+                      >
+                        add option
+                      </a>
+                    </Link>
                   </label>
                   <label className="flex item-center">
                     <Link href="/random-policies">
