@@ -10,9 +10,11 @@
     "lint:write": "next lint --cache --fix"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.7.1",
     "next": "12.0.7",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "react-redux": "^7.2.6"
   },
   "devDependencies": {
     "@iconify/react": "^3.1.0",

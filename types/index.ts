@@ -3,6 +3,7 @@ import { RandomPolicy, BanditArm } from "./mab"
 export interface User {
   _id: string
   username: string
+  selectedTopic: string // the current selected topic
   topics: {
     name: string
     policy: RandomPolicy
@@ -15,6 +16,7 @@ export interface User {
 export const dumbUser: User = {
   _id: "dummyUserId",
   username: "dumbUser",
+  selectedTopic: "topic1",
   topics: [
     {
       name: "topic1",
