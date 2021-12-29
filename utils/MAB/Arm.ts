@@ -6,12 +6,14 @@ export class Arm {
   readonly bias: number
   readonly pulls: number
   readonly reward: number
+  readonly _id: string
 
-  constructor({ name, bias, pulls, reward }: BanditArm) {
+  constructor({ name, bias, pulls, reward, _id }: BanditArm) {
     this.name = name
     this.bias = bias
     this.pulls = pulls
     this.reward = reward
+    this._id = _id
   }
 
   rate(): number {

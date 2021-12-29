@@ -8,6 +8,7 @@ export enum RandomPolicy {
 }
 
 export interface BanditArm {
+  _id: string
   name: string
   bias: number
   pulls: number

@@ -26,18 +26,21 @@ export const dumbUser: User = {
       t: 4 + 47 + 27,
       options: [
         {
+          _id: "option1",
           name: "option1",
           bias: 1,
           pulls: 4,
           reward: 2,
         },
         {
+          _id: "option2",
           name: "option2",
           bias: 1,
           pulls: 47,
           reward: 10,
         },
         {
+          _id: "option3",
           name: "option3",
           bias: 4,
           pulls: 27,
@@ -52,12 +55,14 @@ export const dumbUser: User = {
       t: 0 + 10,
       options: [
         {
+          _id: "option1",
           name: "option1",
           bias: 1,
           pulls: 0,
           reward: 0,
         },
         {
+          _id: "option2",
           name: "option2",
           bias: 2,
           pulls: 10,
