@@ -46,7 +46,7 @@ const BanditAgent = {
         gamma
       )
 
-      if (p < epsilon) return BanditAgent.policy.equalWeight(rates)
+      if (p > epsilon) return BanditAgent.policy.equalWeight(rates)
       const probabilities = rates.map(() => 0)
       probabilities[bestArmIndex] = 1
       return probabilities
