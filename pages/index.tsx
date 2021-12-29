@@ -4,7 +4,8 @@ import PageBackground from "components/common/PageBackground"
 import { useAppDispatch, useAppSelector } from "hooks"
 import Head from "next/head"
 import Link from "next/link"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { changeTopicPolicy, selectTopic } from "store/slice/user"
 import { RandomPolicy } from "types/mab"
 import { decodePolicy } from "utils"
 
@@ -17,11 +18,18 @@ const policies: RandomPolicy[] = [
 ]
 
 export default function Home() {
-  // const dispatch = useAppDispatch()
-  const user = useAppSelector((state) => state.user)
+  const dispatch = useAppDispatch()
+  const { selectedTopic, topics } = useAppSelector((state) => state.user)
 
-  const [selectedTopic, setSelectedTopic] = useState(user.topics[0])
-  const [selectedPolicy, setSelectedPolicy] = useState(user.topics[0].policy)
+  const [selectedPolicy, setSelectedPolicy] = useState<RandomPolicy>(
+    topics.find((topic) => topic.name === selectedTopic).policy
+  )
+
+  useEffect(() => {
+    setSelectedPolicy(
+      topics.find((topic) => topic.name === selectedTopic).policy
+    )
+  }, [topics, selectedTopic])
 
   return (
     <>
@@ -56,14 +64,16 @@ export default function Home() {
                   </h3>
                   <select
                     onChange={(e) =>
-                      setSelectedTopic(
-                        user.topics.find((t) => t.name === e.target.value)
+                      dispatch(
+                        selectTopic(
+                          topics.find((t) => t.name === e.target.value).name
+                        )
                       )
                     }
-                    value={selectedTopic.name}
+                    value={selectedTopic}
                     className="form-select"
                   >
-                    {user.topics.map((topic) => (
+                    {topics.map((topic) => (
                       <option key={topic.name} value={topic.name}>
                         {topic.name}
                       </option>
@@ -97,7 +107,9 @@ export default function Home() {
                   </Link>
                   <select
                     value={selectedPolicy}
-                    onChange={(e) => setSelectedPolicy(+e.target.value)}
+                    onChange={(e) =>
+                      dispatch(changeTopicPolicy(+e.target.value))
+                    }
                     className="form-select"
                   >
                     {policies.map((policy) => (
