@@ -101,8 +101,8 @@ export default function Topics() {
                 className="flex flex-col w-[40rem] text-center
               gap-y-12"
               >
-                <h1 className="">Topics</h1>
-                <div className="bg-cyan-600">
+                <h1 className="font-Sen font-bold">Topics</h1>
+                <div className="bg-cyan-600 rounded-lg overflow-hidden">
                   <div>
                     <form
                       onSubmit={handleTopicSubmit}
@@ -137,7 +137,7 @@ export default function Topics() {
                     <div
                       onClick={() => setActiveTopicId(topic._id)}
                       key={topic._id}
-                      className={`w-full text-left text-lg px-4 py-4 text-slate-50
+                      className={`w-full text-left text-lg px-4 h-16 text-slate-50
                           cursor-pointer transition-colors flex items-center
                         ${
                           activeTopicId === topic._id
@@ -172,12 +172,14 @@ export default function Topics() {
                 className="flex flex-col w-full text-center
               gap-y-12"
               >
-                <h1 className="">Options</h1>
-                <div className="w-full bg-slate-50 text-cyan-600">
+                <h1 className="font-Sen font-bold">Options</h1>
+                <div
+                  className="w-full bg-slate-50 text-cyan-600
+                rounded-lg overflow-hidden"
+                >
                   <form
                     onSubmit={handleOptionSubmit}
-                    className="flex items-center space-x-4 px-4
-                    py-3"
+                    className="flex items-center space-x-4 px-4 h-16"
                   >
                     <input
                       type="number"
