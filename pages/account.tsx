@@ -1,4 +1,5 @@
 import PageBackground from "components/common/PageBackground"
+import LoggedInLayout from "components/layout/LoggedInLayout"
 import Head from "next/head"
 
 export default function Account() {
@@ -12,7 +13,9 @@ export default function Account() {
         />
       </Head>
 
-      <PageBackground src="/images/bg-account.svg"></PageBackground>
+      <PageBackground src="/images/bg-account.svg">
+        <LoggedInLayout></LoggedInLayout>
+      </PageBackground>
     </>
   )
 }

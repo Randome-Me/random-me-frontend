@@ -1,4 +1,5 @@
 import PageBackground from "components/common/PageBackground"
+import LoggedInLayout from "components/layout/LoggedInLayout"
 import Head from "next/head"
 
 export default function Topics() {
@@ -12,7 +13,9 @@ export default function Topics() {
         />
       </Head>
 
-      <PageBackground src="/images/bg-topics.svg"></PageBackground>
+      <PageBackground src="/images/bg-topics.svg">
+        <LoggedInLayout></LoggedInLayout>
+      </PageBackground>
     </>
   )
 }

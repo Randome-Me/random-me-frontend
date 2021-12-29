@@ -1,4 +1,5 @@
 import PageBackground from "components/common/PageBackground"
+import LoggedInLayout from "components/layout/LoggedInLayout"
 import Head from "next/head"
 
 export default function RandomPolicies() {
@@ -12,7 +13,9 @@ export default function RandomPolicies() {
         />
       </Head>
 
-      <PageBackground src="/images/bg-random-policies.svg"></PageBackground>
+      <PageBackground src="/images/bg-random-policies.svg">
+        <LoggedInLayout></LoggedInLayout>
+      </PageBackground>
     </>
   )
 }
