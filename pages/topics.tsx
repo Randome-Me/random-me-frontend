@@ -102,7 +102,7 @@ export default function Topics() {
               gap-y-12"
               >
                 <h1 className="font-Sen font-bold">Topics</h1>
-                <div className="bg-cyan-600 rounded-lg overflow-hidden">
+                <div className="bg-cyan-600 rounded-lg overflow-hidden overflow-y-auto">
                   <div>
                     <form
                       onSubmit={handleTopicSubmit}
@@ -175,7 +175,7 @@ export default function Topics() {
                 <h1 className="font-Sen font-bold">Options</h1>
                 <div
                   className="w-full bg-slate-50 text-cyan-600
-                rounded-lg overflow-hidden"
+                rounded-lg overflow-y-auto"
                 >
                   <form
                     onSubmit={handleOptionSubmit}
