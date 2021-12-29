@@ -47,6 +47,7 @@ export const userSlice = createSlice({
         payload: { topicId, optionId, weight },
       }: PayloadAction<{ topicId: string; optionId: string; weight: number }>
     ) => {
+      // TODO: update the weight of this option in the database
       state.topics
         .find((topic) => topic._id === topicId)
         .options.find((option) => option._id === optionId).bias = weight

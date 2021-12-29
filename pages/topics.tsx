@@ -6,10 +6,12 @@ import Head from "next/head"
 import { Icon } from "@iconify/react"
 import { useAppDispatch, useAppSelector } from "hooks"
 import { FormEvent, useRef, useState } from "react"
+import { setOptionWeight } from "store/slice/user"
+import { BanditArm } from "types/mab"
 
 export default function Topics() {
   const { topics } = useAppSelector((state) => state.user)
-  // const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch()
 
   const [activeTopicId, setActiveTopicId] = useState(topics[0]._id)
   const [addTopicText, setAddTopicText] = useState("")
@@ -26,6 +28,33 @@ export default function Topics() {
     e.preventDefault()
     setAddOptionText("")
     weightInput.current.value = undefined
+  }
+
+  const editWeight = (option: BanditArm) => {
+    let weight: string | number = window.prompt(
+      "Enter the new weight",
+      option.bias + ""
+    )
+    if (!weight) return
+
+    if (isNaN(Number(weight))) {
+      alert("Please enter a number")
+      return
+    }
+
+    weight = Number(weight)
+    if (weight < 1 || weight > 10) {
+      alert("Please enter a number between 1 and 10")
+      return
+    }
+
+    dispatch(
+      setOptionWeight({
+        topicId: activeTopicId,
+        optionId: option._id,
+        weight: Number(weight),
+      })
+    )
   }
 
   return (
@@ -174,7 +203,7 @@ export default function Topics() {
                                     disabled:border-0"
                             />
                             <Icon
-                              onClick={() => {}}
+                              onClick={() => editWeight(option)}
                               className="w-5 h-5 cursor-pointer text-slate-800/75
                                 hover:text-slate-800/50"
                               icon="clarity:edit-solid"
