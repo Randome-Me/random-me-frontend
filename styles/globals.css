@@ -63,7 +63,34 @@
         focus-visible:outline-cyan-600
           md:mt-8;
   }
+
+  .form-select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3C/svg%3E");
+    @apply w-64
+    mt-1
+    rounded-md
+    font-semibold
+    border-slate-800
+    bg-transparent
+    shadow-sm
+  focus:border-yellow-400 focus:ring-0;
+  }
 }
 
 @layer utilities {
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .text-shadow-md {
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.08);
+  }
+
+  .text-shadow-lg {
+    text-shadow: 0 15px 30px rgba(0, 0, 0, 0.11), 0 5px 15px rgba(0, 0, 0, 0.08);
+  }
+
+  .text-shadow-none {
+    text-shadow: none;
+  }
 }
