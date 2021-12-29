@@ -23,7 +23,11 @@ const BanditAgent = {
     },
     randomize: (rates: number[]): ProbabilityOfEveryArm => {
       const randomProbabilities = rates.map(() => randomInt(0, 101))
-      return randomProbabilities.map((p) => p / 100)
+      const sum = randomProbabilities.reduce(
+        (prev, current) => prev + current,
+        0
+      )
+      return randomProbabilities.map((prob) => prob / sum)
     },
     epsilonGreedy: (
       states: ArmState[],
