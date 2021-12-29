@@ -53,7 +53,8 @@ export default function Home() {
                 className="text-slate-50 text-shadow-lg text-8xl
                   font-Sen font-extrabold hover:text-yellow-300 underline
                   decoration-slate-50 hover:decoration-yellow-300
-                  active:text-shadow-none block shadow-slate-50 tracking-tight"
+                  active:text-shadow-none block shadow-slate-50 tracking-tighter
+                  transition-all duration-300"
               >
                 Random Me!
               </button>

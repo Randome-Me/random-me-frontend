@@ -18,7 +18,7 @@ export default function Sidebar() {
   }, [router])
 
   return (
-    <aside className="space-y-2">
+    <aside className="space-y-2 opacity-50 hover:opacity-100 transition-opacity inline-flex flex-col">
       <h2 className="text-sky-100">MENU</h2>
       <ul>
         {Object.keys(routeMap).map((route) => (
@@ -27,7 +27,7 @@ export default function Sidebar() {
               <a className="space-x-2">
                 <div
                   className="before:content-['\200B'] inline-block w-[2px] 
-                  h-full bg-sky-100"
+                  h-full bg-sky-100 transition-colors"
                   aria-hidden="true"
                   style={
                     activeRoute.current === route
@@ -36,7 +36,7 @@ export default function Sidebar() {
                   }
                 />
                 <span
-                  className={`font-medium ${
+                  className={`font-medium transition-colors ${
                     activeRoute.current === route
                       ? "text-yellow-400"
                       : "text-sky-100"
