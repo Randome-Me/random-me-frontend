@@ -2,16 +2,10 @@ import Glass from "components/common/Glass"
 import PageBackground from "components/common/PageBackground"
 import LoggedInLayout from "components/layout/LoggedInLayout"
 import Head from "next/head"
-import { useAppSelector } from "hooks"
-import { useState } from "react"
 import TopicsSection from "components/pages/topics/TopicsSection"
 import OptionsSection from "components/pages/topics/OptionsSection"
 
 export default function Topics() {
-  const { topics } = useAppSelector((state) => state.user)
-
-  const [activeTopicId, setActiveTopicId] = useState(topics[0]?._id)
-
   return (
     <>
       <Head>
@@ -43,13 +37,10 @@ export default function Topics() {
             "
             >
               <div className="col-span-2">
-                <TopicsSection
-                  activeTopicId={activeTopicId}
-                  setActiveTopicId={setActiveTopicId}
-                />
+                <TopicsSection />
               </div>
               <div className="col-span-3">
-                <OptionsSection activeTopicId={activeTopicId} />
+                <OptionsSection />
               </div>
             </Glass>
           </div>

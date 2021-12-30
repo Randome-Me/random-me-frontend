@@ -94,6 +94,14 @@ export const userSlice = createSlice({
         state.topics.findIndex((topic) => topic._id === topicId),
         1
       )
+      // select the first topic if there is one
+      // else set selectedTopicId to null
+      // TODO: reset the selected topic in the database
+      if (state.topics.length > 0) {
+        state.selectedTopicId = state.topics[0]._id
+      } else {
+        state.selectedTopicId = null
+      }
     },
     addTopic: (
       state,

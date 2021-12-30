@@ -11,7 +11,7 @@ export interface Topic {
 export interface User {
   _id: string
   username: string
-  selectedTopicId: string // the current selected topic
+  selectedTopicId: string | null // the current selected topic
   topics: Topic[]
   // maybe user-specific random policy configs here if they're configurable?
 }

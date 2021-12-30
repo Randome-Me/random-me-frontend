@@ -9,12 +9,8 @@ import {
 } from "store/slice/user"
 import { BanditArm } from "types/mab"
 
-interface OptionsSectionProps {
-  activeTopicId: string
-}
-
-export default function OptionsSection({ activeTopicId }: OptionsSectionProps) {
-  const { topics } = useAppSelector((state) => state.user)
+export default function OptionsSection() {
+  const { topics, selectedTopicId } = useAppSelector((state) => state.user)
   const dispatch = useAppDispatch()
 
   const [addOptionText, setAddOptionText] = useState("")
@@ -22,7 +18,7 @@ export default function OptionsSection({ activeTopicId }: OptionsSectionProps) {
 
   const handleOptionSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    dispatch(addOption({ name: addOptionText, topicId: activeTopicId }))
+    dispatch(addOption({ name: addOptionText, topicId: selectedTopicId }))
     setAddOptionText("")
     weightInput.current.value = undefined
   }
@@ -47,7 +43,7 @@ export default function OptionsSection({ activeTopicId }: OptionsSectionProps) {
 
     dispatch(
       setOptionWeight({
-        topicId: activeTopicId,
+        topicId: selectedTopicId,
         optionId: option._id,
         weight: Number(weight),
       })
@@ -55,17 +51,18 @@ export default function OptionsSection({ activeTopicId }: OptionsSectionProps) {
   }
 
   const editOptionName = (option: BanditArm) => {
-    const name = window.prompt("Enter the new name", option.name)
+    const { name: oldName, _id: optionId } = option
+
+    const name = window.prompt("Enter the new name", oldName)
     if (!name) return
 
-    dispatch(
-      setOptionName({ topicId: activeTopicId, optionId: option._id, name })
-    )
+    dispatch(setOptionName({ topicId: selectedTopicId, optionId, name }))
   }
 
-  const deleteOption = () => {
-    dispatch(removeOption({ topicId: activeTopicId, optionId: activeTopicId }))
+  const deleteOption = (optionId: string) => {
+    dispatch(removeOption({ topicId: selectedTopicId, optionId }))
   }
+
   return (
     <div
       className="
@@ -124,7 +121,7 @@ export default function OptionsSection({ activeTopicId }: OptionsSectionProps) {
           </button>
         </form>
         {topics
-          .find((t) => t._id === activeTopicId)
+          .find((t) => t._id === selectedTopicId)
           ?.options.map((option) => {
             return (
               <form
@@ -168,7 +165,7 @@ export default function OptionsSection({ activeTopicId }: OptionsSectionProps) {
                     icon="clarity:edit-solid"
                   />
                   <Icon
-                    onClick={() => deleteOption()}
+                    onClick={() => deleteOption(option._id)}
                     className="w-5 h-5 cursor-pointer 
                           hover:text-slate-800/50"
                     icon="fluent:delete-24-filled"
