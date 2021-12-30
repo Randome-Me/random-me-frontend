@@ -18,6 +18,10 @@ export const userSlice = createSlice({
       // TODO: update the user's selected topic in database
       state.selectedTopicId = topicId
     },
+    resetSelectedTopic: (state) => {
+      // TODO: reset the user's selected topic in database
+      state.selectedTopicId = null
+    },
     changeTopicPolicy: (state, action: PayloadAction<RandomPolicy>) => {
       // TODO: update the policy of user's selected topic in database
       state.topics.find((topic) => topic._id === state.selectedTopicId).policy =
@@ -96,12 +100,11 @@ export const userSlice = createSlice({
       )
       // select the first topic if there is one
       // else set selectedTopicId to null
-      // TODO: reset the selected topic in the database
       if (state.topics.length > 0) {
-        state.selectedTopicId = state.topics[0]._id
-      } else {
-        state.selectedTopicId = null
+        selectTopic({ topicId: state.topics[0]._id })
+        return
       }
+      resetSelectedTopic()
     },
     addTopic: (
       state,
@@ -146,6 +149,7 @@ export const {
   setOptionWeight,
   setTopicName,
   setOptionName,
+  resetSelectedTopic,
   removeOption,
   removeTopic,
   addTopic,
