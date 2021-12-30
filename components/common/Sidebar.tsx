@@ -2,14 +2,13 @@ import Link from "next/link"
 import { useRouter } from "next/router"
 import { useEffect, useRef } from "react"
 
-const routeMap = {
-  "/": "Random Me",
-  "/topics": "Topics",
-  "/account": "Account",
-  "/random-policies": "Random Policies",
+interface SidebarProps {
+  routeMap: {
+    [key: string]: string
+  }
 }
 
-export default function Sidebar() {
+export default function Sidebar({ routeMap }: SidebarProps) {
   const router = useRouter()
   const activeRoute = useRef(router.pathname)
 
