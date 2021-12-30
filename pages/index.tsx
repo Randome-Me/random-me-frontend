@@ -65,10 +65,7 @@ export default function Home() {
                     active:text-shadow-none block shadow-slate-50 tracking-tighter
                     transition-all duration-300
                     mx-auto
-                    text-[2.5rem]
-                    xs:text-5xl
-                    sm:text-7xl
-                    md:text-8xl"
+                    text-[2.5rem] sm:text-7xl md:text-8xl"
                 >
                   Random Me!
                 </button>
