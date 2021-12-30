@@ -48,24 +48,33 @@ export default function Home() {
 
       <PageBackground src="/images/bg-index.svg">
         <LoggedInLayout>
-          <ScreenCenterLayout>
+          <div
+            className="
+          flex
+          lg:h-screen"
+          >
             <Glass
-              className="max-h-[95vh] overflow-y-auto
-            transition-all max-w-[95vw]
-            px-2
-            xs:px-10
-            md:px-24"
+              className="
+                max-h-[95vh] 
+                max-w-[95vw]
+                overflow-y-auto
+                transition-all 
+                px-2
+                mx-auto 
+                lg:my-auto
+                xs:px-10
+                md:px-24"
             >
               <main className="space-y-10">
                 <button
                   onClick={randomMe}
                   className="text-slate-50 text-shadow-lg
-                    font-Sen font-extrabold hover:text-yellow-300 underline
-                    decoration-slate-50 hover:decoration-yellow-300
-                    active:text-shadow-none block shadow-slate-50 tracking-tighter
-                    transition-all duration-300
-                    mx-auto
-                    text-[2.5rem] sm:text-7xl md:text-8xl"
+                        font-Sen font-extrabold hover:text-yellow-300 underline
+                        decoration-slate-50 hover:decoration-yellow-300
+                        active:text-shadow-none block shadow-slate-50 tracking-tighter
+                        transition-all duration-300
+                        mx-auto
+                        text-[2.5rem] sm:text-7xl md:text-8xl"
                 >
                   Random Me!
                 </button>
@@ -74,9 +83,9 @@ export default function Home() {
                     <div className="flex item-center justify-center md:justify-start">
                       <h3
                         className="font-Sen
-                      translate-y-2
-                      w-[7ch]
-                      hidden md:block"
+                          translate-y-2
+                          w-[7ch]
+                          hidden md:block"
                       >
                         Topics
                       </h3>
@@ -105,11 +114,11 @@ export default function Home() {
                         <Link href="/topics">
                           <a
                             className="
-                            self-center
-                            font-semibold
-                            underline
-                            hover:text-slate-700
-                            ml-[1ch]"
+                                self-center
+                                font-semibold
+                                underline
+                                hover:text-slate-700
+                                ml-[1ch]"
                           >
                             add option
                           </a>
@@ -121,8 +130,8 @@ export default function Home() {
                         <Link href="/random-policies">
                           <a
                             className="font-Sen
-                          underline
-                          translate-y-2"
+                              underline
+                              translate-y-2"
                           >
                             <h3 className="w-[7ch]">
                               Policy
@@ -156,11 +165,11 @@ export default function Home() {
                           type="checkbox"
                           onChange={() => setShowInfo(!showInfo)}
                           className="rounded bg-transparent
-                          text-yellow-600
-                          focus:ring-0
-                          focus:ring-offset-transparent
-                          focus:ring-transparent
-                        "
+                              text-yellow-600
+                              focus:ring-0
+                              focus:ring-offset-transparent
+                              focus:ring-transparent
+                            "
                         />
                         <span className="self-center font-semibold hover:text-slate-700">
                           see probabilities
@@ -173,7 +182,7 @@ export default function Home() {
                   <div className="grid items-center text-center">
                     <h3
                       className="capitalize underline decoration-wavy
-                  decoration-yellow-400"
+                      decoration-yellow-400"
                     >
                       {probabilityInfo.policyName}
                     </h3>
@@ -190,13 +199,13 @@ export default function Home() {
                             <tr key={arm._id} className="text-center">
                               <td
                                 className="
-                            border border-slate-800 px-4 py-2"
+                                border border-slate-800 px-4 py-2"
                               >
                                 {(probability * 100).toFixed(2)}%
                               </td>
                               <td
                                 className="
-                            border border-slate-800 px-4 py-2"
+                                border border-slate-800 px-4 py-2"
                               >
                                 {arm.name}
                               </td>
@@ -209,7 +218,7 @@ export default function Home() {
                 )}
               </main>
             </Glass>
-          </ScreenCenterLayout>
+          </div>
         </LoggedInLayout>
       </PageBackground>
     </>

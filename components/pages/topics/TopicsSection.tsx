@@ -37,8 +37,11 @@ export default function TopicsSection({
   }
   return (
     <div
-      className="flex flex-col w-[40rem] text-center
-              gap-y-12"
+      className="
+      flex 
+      flex-col 
+      text-center
+      space-y-4 xl:space-y-12"
     >
       <h1 className="font-Sen font-bold">Topics</h1>
       <div className="bg-cyan-600 rounded-lg overflow-hidden overflow-y-auto">
@@ -54,14 +57,14 @@ export default function TopicsSection({
               type="text"
               required
               className="
-                          flex-1
-                          bg-transparent
-                          placeholder-slate-50/50
-                          border-0 border-b-2 border-slate-50/50
-                          focus:ring-transparent focus:border-slate-50
-                          caret-slate-50
-                          text-slate-100
-                        "
+                flex-1
+                bg-transparent
+                placeholder-slate-50/50
+                border-0 border-b-2 border-slate-50/50
+                focus:ring-transparent focus:border-slate-50
+                caret-slate-50
+                text-slate-100
+              "
               placeholder="Add a topic"
             />
             <button type="submit">

@@ -68,8 +68,11 @@ export default function OptionsSection({ activeTopicId }: OptionsSectionProps) {
   }
   return (
     <div
-      className="flex flex-col w-full text-center
-              gap-y-12"
+      className="
+      flex 
+      flex-col 
+      text-center
+      space-y-4 xl:space-y-12"
     >
       <h1 className="font-Sen font-bold">Options</h1>
       <div
@@ -78,7 +81,12 @@ export default function OptionsSection({ activeTopicId }: OptionsSectionProps) {
       >
         <form
           onSubmit={handleOptionSubmit}
-          className="flex items-center space-x-4 px-4 h-16"
+          className="
+          flex 
+          items-center 
+          space-x-2 sm:space-x-4 
+          px-4 
+          h-16"
         >
           <input
             type="number"
@@ -87,20 +95,20 @@ export default function OptionsSection({ activeTopicId }: OptionsSectionProps) {
             max={10}
             required
             className="
-              w-[7rem]
               bg-transparent
               placeholder:text-cyan-800/75
               border-0 border-b-2 border-slate-500/75
               focus:ring-transparent focus:border-slate-500
               "
-            placeholder="Weight"
+            placeholder="Bias"
           />
           <input
             value={addOptionText}
             onChange={(e) => setAddOptionText(e.target.value)}
             type="text"
             className="
-              flex-1
+              w-[10rem]
+              xs:flex-1
               bg-transparent
               placeholder:text-cyan-800/75
               border-0 border-b-2 border-slate-500/75
@@ -121,24 +129,13 @@ export default function OptionsSection({ activeTopicId }: OptionsSectionProps) {
             return (
               <form
                 key={option._id}
-                className="flex items-center space-x-4 px-4
+                className="
+                flex items-center space-x-4 px-4
                       py-3
                       even:bg-sky-100"
               >
-                <div className="flex w-[7rem] items-center">
-                  <input
-                    type="number"
-                    value={option.bias}
-                    min={1}
-                    max={10}
-                    disabled
-                    className="
-                      bg-transparent
-                      placeholder:text-cyan-800/75
-                      border-0 border-b-2 border-slate-500/75
-                      focus:ring-transparent focus:border-slate-500
-                      disabled:border-0"
-                  />
+                <div className="flex items-center gap-3">
+                  <span>{option.bias}</span>
                   <Icon
                     onClick={() => editWeight(option)}
                     className="w-5 h-5 cursor-pointer text-slate-800/75
@@ -151,7 +148,8 @@ export default function OptionsSection({ activeTopicId }: OptionsSectionProps) {
                   value={option.name}
                   disabled
                   className="
-                    flex-1
+                    w-[10rem]
+                    xs:flex-1
                     bg-transparent
                     placeholder:text-cyan-800/75
                     border-0 border-b-2 border-slate-500/75

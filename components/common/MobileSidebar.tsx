@@ -17,10 +17,9 @@ export default function MobileSidebar({ routeMap }: MobileSidebarProps) {
         <Icon
           onClick={() => setIsHamburgerSidebarOpen(true)}
           className="
+          block
         text-slate-50
         w-10 h-10
-        fixed
-        ml-5 mt-5 xs:ml-7 xs:mt-7
         cursor-pointer
         "
           icon="ci:hamburger"

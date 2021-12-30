@@ -23,7 +23,7 @@ export default function Sidebar({ routeMap }: SidebarProps) {
         {Object.keys(routeMap).map((route) => (
           <li key={route}>
             <Link href={route}>
-              <a className="space-x-2">
+              <a className="space-x-2 flex">
                 <div
                   className="before:content-['\200B'] inline-block w-[2px] 
                   h-full bg-sky-100 transition-colors"
@@ -34,7 +34,7 @@ export default function Sidebar({ routeMap }: SidebarProps) {
                       : {}
                   }
                 />
-                <span
+                <div
                   className={`font-medium transition-colors
                   hover:text-yellow-300 ${
                     activeRoute.current === route
@@ -43,7 +43,7 @@ export default function Sidebar({ routeMap }: SidebarProps) {
                   }`}
                 >
                   {routeMap[route]}
-                </span>
+                </div>
               </a>
             </Link>
           </li>

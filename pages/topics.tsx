@@ -1,7 +1,6 @@
 import Glass from "components/common/Glass"
 import PageBackground from "components/common/PageBackground"
 import LoggedInLayout from "components/layout/LoggedInLayout"
-import ScreenCenterLayout from "components/layout/ScreenCenterLayout"
 import Head from "next/head"
 import { useAppSelector } from "hooks"
 import { useState } from "react"
@@ -25,15 +24,35 @@ export default function Topics() {
 
       <PageBackground src="/images/bg-topics.svg">
         <LoggedInLayout>
-          <ScreenCenterLayout>
-            <Glass className="flex w-[69rem] h-4/5">
-              <TopicsSection
-                activeTopicId={activeTopicId}
-                setActiveTopicId={setActiveTopicId}
-              />
-              <OptionsSection activeTopicId={activeTopicId} />
+          <div
+            className="
+            md:my-10
+            xl:px-[5%]
+            "
+          >
+            <Glass
+              className="
+              px-2 xs:px-4 sm:px-8 md:px-16
+              space-y-4
+              lg:space-y-0
+              xs:max-w-[95vw]
+              mx-auto
+              lg:max-h-[90%]
+              xl:grid
+              xl:grid-cols-5
+            "
+            >
+              <div className="col-span-2">
+                <TopicsSection
+                  activeTopicId={activeTopicId}
+                  setActiveTopicId={setActiveTopicId}
+                />
+              </div>
+              <div className="col-span-3">
+                <OptionsSection activeTopicId={activeTopicId} />
+              </div>
             </Glass>
-          </ScreenCenterLayout>
+          </div>
         </LoggedInLayout>
       </PageBackground>
     </>

@@ -14,14 +14,38 @@ const routeMap = {
 
 export default function LoggedInLayout({ children }: LoggedInLayoutProps) {
   return (
-    <>
-      <div className="fixed inset-16 hidden md:block">
+    <div
+      className="
+    flex
+    flex-col lg:flex-row
+    h-screen"
+    >
+      <div
+        className="
+        hidden lg:flex 
+        justify-center 
+        w-[14rem] 
+        pt-[2rem]
+    "
+      >
         <Sidebar routeMap={routeMap} />
       </div>
-      <div className="md:hidden">
+      <div
+        className="
+        lg:hidden flex 
+        items-center
+        h-[5rem] 
+        pl-5"
+      >
         <MobileSidebar routeMap={routeMap} />
       </div>
-      {children}
-    </>
+      <div className="flex-1">{children}</div>
+      <div
+        className="
+        w-[14rem]
+        h-[5rem]
+        "
+      ></div>
+    </div>
   )
 }
