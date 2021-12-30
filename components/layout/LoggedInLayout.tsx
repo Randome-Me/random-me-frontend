@@ -33,9 +33,8 @@ export default function LoggedInLayout({ children }: LoggedInLayoutProps) {
       <div
         className="
         lg:hidden flex 
-        items-center
-        h-[5rem] 
-        pl-5"
+        z-10
+        h-[5rem]"
       >
         <MobileSidebar routeMap={routeMap} />
       </div>

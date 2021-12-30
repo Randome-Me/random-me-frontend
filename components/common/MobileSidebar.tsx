@@ -19,9 +19,9 @@ export default function MobileSidebar({ routeMap }: MobileSidebarProps) {
           className="
           block
         text-slate-50
-        w-10 h-10
-        cursor-pointer
-        "
+          w-10 h-10
+          cursor-pointer
+          "
           icon="ci:hamburger"
         />
       )}
@@ -32,19 +32,13 @@ export default function MobileSidebar({ routeMap }: MobileSidebarProps) {
               setIsHamburgerSidebarOpen(false)
             }
           }}
+          className="
+            backdrop-blur-md
+            h-screen w-screen
+            p-10
+            fixed"
         >
-          <div
-            className="
-                w-[75%] h-screen
-                pl-5 pt-5
-                flex flex-col
-                bg-gradient-to-r from-sky-100/10 to-sky-200/0
-                backdrop-blur
-                shadow-xl
-                "
-          >
-            <Sidebar routeMap={routeMap} />
-          </div>
+          <Sidebar routeMap={routeMap} />
         </div>
       )}
     </>
