@@ -2,7 +2,6 @@ import { Icon } from "@iconify/react"
 import Glass from "components/common/Glass"
 import PageBackground from "components/common/PageBackground"
 import LoggedInLayout from "components/layout/LoggedInLayout"
-import ScreenCenterLayout from "components/layout/ScreenCenterLayout"
 import { useAppDispatch, useAppSelector } from "hooks"
 import Head from "next/head"
 import Link from "next/link"
@@ -13,6 +12,7 @@ import { decodePolicy, getProbabilities, randomMe } from "utils"
 
 const policies: RandomPolicy[] = [
   RandomPolicy.EQUAL_WEIGHT,
+  RandomPolicy.EPSILON_GREEDY,
   RandomPolicy.MULTINOMIAL,
   RandomPolicy.RANDOMIZE,
   RandomPolicy.SOFTMAX,
