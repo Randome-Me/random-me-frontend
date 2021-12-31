@@ -39,8 +39,11 @@ export default function TopicsSection() {
   }
 
   const deleteTopic = async () => {
+    // remove the topic
     await removeTopicDB(selectedTopicId)
     dispatch(removeTopic({ topicId: selectedTopicId }))
+    // then select the first topic
+    await handleSelectTopic(topics.length ? topics[0]._id : null)
   }
 
   const handleSelectTopic = async (topicId: string) => {
