@@ -7,6 +7,12 @@ import {
   selectTopic,
   setTopicName,
 } from "store/slice/user"
+import {
+  addTopicDB,
+  removeTopicDB,
+  selectTopicDB,
+  setTopicNameDB,
+} from "utils/axios/database"
 
 export default function TopicsSection() {
   const { topics, selectedTopicId } = useAppSelector((state) => state.user)
@@ -14,23 +20,32 @@ export default function TopicsSection() {
 
   const [addTopicText, setAddTopicText] = useState("")
 
-  const handleTopicSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleTopicSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    await addTopicDB(addTopicText)
     dispatch(addTopic({ name: addTopicText }))
     setAddTopicText("")
   }
 
-  const editTopicName = () => {
+  const editTopicName = async () => {
     const name = window.prompt(
       "Enter the new name",
       topics.find((t) => t._id === selectedTopicId).name
     )
     if (!name) return
 
+    await setTopicNameDB(selectedTopicId, name)
     dispatch(setTopicName({ topicId: selectedTopicId, name }))
   }
-  const deleteTopic = () => {
+
+  const deleteTopic = async () => {
+    await removeTopicDB(selectedTopicId)
     dispatch(removeTopic({ topicId: selectedTopicId }))
+  }
+
+  const handleSelectTopic = async (topicId: string) => {
+    await selectTopicDB(topicId)
+    dispatch(selectTopic({ topicId }))
   }
 
   return (
@@ -83,7 +98,7 @@ export default function TopicsSection() {
         </div>
         {topics.map((topic) => (
           <div
-            onClick={() => dispatch(selectTopic({ topicId: topic._id }))}
+            onClick={() => handleSelectTopic(topic._id)}
             key={topic._id}
             className={`
             w-full 

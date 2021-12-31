@@ -2,12 +2,18 @@ import { Icon } from "@iconify/react"
 import { useAppSelector, useAppDispatch } from "hooks"
 import { FormEvent, useRef, useState } from "react"
 import {
-  setOptionWeight,
+  setOptionBias,
   setOptionName,
   removeOption,
   addOption,
 } from "store/slice/user"
 import { BanditArm } from "types/mab"
+import {
+  addOptionDB,
+  removeOptionDB,
+  setOptionBiasDB,
+  setOptionNameDB,
+} from "utils/axios/database"
 
 export default function OptionsSection() {
   const { topics, selectedTopicId } = useAppSelector((state) => state.user)
@@ -16,14 +22,15 @@ export default function OptionsSection() {
   const [addOptionText, setAddOptionText] = useState("")
   const weightInput = useRef<HTMLInputElement>(null)
 
-  const handleOptionSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleOptionSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    await addOptionDB(selectedTopicId, addOptionText)
     dispatch(addOption({ name: addOptionText, topicId: selectedTopicId }))
     setAddOptionText("")
     weightInput.current.value = undefined
   }
 
-  const editWeight = (option: BanditArm) => {
+  const editWeight = async (option: BanditArm) => {
     let weight: string | number = window.prompt(
       "Enter the new weight",
       option.bias + ""
@@ -41,8 +48,9 @@ export default function OptionsSection() {
       return
     }
 
+    await setOptionBiasDB(selectedTopicId, option._id, weight)
     dispatch(
-      setOptionWeight({
+      setOptionBias({
         topicId: selectedTopicId,
         optionId: option._id,
         weight: Number(weight),
@@ -50,16 +58,18 @@ export default function OptionsSection() {
     )
   }
 
-  const editOptionName = (option: BanditArm) => {
+  const editOptionName = async (option: BanditArm) => {
     const { name: oldName, _id: optionId } = option
 
     const name = window.prompt("Enter the new name", oldName)
     if (!name) return
 
+    await setOptionNameDB(selectedTopicId, optionId, name)
     dispatch(setOptionName({ topicId: selectedTopicId, optionId, name }))
   }
 
-  const deleteOption = (optionId: string) => {
+  const deleteOption = async (optionId: string) => {
+    await removeOptionDB(selectedTopicId, optionId)
     dispatch(removeOption({ topicId: selectedTopicId, optionId }))
   }
 
