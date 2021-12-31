@@ -6,17 +6,17 @@ import { getProbabilityOfEveryArm } from "./MAB"
 export const decodePolicy = (policy: RandomPolicy) => {
   switch (policy) {
     case RandomPolicy.EQUAL_WEIGHT:
-      return "equal weight"
+      return "Equal Weight"
     case RandomPolicy.RANDOMIZE:
-      return "randomize"
+      return "Randomize"
     case RandomPolicy.EPSILON_GREEDY:
-      return "epsilon greedy"
+      return "Epsilon Greedy"
     case RandomPolicy.SOFTMAX:
-      return "softmax"
+      return "Softmax"
     case RandomPolicy.UCB:
-      return "ucb"
+      return "UCB1"
     case RandomPolicy.MULTINOMIAL:
-      return "multinomial"
+      return "Multinomial"
     default:
       throw new Error(`Unknown policy: ${policy}`)
   }
