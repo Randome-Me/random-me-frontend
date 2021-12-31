@@ -1,4 +1,5 @@
 import PageBackground from "components/common/PageBackground"
+import CenteredSpanGlassLayout from "components/layout/CenteredSpanGlassLayout"
 import LoggedInLayout from "components/layout/LoggedInLayout"
 import Head from "next/head"
 
@@ -14,7 +15,11 @@ export default function RandomPolicies() {
       </Head>
 
       <PageBackground src="/images/bg-random-policies.svg">
-        <LoggedInLayout></LoggedInLayout>
+        <LoggedInLayout>
+          <CenteredSpanGlassLayout>
+            <h1>Hi</h1>
+          </CenteredSpanGlassLayout>
+        </LoggedInLayout>
       </PageBackground>
     </>
   )
