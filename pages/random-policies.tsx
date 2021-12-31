@@ -154,7 +154,15 @@ export default function RandomPolicies() {
               </article>
 
               <article>
-                <h3 className={h3Class}>Epsilon Greedy</h3>
+                <a
+                  href="https://www.geeksforgeeks.org/epsilon-greedy-algorithm-in-reinforcement-learning/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <h3 className={h3Class + " underline decoration-yellow-400"}>
+                    Epsilon Greedy
+                  </h3>
+                </a>
                 <p className={pClass}>
                   Epsilon Greedy or <em>&epsilon;-greedy</em> is a policy that
                   performs exploration with probability of{" "}
