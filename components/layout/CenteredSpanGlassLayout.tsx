@@ -20,7 +20,7 @@ export default function CenteredSpanGlassLayout({
     >
       <Glass
         className={`
-            px-2 xs:px-4 sm:px-8 md:px-16
+            px-2 md:px-10 lg:px-12 xl:px-16
             space-y-4
             lg:space-y-0
             xs:max-w-[95vw]
