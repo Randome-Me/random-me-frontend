@@ -49,6 +49,7 @@ export default function RandomPolicies() {
                   <em>Randomize</em>, <em>Softmax</em>, and <em>UCB1</em>.
                 </p>
               </header>
+
               <article>
                 <h2 className={h2Class}>Motivation</h2>
                 <p className={pClass}>
@@ -60,6 +61,7 @@ export default function RandomPolicies() {
                   app to randomly choose between a set of options.
                 </p>
               </article>
+
               <h2 className={h2Class}>Basic Policies</h2>
               <article>
                 <h3 className={h3Class}>Multinomial</h3>
@@ -77,6 +79,7 @@ export default function RandomPolicies() {
                   1/7, 1/7, and 5/7, respectively.
                 </p>
               </article>
+
               <article>
                 <h3 className={h3Class}>Equal Weight</h3>
                 <p className={pClass}>
@@ -85,6 +88,7 @@ export default function RandomPolicies() {
                   is 1/3.
                 </p>
               </article>
+
               <article>
                 <h3 className={h3Class}>Randomize</h3>
                 <p className={pClass}>
@@ -92,6 +96,7 @@ export default function RandomPolicies() {
                   fancy rules to this policy.
                 </p>
               </article>
+
               <article>
                 <h2 className={h2Class}>Advanced Policies</h2>
                 <p className={pClass}>
@@ -107,6 +112,7 @@ export default function RandomPolicies() {
                   . In short, Multi-armed bandit aims to make the best decision
                   among a set of options over time.
                 </p>
+
                 <p className={pClass}>
                   There are 2 stages in the Multi-armed bandit model:
                   exploration and exploitation. The exploration stage explores
@@ -117,6 +123,7 @@ export default function RandomPolicies() {
                   passed to the algorithm of the policy.
                 </p>
               </article>
+
               <article>
                 <a
                   className=""
@@ -145,6 +152,17 @@ export default function RandomPolicies() {
                   into account by the policies.
                 </p>
               </article>
+
+              <article>
+                <h3 className={h3Class}>Epsilon Greedy</h3>
+                <p className={pClass}>
+                  Epsilon Greedy or <em>&epsilon;-greedy</em> is a policy that
+                  performs exploration with probability of{" "}
+                  <em>1 - &epsilon;</em> using Equal Weight policy else selects
+                  the option with the highest estimated reward.
+                </p>
+              </article>
+
               <article>
                 <a
                   href="https://en.wikipedia.org/wiki/Softmax_function"
