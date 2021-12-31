@@ -15,11 +15,9 @@ export const userSlice = createSlice({
       state,
       { payload: { topicId } }: PayloadAction<{ topicId: string }>
     ) => {
-      // TODO: update the user's selected topic in database
       state.selectedTopicId = topicId
     },
     changeTopicPolicy: (state, action: PayloadAction<RandomPolicy>) => {
-      // TODO: update the policy of user's selected topic in database
       state.topics.find((topic) => topic._id === state.selectedTopicId).policy =
         action.payload
     },
@@ -32,7 +30,6 @@ export const userSlice = createSlice({
         optionId: string
       }>
     ) => {
-      // TODO: save the state of this arm (option) to the sever
       const topic = state.topics.find(
         (topic) => topic._id === state.selectedTopicId
       )
@@ -47,7 +44,6 @@ export const userSlice = createSlice({
         payload: { topicId, optionId, weight },
       }: PayloadAction<{ topicId: string; optionId: string; weight: number }>
     ) => {
-      // TODO: update the weight of this option in the database
       state.topics
         .find((topic) => topic._id === topicId)
         .options.find((option) => option._id === optionId).bias = weight
@@ -58,7 +54,6 @@ export const userSlice = createSlice({
         payload: { topicId, name },
       }: PayloadAction<{ topicId: string; name: string }>
     ) => {
-      // TODO: update the name of this topic in the database
       state.topics.find((topic) => topic._id === topicId).name = name
     },
     setOptionName: (
@@ -67,7 +62,6 @@ export const userSlice = createSlice({
         payload: { topicId, optionId, name },
       }: PayloadAction<{ topicId: string; optionId: string; name: string }>
     ) => {
-      // TODO: update the name of this option in the database
       state.topics
         .find((topic) => topic._id === topicId)
         .options.find((option) => option._id === optionId).name = name
@@ -78,7 +72,6 @@ export const userSlice = createSlice({
         payload: { topicId, optionId },
       }: PayloadAction<{ topicId: string; optionId: string }>
     ) => {
-      // TODO: remove this option from the database
       const { options } = state.topics.find((topic) => topic._id === topicId)
       options.splice(
         options.findIndex((option) => option._id === optionId),
@@ -89,7 +82,6 @@ export const userSlice = createSlice({
       state,
       { payload: { topicId } }: PayloadAction<{ topicId: string }>
     ) => {
-      // TODO: remove this topic from the database
       state.topics.splice(
         state.topics.findIndex((topic) => topic._id === topicId),
         1
@@ -105,7 +97,7 @@ export const userSlice = createSlice({
       state,
       { payload: { name } }: PayloadAction<{ name: string }>
     ) => {
-      // TODO: add this topic to the database
+      // TODO: get the topic passed in as a payload instead of using a dummy
       // const topic = get from db
       state.topics.push({
         _id: `${Math.random()}${Math.random()}`,
@@ -121,8 +113,7 @@ export const userSlice = createSlice({
         payload: { topicId, name, weight = 1 },
       }: PayloadAction<{ topicId: string; name: string; weight?: number }>
     ) => {
-      // TODO: add this option to the database
-      // const option = get from database
+      // TODO: get the option passed in as a payload instead of using a dummy
       state.topics
         .find((topic) => topic._id === topicId)
         .options.push({
