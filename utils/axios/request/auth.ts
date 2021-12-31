@@ -20,27 +20,36 @@ export const logout = () => {
 
 export const register = (
   email: string,
+  username: string,
   password: string,
   confirmPassword: string
 ) => {
   interface ResponseData {}
   return axiosClientInstance.post<ResponseData>("/auth/register", {
     email,
+    username,
     password,
     confirmPassword,
   })
 }
 
-// export const forgotPassword = (by: "email" | "username") => {
+// /**
+//  * @param by Tell the server to search by email or username
+//  * @param text Email if by is 'email' else username
+//  */
+// export const forgotPassword = (by: "email" | "username", text: string) => {
 //   interface ResponseData {}
-//   return axiosInstance.post<ResponseData>(`/auth/forgot-password?by=${by}`, {
-//     by,
-//   })
+//   return axiosClientInstance.post<ResponseData>(
+//     `/auth/forgot-password?by=${by}`,
+//     {
+//       text,
+//     }
+//   )
 // }
 
 // export const resetPassword = (password: string) => {
 //   interface ResponseData {}
-//   return axiosInstance.post<ResponseData>("/auth/reset-password", {
+//   return axiosClientInstance.post<ResponseData>("/auth/reset-password", {
 //     password,
 //   })
 // }
