@@ -1,12 +1,8 @@
 import axiosClientInstance from "../instance/client"
 
-export const checkMe = (cookie: string) => {
+export const checkMe = () => {
   interface ResponseData {}
-  return axiosClientInstance.get<ResponseData>("/auth/me", {
-    headers: {
-      cookie,
-    },
-  })
+  return axiosClientInstance.get<ResponseData>("/auth/me")
 }
 
 export const login = (email: string, password: string) => {
