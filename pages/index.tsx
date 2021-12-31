@@ -11,12 +11,12 @@ import { RandomPolicy } from "types/mab"
 import { decodePolicy, getProbabilities, randomMe } from "utils"
 
 const policies: RandomPolicy[] = [
-  RandomPolicy.EQUAL_WEIGHT,
-  RandomPolicy.EPSILON_GREEDY,
   RandomPolicy.MULTINOMIAL,
+  RandomPolicy.EQUAL_WEIGHT,
   RandomPolicy.RANDOMIZE,
-  RandomPolicy.SOFTMAX,
   RandomPolicy.UCB,
+  RandomPolicy.EPSILON_GREEDY,
+  RandomPolicy.SOFTMAX,
 ]
 
 export default function Home() {

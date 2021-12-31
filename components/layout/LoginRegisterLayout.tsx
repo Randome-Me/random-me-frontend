@@ -1,5 +1,6 @@
 import Glass from "components/common/Glass"
 import PageBackground from "components/common/PageBackground"
+import ScreenCenterLayout from "components/layout/ScreenCenterLayout"
 
 interface LoginRegisterLayoutProps {
   topic: "Login" | "Register"
@@ -12,18 +13,32 @@ export default function LoginRegisterLayout({
 }: LoginRegisterLayoutProps) {
   return (
     <PageBackground src="/images/bg-login-register.svg">
-      <main className="flex min-h-screen justify-center items-center">
+      <ScreenCenterLayout>
         <h1 className="sr-only">{topic}</h1>
-        <Glass className="p-[2rem] space-y-4 md:space-y-10 xs:p-10 sm:p-14">
-          <strong
-            className="text-slate-700 text-4xl sm:text-5xl font-extrabold
-      font-Sen flex justify-center"
+        <main>
+          <Glass
+            className="
+          p-[2rem] xs:p-10 sm:p-14
+          space-y-4 md:space-y-10
+          "
           >
-            Random Me.
-          </strong>
-          {children}
-        </Glass>
-      </main>
+            <strong
+              className="
+              text-slate-700
+              text-4xl
+              sm:text-5xl
+              font-extrabold
+              font-Sen
+              flex
+              justify-center
+              "
+            >
+              Random Me.
+            </strong>
+            {children}
+          </Glass>
+        </main>
+      </ScreenCenterLayout>
     </PageBackground>
   )
 }
