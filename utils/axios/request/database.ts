@@ -1,5 +1,5 @@
 import { RandomPolicy } from "types/mab"
-import axiosClientInstance from "./client-instance"
+import axiosClientInstance from "../instance/client"
 
 export const selectTopicDB = (topicId: string) => {
   interface ResponseData {}

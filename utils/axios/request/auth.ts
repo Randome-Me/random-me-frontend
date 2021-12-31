@@ -1,4 +1,4 @@
-import axiosClientInstance from "./client-instance"
+import axiosClientInstance from "../instance/client"
 
 export const checkMe = (cookie: string) => {
   interface ResponseData {}

@@ -12,7 +12,7 @@ import {
   removeTopicDB,
   selectTopicDB,
   setTopicNameDB,
-} from "utils/axios/database"
+} from "utils/axios/request/database"
 
 export default function TopicsSection() {
   const { topics, selectedTopicId } = useAppSelector((state) => state.user)

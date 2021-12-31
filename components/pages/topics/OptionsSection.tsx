@@ -13,7 +13,7 @@ import {
   removeOptionDB,
   setOptionBiasDB,
   setOptionNameDB,
-} from "utils/axios/database"
+} from "utils/axios/request/database"
 
 export default function OptionsSection() {
   const { topics, selectedTopicId } = useAppSelector((state) => state.user)
