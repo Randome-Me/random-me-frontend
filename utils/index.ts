@@ -2,6 +2,16 @@ import { Arm } from "./MAB/Arm"
 import store from "store"
 import { RandomPolicy } from "types/mab"
 import { getProbabilityOfEveryArm } from "./MAB"
+import i18n from "locales"
+
+export const switchLanguage = () => {
+  i18n.changeLanguage(
+    {
+      en: "th",
+      th: "en",
+    }[i18n.language]
+  )
+}
 
 export const decodePolicy = (policy: RandomPolicy) => {
   switch (policy) {

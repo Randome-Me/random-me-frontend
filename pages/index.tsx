@@ -8,7 +8,9 @@ import Link from "next/link"
 import React, { useEffect, useState } from "react"
 import { changeTopicPolicy, selectTopic } from "store/slice/user"
 import { RandomPolicy } from "types/mab"
-import { decodePolicy, getProbabilities, randomMe } from "utils"
+import { decodePolicy, getProbabilities, randomMe, switchLanguage } from "utils"
+// import { useTranslation } from "react-i18next"
+import { withTranslation } from "react-i18next"
 
 const policies: RandomPolicy[] = [
   RandomPolicy.MULTINOMIAL,
@@ -19,9 +21,10 @@ const policies: RandomPolicy[] = [
   RandomPolicy.SOFTMAX,
 ]
 
-export default function Home() {
+const Home = () => {
   const dispatch = useAppDispatch()
   const { selectedTopicId, topics } = useAppSelector((state) => state.user)
+  // const { t, i18n } = useTranslation()
 
   const [selectedPolicy, setSelectedPolicy] = useState<RandomPolicy>(
     topics.find((topic) => topic._id === selectedTopicId).policy
@@ -224,3 +227,5 @@ export default function Home() {
     </>
   )
 }
+
+export default withTranslation()(Home)
