@@ -5,5 +5,8 @@
   "eslint.validate": [],
   "cSpell.words": [
     "Softmax"
+  ],
+  "i18n-ally.localesPaths": [
+    "locales"
   ]
 }

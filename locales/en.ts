@@ -1,6 +1,14 @@
 const en = {
   translation: {
-    "Welcome to React": "Welcome to React and react-i18next",
+    home: {
+      description: "Let's randomize your life decisions with Random Me!",
+      topics: "Topics",
+      "add option": "Add Option",
+      policy: "Policy",
+      "see probabilities": "See probabilities",
+      probability: "Probability",
+      option: "Option",
+    },
   },
 }
 

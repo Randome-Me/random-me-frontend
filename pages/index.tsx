@@ -9,7 +9,7 @@ import React, { useEffect, useState } from "react"
 import { changeTopicPolicy, selectTopic } from "store/slice/user"
 import { RandomPolicy } from "types/mab"
 import { decodePolicy, getProbabilities, randomMe, switchLanguage } from "utils"
-// import { useTranslation } from "react-i18next"
+import { useTranslation } from "react-i18next"
 import { withTranslation } from "react-i18next"
 
 const policies: RandomPolicy[] = [
@@ -24,7 +24,7 @@ const policies: RandomPolicy[] = [
 const Home = () => {
   const dispatch = useAppDispatch()
   const { selectedTopicId, topics } = useAppSelector((state) => state.user)
-  // const { t, i18n } = useTranslation()
+  const { t } = useTranslation("translation", { keyPrefix: "home" })
 
   const [selectedPolicy, setSelectedPolicy] = useState<RandomPolicy>(
     topics.find((topic) => topic._id === selectedTopicId).policy
@@ -43,10 +43,7 @@ const Home = () => {
     <>
       <Head>
         <title>Random | Random Me</title>
-        <meta
-          name="description"
-          content="Let's randomize your life decisions with Multi-armed bandit policy!"
-        />
+        <meta name="description" content={t("description")} />
       </Head>
 
       <PageBackground src="/images/bg-index.svg">
@@ -90,7 +87,7 @@ const Home = () => {
                           w-[7ch]
                           hidden md:block"
                       >
-                        Topics
+                        {t("topics")}
                       </h3>
                       <select
                         onChange={(e) =>
@@ -123,7 +120,7 @@ const Home = () => {
                                 hover:text-slate-700
                                 ml-[1ch]"
                           >
-                            add option
+                            {t("add option")}
                           </a>
                         </Link>
                       </div>
@@ -137,7 +134,7 @@ const Home = () => {
                               translate-y-2"
                           >
                             <h3 className="w-[7ch]">
-                              Policy
+                              {t("policy")}
                               <Icon
                                 icon="bi:info-circle-fill"
                                 className="inline w-3"
@@ -175,7 +172,7 @@ const Home = () => {
                             "
                         />
                         <span className="self-center font-semibold hover:text-slate-700">
-                          see probabilities
+                          {t("see probabilities")}
                         </span>
                       </div>
                     </div>
@@ -192,8 +189,8 @@ const Home = () => {
                     <table className="table-auto">
                       <thead>
                         <tr>
-                          <th className="px-4 py-2">Probability</th>
-                          <th className="px-4 py-2">Option</th>
+                          <th className="px-4 py-2">{t("probability")}</th>
+                          <th className="px-4 py-2">{t("option")}</th>
                         </tr>
                       </thead>
                       <tbody className="font-medium">
