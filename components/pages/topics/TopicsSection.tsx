@@ -1,6 +1,7 @@
 import { Icon } from "@iconify/react"
 import { useAppSelector, useAppDispatch } from "hooks"
 import { FormEvent, useState } from "react"
+import { useTranslation, withTranslation } from "react-i18next"
 import {
   addTopic,
   removeTopic,
@@ -8,9 +9,10 @@ import {
   setTopicName,
 } from "store/slice/user"
 
-export default function TopicsSection() {
+const TopicsSection = () => {
   const { topics, selectedTopicId } = useAppSelector((state) => state.user)
   const dispatch = useAppDispatch()
+  const { t } = useTranslation("translation", { keyPrefix: "topics" })
 
   const [addTopicText, setAddTopicText] = useState("")
 
@@ -22,7 +24,7 @@ export default function TopicsSection() {
 
   const editTopicName = () => {
     const name = window.prompt(
-      "Enter the new name",
+      t("editTopicNamePrompt"),
       topics.find((t) => t._id === selectedTopicId).name
     )
     if (!name) return
@@ -45,7 +47,7 @@ export default function TopicsSection() {
         className="
       font-Sen font-bold"
       >
-        Topics
+        {t("title")}
       </h1>
       <div
         className="
@@ -74,7 +76,7 @@ export default function TopicsSection() {
                 caret-slate-50
                 text-slate-100
               "
-              placeholder="Add a topic"
+              placeholder={t("addTopicPlaceholder")}
             />
             <button type="submit">
               <Icon icon="akar-icons:plus" className="w-6 h-6 text-slate-50" />
@@ -129,3 +131,5 @@ export default function TopicsSection() {
     </div>
   )
 }
+
+export default withTranslation()(TopicsSection)

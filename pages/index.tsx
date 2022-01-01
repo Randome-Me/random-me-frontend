@@ -42,7 +42,7 @@ const Home = () => {
   return (
     <>
       <Head>
-        <title>Random | Random Me</title>
+        <title>{t("title")} | Random Me</title>
         <meta name="description" content={t("description")} />
       </Head>
 
