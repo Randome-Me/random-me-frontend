@@ -8,7 +8,9 @@
   }
 
   body {
-    @apply font-Montserrat bg-cyan-600 text-slate-800;
+    @apply font-Montserrat 
+    bg-cyan-600 
+    text-slate-800;
   }
 
   h1,
@@ -45,23 +47,60 @@
   [multiple],
   textarea,
   select {
-    @apply border-slate-800 placeholder-slate-500 focus:border-cyan-400 
-    focus:ring-cyan-400 focus:ring-offset-1 focus:ring-offset-transparent 
+    @apply border-slate-800 
+    placeholder-slate-500 
+    focus:border-cyan-400 
+    focus:ring-cyan-400 
+    focus:ring-offset-1 
+    focus:ring-offset-transparent 
     caret-cyan-600;
+  }
+
+  /* ===== Scrollbar CSS ===== */
+  /* Firefox */
+  * {
+    scrollbar-width: auto;
+    scrollbar-color: rgb(250 204 21) #ffffff;
+  }
+
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: rgb(250 204 21);
+    border-radius: 10px;
   }
 }
 
 @layer components {
   .clickable-text-cyan {
-    @apply font-bold text-cyan-600 underline decoration-slice 
-    decoration-cyan-600 cursor-pointer;
+    @apply font-bold 
+    text-cyan-600 
+    underline 
+    decoration-slice 
+  decoration-cyan-600 
+      cursor-pointer;
   }
 
   .login-register-button {
-    @apply font-Spartan font-bold w-full bg-yellow-400 pb-2 pt-3 text-xl rounded shadow-md
-        text-slate-800 mt-4  active:shadow-none 
-        focus-visible:outline-cyan-600
-          md:mt-8;
+    @apply font-Spartan 
+    font-bold 
+    w-full 
+    bg-yellow-400 
+    pb-2 pt-3
+    text-xl
+    rounded shadow-md
+    text-slate-800
+    mt-4
+    active:shadow-none
+    focus-visible:outline-cyan-600
+    md:mt-8;
   }
 
   .form-select {
@@ -73,7 +112,10 @@
     border-slate-800
     bg-transparent
     shadow-sm
-  focus:border-yellow-600 focus:ring-yellow-600 focus:ring-offset-1 focus:ring-offset-transparent;
+    focus:border-yellow-600 
+    focus:ring-yellow-600 
+    focus:ring-offset-1 
+    focus:ring-offset-transparent;
   }
 }
 
