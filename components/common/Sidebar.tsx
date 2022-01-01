@@ -34,7 +34,10 @@ export default function Sidebar({ routeMap }: SidebarProps) {
                   aria-hidden="true"
                   style={
                     currentPath === route
-                      ? { backgroundColor: "rgb(250 204 21)" }
+                      ? {
+                          backgroundColor:
+                            "rgb(250 204 21)" /* text-yellow-400 */,
+                        }
                       : {}
                   }
                 />
