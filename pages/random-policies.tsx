@@ -54,11 +54,11 @@ export default function RandomPolicies() {
                 <h2 className={h2Class}>Motivation</h2>
                 <p className={pClass}>
                   The <strong>Random Me</strong> app is a project inspired by
-                  Multi-armed bandit problem, aiming help people who suffer from
-                  not knowing what to choose among a set of options. For
-                  example, you don&apos;t know what to do with your free time or
-                  what game you&apos;re going to play, you can use the Random Me
-                  app to randomly choose between a set of options.
+                  Multi-armed bandit problem, aiming to help people who suffer
+                  from not knowing what to choose among a set of options. For
+                  example, if you don&apos;t know what to do with your free time
+                  or what game you&apos;re going to play, you can use the Random
+                  Me app to randomly choose between a set of options.
                 </p>
               </article>
 

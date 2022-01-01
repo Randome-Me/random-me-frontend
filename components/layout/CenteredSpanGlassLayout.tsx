@@ -16,7 +16,7 @@ export default function CenteredSpanGlassLayout({
       className={`
           md:my-10
           xl:px-[5%]
-          ${classNameOuter}`}
+          ${classNameOuter || ""}`}
     >
       <Glass
         className={`
@@ -24,8 +24,9 @@ export default function CenteredSpanGlassLayout({
             lg:space-y-0
             xs:max-w-[95vw]
             mx-auto
-            lg:max-h-[90%]
-            ${classNameInner}
+            max-h-[90vh]
+            overflow-y-auto
+            ${classNameInner || ""}
             `}
       >
         {children}
