@@ -1,21 +1,22 @@
+import { AvailableLanguages } from "types/internationalization"
+import store from "store"
 import i18n from "i18next"
 import { initReactI18next } from "react-i18next"
 import en from "./en"
 import th from "./th"
 
-// the translations
-// (tip move them in a JSON file and import them,
-// or even better, manage them separated from your code: https://react.i18next.com/guides/multiple-translation-files)
 const resources = {
   en,
   th,
 }
 
+export const defaultLanguage: AvailableLanguages = "en"
+
 i18n
   .use(initReactI18next) // passes i18n down to react-i18next
   .init({
     resources,
-    lng: "en",
+    lng: store.getState().user?.lang || defaultLanguage,
     // fallbackLng: "en",
 
     interpolation: {
