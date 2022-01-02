@@ -28,7 +28,8 @@ const en = {
       "see probabilities": "See probabilities",
       probability: "Probability",
       option: "Option",
-      noTopics: "No topics yet. Add one!",
+      noTopics:
+        "No topics with at least <em>one option</em> yet.<br />Add one!",
     },
     topics: {
       title: "Topics",

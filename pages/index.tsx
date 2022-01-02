@@ -13,6 +13,7 @@ import { useTranslation } from "react-i18next"
 import { withTranslation } from "react-i18next"
 import RandomMeButton from "components/pages/home/RandomMeButton"
 import ProbabilityTable from "components/pages/home/ProbabilityTable"
+import { Topic } from "types"
 
 const policies: RandomPolicy[] = [
   RandomPolicy.MULTINOMIAL,
@@ -33,12 +34,16 @@ const Home = () => {
   )
   const [probabilityInfo, setProbabilityInfo] = useState(getProbabilities())
   const [showInfo, setShowInfo] = useState(false)
+  const [topicsWithOptions, setTopicsWithOptions] = useState<Topic[]>(
+    topics.filter((topic) => topic.options.length > 0)
+  )
 
   useEffect(() => {
     setSelectedPolicy(
       topics.find((topic) => topic._id === selectedTopicId)?.policy
     )
     setProbabilityInfo(getProbabilities())
+    setTopicsWithOptions(topics.filter((topic) => topic.options.length > 0))
   }, [topics, selectedTopicId])
 
   return (
@@ -68,7 +73,7 @@ const Home = () => {
                 md:px-24"
             >
               <main className="space-y-10">
-                {topics.length > 0 && (
+                {topicsWithOptions.length > 0 && (
                   <>
                     <RandomMeButton />
                     <div className="flex flex-col items-center">
@@ -93,7 +98,7 @@ const Home = () => {
                             value={selectedTopicId}
                             className="form-select max-w-[90%]"
                           >
-                            {topics.map((topic) => (
+                            {topicsWithOptions.map((topic) => (
                               <option
                                 className="bg-yellow-500"
                                 key={topic._id}
@@ -175,9 +180,14 @@ const Home = () => {
                     </div>
                   </>
                 )}
-                {topics.length === 0 && (
+                {topicsWithOptions.length === 0 && (
                   <>
-                    <span>{t("noTopics")}</span>
+                    <h4
+                      className="
+                      text-slate-50
+                      "
+                      dangerouslySetInnerHTML={{ __html: t("noTopics") }}
+                    ></h4>
                     <br />
                     <Link href="/topics">
                       <a
