@@ -1,6 +1,7 @@
 import { Icon } from "@iconify/react"
 import { useAppSelector, useAppDispatch } from "hooks"
 import { FormEvent, useRef, useState } from "react"
+import { useTranslation, withTranslation } from "react-i18next"
 import {
   setOptionWeight,
   setOptionName,
@@ -9,9 +10,10 @@ import {
 } from "store/slice/user"
 import { BanditArm } from "types/mab"
 
-export default function OptionsSection() {
+const OptionsSection = () => {
   const { topics, selectedTopicId } = useAppSelector((state) => state.user)
   const dispatch = useAppDispatch()
+  const { t } = useTranslation("translation", { keyPrefix: "topics" })
 
   const [addOptionText, setAddOptionText] = useState("")
   const weightInput = useRef<HTMLInputElement>(null)
@@ -25,19 +27,19 @@ export default function OptionsSection() {
 
   const editWeight = (option: BanditArm) => {
     let weight: string | number = window.prompt(
-      "Enter the new weight",
+      t("editWeightPrompt"),
       option.bias + ""
     )
     if (!weight) return
 
     if (isNaN(Number(weight))) {
-      alert("Please enter a number")
+      alert(t("invalidWeight"))
       return
     }
 
     weight = Number(weight)
     if (weight < 1 || weight > 10) {
-      alert("Please enter a number between 1 and 10")
+      alert(t("weightOutOfRange"))
       return
     }
 
@@ -45,7 +47,7 @@ export default function OptionsSection() {
       setOptionWeight({
         topicId: selectedTopicId,
         optionId: option._id,
-        weight: Number(weight),
+        weight,
       })
     )
   }
@@ -53,7 +55,7 @@ export default function OptionsSection() {
   const editOptionName = (option: BanditArm) => {
     const { name: oldName, _id: optionId } = option
 
-    const name = window.prompt("Enter the new name", oldName)
+    const name = window.prompt(t("editOptionNamePrompt"), oldName)
     if (!name) return
 
     dispatch(setOptionName({ topicId: selectedTopicId, optionId, name }))
@@ -71,10 +73,14 @@ export default function OptionsSection() {
       text-center
       space-y-4 xl:space-y-12"
     >
-      <h1 className="font-Sen font-bold">Options</h1>
+      <h1 className="font-Sen font-bold">{t("options")}</h1>
       <div
-        className="w-full bg-slate-50 text-cyan-600
-                rounded-lg overflow-y-auto"
+        className="
+        w-full 
+        bg-slate-50 
+        text-cyan-600
+        rounded-lg 
+        overflow-y-auto"
       >
         <form
           onSubmit={handleOptionSubmit}
@@ -97,7 +103,7 @@ export default function OptionsSection() {
               border-0 border-b-2 border-slate-500/75
               focus:ring-transparent focus:border-slate-500
               "
-            placeholder="Bias"
+            placeholder={t("bias")}
           />
           <input
             value={addOptionText}
@@ -111,7 +117,7 @@ export default function OptionsSection() {
               border-0 border-b-2 border-slate-500/75
               focus:ring-transparent focus:border-slate-500
             "
-            placeholder="Add an option"
+            placeholder={t("addOptionPlaceholder")}
           />
           <button type="submit">
             <Icon
@@ -127,9 +133,12 @@ export default function OptionsSection() {
               <form
                 key={option._id}
                 className="
-                flex items-center space-x-4 px-4
-                      py-3
-                      even:bg-sky-100"
+                flex 
+                items-center 
+                space-x-4 
+                px-4
+                py-3
+              even:bg-sky-100"
               >
                 <div className="flex items-center gap-3">
                   <span>{option.bias}</span>
@@ -178,3 +187,5 @@ export default function OptionsSection() {
     </div>
   )
 }
+
+export default withTranslation()(OptionsSection)

@@ -1,3 +1,4 @@
+import { AvailableLanguages } from "./internationalization"
 import { RandomPolicy, BanditArm } from "./mab"
 
 export interface Topic {
@@ -10,6 +11,7 @@ export interface Topic {
 
 export interface User {
   _id: string
+  lang?: AvailableLanguages // 'en' | 'th'
   username: string
   selectedTopicId: string | null // the current selected topic
   topics: Topic[]

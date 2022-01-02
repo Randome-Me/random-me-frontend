@@ -4,16 +4,16 @@ import Head from "next/head"
 import TopicsSection from "components/pages/topics/TopicsSection"
 import OptionsSection from "components/pages/topics/OptionsSection"
 import CenteredSpanGlassLayout from "components/layout/CenteredSpanGlassLayout"
+import { useTranslation, withTranslation } from "react-i18next"
 
-export default function Topics() {
+const Topics = () => {
+  const { t } = useTranslation("translation", { keyPrefix: "topics" })
+
   return (
     <>
       <Head>
-        <title>Topics | Random Me</title>
-        <meta
-          name="description"
-          content="See all the topics and options that you can choose to random from. You can edit, add, or delete them here."
-        />
+        <title>{t("title")} | Random Me</title>
+        <meta name="description" content={t("description")} />
       </Head>
 
       <PageBackground src="/images/bg-topics.svg">
@@ -35,3 +35,5 @@ export default function Topics() {
     </>
   )
 }
+
+export default withTranslation()(Topics)

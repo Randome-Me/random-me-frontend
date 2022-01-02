@@ -1,4 +1,5 @@
 import Glass from "components/common/Glass"
+import LanguageSwitch from "components/common/LanguageSwitch"
 import PageBackground from "components/common/PageBackground"
 import ScreenCenterLayout from "components/layout/ScreenCenterLayout"
 
@@ -13,6 +14,15 @@ export default function LoginRegisterLayout({
 }: LoginRegisterLayoutProps) {
   return (
     <PageBackground src="/images/bg-login-register.svg">
+      <div
+        className="
+        fixed
+        bottom-4
+        left-4
+        "
+      >
+        <LanguageSwitch />
+      </div>
       <ScreenCenterLayout>
         <h1 className="sr-only">{topic}</h1>
         <main>

@@ -5,17 +5,17 @@ import ScreenCenterLayout from "components/layout/ScreenCenterLayout"
 import { useAppSelector } from "hooks"
 import Head from "next/head"
 import Image from "next/image"
+import { useTranslation, withTranslation } from "react-i18next"
 
-export default function Account() {
+const Account = () => {
   const user = useAppSelector((state) => state.user)
+  const { t } = useTranslation("translation", { keyPrefix: "account" })
+
   return (
     <>
       <Head>
-        <title>Account | Random Me</title>
-        <meta
-          name="description"
-          content="This is where you can edit your account information?"
-        />
+        <title>{t("title")} | Random Me</title>
+        <meta name="description" content={t("description")} />
       </Head>
 
       <PageBackground src="/images/bg-account.svg">
@@ -23,8 +23,13 @@ export default function Account() {
           <ScreenCenterLayout>
             <Glass className="space-y-4">
               <div
-                className="w-40 h-40 overflow-hidden rounded-full
-                border mx-auto"
+                className="
+              w-40 
+              h-40 
+              overflow-hidden 
+              rounded-full
+              border 
+              mx-auto"
               >
                 <Image
                   alt="Profile"
@@ -35,9 +40,20 @@ export default function Account() {
                 />
               </div>
               <div>
-                <h1 className="font-Sen font-extrabold">{user.username}</h1>
-                <a href="#" className="clickable-text-cyan text-sm block">
-                  Reset password
+                <h1
+                  className="
+                font-Sen
+                font-extrabold"
+                >
+                  {user.username}
+                </h1>
+                <a
+                  href="#"
+                  className="
+                clickable-text-cyan
+                text-sm block"
+                >
+                  {t("resetPassword")}
                 </a>
               </div>
             </Glass>
@@ -47,3 +63,5 @@ export default function Account() {
     </>
   )
 }
+
+export default withTranslation()(Account)

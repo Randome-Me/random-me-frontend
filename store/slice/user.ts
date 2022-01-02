@@ -1,3 +1,4 @@
+import { AvailableLanguages } from "types/internationalization"
 import { RandomPolicy } from "types/mab"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { User, dumbUser } from "types"
@@ -138,6 +139,12 @@ export const userSlice = createSlice({
           bias: weight,
         })
     },
+    changeLanguage: (
+      state,
+      { payload: { language } }: PayloadAction<{ language: AvailableLanguages }>
+    ) => {
+      state.lang = language
+    },
   },
 })
 
@@ -154,6 +161,7 @@ export const {
   removeTopic,
   addTopic,
   addOption,
+  changeLanguage,
 } = userSlice.actions
 
 const userReducer = userSlice.reducer
