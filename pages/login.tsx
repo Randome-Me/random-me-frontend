@@ -3,16 +3,16 @@ import LoginRegisterLayout from "components/layout/LoginRegisterLayout"
 import ContinueAsGuest from "components/pages/login/ContinueAsGuest"
 import LoginForm from "components/pages/login/LoginForm"
 import LoginSocialMedia from "components/pages/login/LoginSocialMedia"
+import { useTranslation, withTranslation } from "react-i18next"
 
-export default function Login() {
+const Login = () => {
+  const { t } = useTranslation("translation", { keyPrefix: "login" })
+
   return (
     <>
       <Head>
-        <title>Login | Random Me</title>
-        <meta
-          name="description"
-          content="Login to Random Me or continue as guest."
-        />
+        <title>{t("title")} | Random Me</title>
+        <meta name="description" content={t("description")} />
       </Head>
 
       <LoginRegisterLayout topic="Login">
@@ -23,3 +23,5 @@ export default function Login() {
     </>
   )
 }
+
+export default withTranslation()(Login)

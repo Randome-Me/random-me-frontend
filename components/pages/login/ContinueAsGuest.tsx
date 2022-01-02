@@ -1,12 +1,15 @@
 import { Icon } from "@iconify/react"
 import Link from "next/link"
+import { useTranslation, withTranslation } from "react-i18next"
 
-export default function ContinueAsGuest() {
+const ContinueAsGuest = () => {
+  const { t } = useTranslation("translation", { keyPrefix: "login" })
+
   return (
     <span className="block text-center">
-      or{" "}
+      {t("or") + " "}
       <Link href="/">
-        <a className="clickable-text-cyan mr-2">continue as guest</a>
+        <a className="clickable-text-cyan mr-2">{t("continueAsGuest")}</a>
       </Link>
       <a href="#">
         <Icon
@@ -17,3 +20,5 @@ export default function ContinueAsGuest() {
     </span>
   )
 }
+
+export default withTranslation()(ContinueAsGuest)

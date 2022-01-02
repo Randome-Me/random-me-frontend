@@ -2,21 +2,32 @@ import { Arm } from "./MAB/Arm"
 import store from "store"
 import { RandomPolicy } from "types/mab"
 import { getProbabilityOfEveryArm } from "./MAB"
+import i18n from "locales"
+import { t as translate } from "i18next"
+
+export const switchLanguage = () => {
+  i18n.changeLanguage(
+    {
+      en: "th",
+      th: "en",
+    }[i18n.language]
+  )
+}
 
 export const decodePolicy = (policy: RandomPolicy) => {
   switch (policy) {
     case RandomPolicy.EQUAL_WEIGHT:
-      return "equal weight"
+      return "Equal Weight"
     case RandomPolicy.RANDOMIZE:
-      return "randomize"
+      return "Randomize"
     case RandomPolicy.EPSILON_GREEDY:
-      return "epsilon greedy"
+      return "Epsilon Greedy"
     case RandomPolicy.SOFTMAX:
-      return "softmax"
+      return "Softmax"
     case RandomPolicy.UCB:
-      return "ucb"
+      return "UCB1"
     case RandomPolicy.MULTINOMIAL:
-      return "multinomial"
+      return "Multinomial"
     default:
       throw new Error(`Unknown policy: ${policy}`)
   }
@@ -70,7 +81,7 @@ export const randomMe = () => {
   const { arms, probabilityOfEveryArm } = getArmsWithProbabilities()
   const selectedArm = choice(arms, probabilityOfEveryArm)
   const reward = confirm(
-    `Selected ${selectedArm.name}\nDo you like this option?`
+    translate("utils.randomConfirm", { option: selectedArm.name })
   )
   selectedArm.pull(reward ? 1 : 0)
 }
