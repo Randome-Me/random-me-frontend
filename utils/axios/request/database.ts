@@ -1,3 +1,4 @@
+import { AvailableLanguages } from "types/internationalization"
 import { RandomPolicy } from "types/mab"
 import axiosClientInstance from "../instance/client"
 
@@ -91,5 +92,12 @@ export const addOptionDB = (topicId: string, name: string) => {
   return axiosClientInstance.post<ResponseData>(`/options/add`, {
     topicId,
     name,
+  })
+}
+
+export const changeLanguageDB = (language: AvailableLanguages) => {
+  interface ResponseData {}
+  return axiosClientInstance.post<ResponseData>(`/language`, {
+    language,
   })
 }
