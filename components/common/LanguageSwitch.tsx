@@ -19,6 +19,8 @@ const LanguageSwitch = () => {
     <div
       className="
     inline-block
+    bg-slate-50
+    rounded
     "
     >
       {languages.map((language) => (
@@ -37,7 +39,7 @@ const LanguageSwitch = () => {
         hover:bg-gray-700
         focus:outline-none
         focus:shadow-outline
-        ${language === i18n.language ? "bg-yellow-400" : ""}
+        ${language === i18n.language ? "bg-yellow-400" : "opacity-75"}
         `}
           onClick={() => handleChangeLanguage(language)}
         >

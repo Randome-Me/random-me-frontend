@@ -17,7 +17,8 @@ export default function LoginRegisterLayout({
       <div
         className="
         fixed
-        inset-4
+        bottom-4
+        left-4
         "
       >
         <LanguageSwitch />
