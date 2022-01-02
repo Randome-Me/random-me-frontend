@@ -8,9 +8,11 @@ import Link from "next/link"
 import { useEffect, useState } from "react"
 import { changeTopicPolicy, selectTopic } from "store/slice/user"
 import { RandomPolicy } from "types/mab"
-import { decodePolicy, getProbabilities, randomMe, switchLanguage } from "utils"
+import { decodePolicy, getProbabilities } from "utils"
 import { useTranslation } from "react-i18next"
 import { withTranslation } from "react-i18next"
+import RandomMeButton from "components/pages/home/RandomMeButton"
+import ProbabilityTable from "components/pages/home/ProbabilityTable"
 
 const policies: RandomPolicy[] = [
   RandomPolicy.MULTINOMIAL,
@@ -66,18 +68,7 @@ const Home = () => {
                 md:px-24"
             >
               <main className="space-y-10">
-                <button
-                  onClick={randomMe}
-                  className="text-slate-50 text-shadow-lg
-                        font-Sen font-extrabold hover:text-yellow-300 underline
-                        decoration-slate-50 hover:decoration-yellow-300
-                        active:text-shadow-none block shadow-slate-50 tracking-tighter
-                        transition-all duration-300
-                        mx-auto
-                        text-[2.5rem] sm:text-7xl md:text-8xl"
-                >
-                  Random Me!
-                </button>
+                <RandomMeButton />
                 <div className="flex flex-col items-center">
                   <div>
                     <div className="flex item-center justify-center md:justify-start">
@@ -164,12 +155,14 @@ const Home = () => {
                         <input
                           type="checkbox"
                           onChange={() => setShowInfo(!showInfo)}
-                          className="rounded bg-transparent
-                              text-yellow-600
-                              focus:ring-0
-                              focus:ring-offset-transparent
-                              focus:ring-transparent
-                            "
+                          className="
+                          rounded 
+                          bg-transparent
+                          text-yellow-600
+                          focus:ring-0
+                          focus:ring-offset-transparent
+                          focus:ring-transparent
+                          "
                         />
                         <span className="self-center font-semibold hover:text-slate-700">
                           {t("see probabilities")}
@@ -179,42 +172,7 @@ const Home = () => {
                   </div>
                 </div>
                 {showInfo && (
-                  <div className="grid items-center text-center">
-                    <h3
-                      className="capitalize underline decoration-wavy
-                      decoration-yellow-400"
-                    >
-                      {probabilityInfo.policyName}
-                    </h3>
-                    <table className="table-auto">
-                      <thead>
-                        <tr>
-                          <th className="px-4 py-2">{t("probability")}</th>
-                          <th className="px-4 py-2">{t("option")}</th>
-                        </tr>
-                      </thead>
-                      <tbody className="font-medium">
-                        {probabilityInfo.armsWithProbability.map(
-                          ({ arm, probability }) => (
-                            <tr key={arm._id} className="text-center">
-                              <td
-                                className="
-                                border border-slate-800 px-4 py-2"
-                              >
-                                {(probability * 100).toFixed(2)}%
-                              </td>
-                              <td
-                                className="
-                                border border-slate-800 px-4 py-2"
-                              >
-                                {arm.name}
-                              </td>
-                            </tr>
-                          )
-                        )}
-                      </tbody>
-                    </table>
-                  </div>
+                  <ProbabilityTable probabilityInfo={probabilityInfo} />
                 )}
               </main>
             </Glass>
