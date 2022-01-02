@@ -1,9 +1,39 @@
+import { LocalStorageKey, User } from "types"
 import { Arm } from "./MAB/Arm"
 import store from "store"
 import { RandomPolicy } from "types/mab"
 import { getProbabilityOfEveryArm } from "./MAB"
 import i18n from "locales"
 import { t as translate } from "i18next"
+
+export const saveToLocal = (key: LocalStorageKey, data: any) => {
+  localStorage.setItem(key, JSON.stringify(data))
+}
+
+export const getFromLocal = <T>(key: LocalStorageKey): T | null => {
+  return JSON.parse(localStorage.getItem(key) || null)
+}
+
+export const getLocalUser = () => {
+  return (
+    getFromLocal<User>("user") ??
+    (() => {
+      const user = createLocalUser()
+      saveToLocal("user", user)
+      return user
+    })()
+  )
+}
+
+export const createLocalUser = (): User => {
+  const user = {
+    _id: Date.now() + "",
+    username: "guest",
+    selectedTopicId: null,
+    topics: [],
+  }
+  return user
+}
 
 export const switchLanguage = () => {
   i18n.changeLanguage(
@@ -49,9 +79,17 @@ const getArmsWithProbabilities = () => {
   const {
     user: { selectedTopicId, topics },
   } = store.getState()
-  const { options, t, policy } = topics.find(
-    (topic) => topic._id === selectedTopicId
-  )
+
+  const selectedTopic = topics.find((topic) => topic._id === selectedTopicId)
+  if (!selectedTopic) {
+    return {
+      arms: [],
+      probabilities: [],
+      policy: RandomPolicy.RANDOMIZE,
+    }
+  }
+
+  const { options, t, policy } = selectedTopic
   const arms = options.map((arm) => new Arm(arm))
   const states = arms.map((arm) => arm.state())
 

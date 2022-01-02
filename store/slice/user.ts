@@ -1,9 +1,10 @@
 import { AvailableLanguages } from "types/internationalization"
 import { RandomPolicy } from "types/mab"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
-import { User, dumbUser } from "types"
+import { User } from "types"
+import { createLocalUser } from "utils"
 
-const initialState: User | null = dumbUser
+const initialState: User = createLocalUser()
 
 export const userSlice = createSlice({
   name: "user",
@@ -99,13 +100,7 @@ export const userSlice = createSlice({
         state.topics.findIndex((topic) => topic._id === topicId),
         1
       )
-      // select the first topic if there is one
-      // else set selectedTopicId to null
-      if (state.topics.length > 0) {
-        selectTopic({ topicId: state.topics[0]._id })
-        return
-      }
-      resetSelectedTopic()
+      // resetSelectedTopic()
     },
     addTopic: (
       state,
@@ -113,8 +108,9 @@ export const userSlice = createSlice({
     ) => {
       // TODO: add this topic to the database
       // const topic = get from db
+      const _id = Date.now() + ""
       state.topics.push({
-        _id: `${Math.random()}${Math.random()}`,
+        _id,
         name,
         options: [],
         policy: RandomPolicy.MULTINOMIAL,
@@ -124,9 +120,10 @@ export const userSlice = createSlice({
     addOption: (
       state,
       {
-        payload: { topicId, name, weight = 1 },
-      }: PayloadAction<{ topicId: string; name: string; weight?: number }>
+        payload: { topicId, name, bias = 1 },
+      }: PayloadAction<{ topicId: string; name: string; bias?: number }>
     ) => {
+      console.log(">>> | add option to topicId", topicId)
       // TODO: add this option to the database
       // const option = get from database
       state.topics
@@ -136,7 +133,7 @@ export const userSlice = createSlice({
           name,
           pulls: 0,
           reward: 0,
-          bias: weight,
+          bias,
         })
     },
     changeLanguage: (

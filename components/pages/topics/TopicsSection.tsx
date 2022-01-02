@@ -5,6 +5,7 @@ import { useTranslation, withTranslation } from "react-i18next"
 import {
   addTopic,
   removeTopic,
+  resetSelectedTopic,
   selectTopic,
   setTopicName,
 } from "store/slice/user"
@@ -31,8 +32,10 @@ const TopicsSection = () => {
 
     dispatch(setTopicName({ topicId: selectedTopicId, name }))
   }
+
   const deleteTopic = () => {
     dispatch(removeTopic({ topicId: selectedTopicId }))
+    dispatch(resetSelectedTopic())
   }
 
   return (
@@ -85,7 +88,9 @@ const TopicsSection = () => {
         </div>
         {topics.map((topic) => (
           <div
-            onClick={() => dispatch(selectTopic({ topicId: topic._id }))}
+            onClick={() => {
+              dispatch(selectTopic({ topicId: topic._id }))
+            }}
             key={topic._id}
             className={`
             w-full 
@@ -115,7 +120,10 @@ const TopicsSection = () => {
                   icon="clarity:edit-solid"
                 />
                 <Icon
-                  onClick={() => deleteTopic()}
+                  onClick={(e) => {
+                    deleteTopic()
+                    e.stopPropagation()
+                  }}
                   className="
                   w-5 
                   h-5 

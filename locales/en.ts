@@ -28,6 +28,7 @@ const en = {
       "see probabilities": "See probabilities",
       probability: "Probability",
       option: "Option",
+      noTopics: "No topics yet. Add one!",
     },
     topics: {
       title: "Topics",

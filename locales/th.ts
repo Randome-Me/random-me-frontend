@@ -28,6 +28,7 @@ const th = {
       "see probabilities": "ดูความน่าจะเป็น",
       probability: "ความน่าจะเป็น",
       option: "ตัวเลือก",
+      noTopics: "ยังไม่มีหัวข้อเลย เพิ่มสิ",
     },
     topics: {
       title: "หัวข้อ",
