@@ -7,8 +7,11 @@ import LoginRegisterLayout from "components/layout/LoginRegisterLayout"
 import Head from "next/head"
 import Link from "next/link"
 import { FormEvent, useState } from "react"
+import { useTranslation } from "react-i18next"
 
 export default function Register() {
+  const { t } = useTranslation("translation", { keyPrefix: "register" })
+
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -22,11 +25,8 @@ export default function Register() {
   return (
     <>
       <Head>
-        <title>Register | Random Me</title>
-        <meta
-          name="description"
-          content="Register a new account with Random Me."
-        />
+        <title>{t("title")} | Random Me</title>
+        <meta name="description" content={t("description")} />
       </Head>
 
       <LoginRegisterLayout topic="Register">

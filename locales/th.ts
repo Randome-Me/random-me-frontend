@@ -3,6 +3,22 @@ const th = {
     utils: {
       randomConfirm: "สุ่มได้ {{option}}\nคุณชอบตัวเลือกนี้หรือไม่",
     },
+    login: {
+      title: "ลงชื่อเข้าใช้",
+      description: "ลงชื่อเข้าใช้ Random Me หรือ ดำเนินการต่อเป็นผู้ใช้ทั่วไป",
+      emptyUsernameAlert: "กรุณากรอกชื่อผู้ใช้ของคุณ",
+      emptyPasswordAlert: "กรุณากรอกรหัสผ่านของคุณ",
+      username: "ชื่อผู้ใช้",
+      password: "รหัสผ่าน",
+      forgotPassword: "ลืมรหัสผ่าน?",
+      register: "ลงทะเบียน",
+      orLoginWith: "หรือลงชื่อเข้าใช้ด้วย",
+      srOnlyWithGoogle: "ลงชื่อเข้าใช้ด้วย Google",
+      srOnlyWithFacebook: "ลงชื่อเข้าใช้ด้วย Facebook",
+      or: "หรือ",
+      continueAsGuest: "ดำเนินการต่อแบบผู้ใช้ทั่วไป",
+      login: "ลงชื่อเข้าใช้",
+    },
     home: {
       title: "สุ่ม",
       description: "มาสุ่มชะตาชีวิตของเราด้วย Random Me กันเถอะ",

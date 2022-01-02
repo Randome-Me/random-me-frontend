@@ -3,6 +3,22 @@ const en = {
     utils: {
       randomConfirm: "Selected {{option}}\nDo you like this option?",
     },
+    login: {
+      title: "Login",
+      description: "Login to Random Me or continue as guest.",
+      emptyUsernameAlert: "Please enter your username.",
+      emptyPasswordAlert: "Please enter your password.",
+      username: "Username",
+      password: "Password",
+      forgotPassword: "Forgot password?",
+      register: "Register",
+      orLoginWith: "Or login with",
+      srOnlyWithGoogle: "Login with Google",
+      srOnlyWithFacebook: "Login with Facebook",
+      or: "or",
+      continueAsGuest: "continue as guest",
+      login: "Login",
+    },
     home: {
       title: "Random",
       description: "Let's randomize your life decisions with Random Me!",
