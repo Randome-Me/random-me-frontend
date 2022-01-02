@@ -28,16 +28,11 @@ export const pullDB = (optionId: string, reward: 0 | 1) => {
   })
 }
 
-export const setOptionBiasDB = (
-  topicId: string,
-  optionId: string,
-  weight: number
-) => {
+export const setOptionBiasDB = (optionId: string, bias: number) => {
   interface ResponseData {}
   return axiosClientInstance.post<ResponseData>(`/options/bias`, {
-    topicId,
     optionId,
-    weight,
+    bias,
   })
 }
 
@@ -49,23 +44,17 @@ export const setTopicNameDB = (topicId: string, name: string) => {
   })
 }
 
-export const setOptionNameDB = (
-  topicId: string,
-  optionId: string,
-  name: string
-) => {
+export const setOptionNameDB = (optionId: string, name: string) => {
   interface ResponseData {}
   return axiosClientInstance.post<ResponseData>(`/options/name`, {
-    topicId,
     optionId,
     name,
   })
 }
 
-export const removeOptionDB = (topicId: string, optionId: string) => {
+export const removeOptionDB = (optionId: string) => {
   interface ResponseData {}
   return axiosClientInstance.post<ResponseData>(`/options/remove`, {
-    topicId,
     optionId,
   })
 }
