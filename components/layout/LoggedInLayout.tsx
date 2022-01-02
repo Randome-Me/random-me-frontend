@@ -1,5 +1,6 @@
 import Sidebar from "components/common/Sidebar"
 import MobileSidebar from "components/common/MobileSidebar"
+import LanguageSwitch from "components/common/LanguageSwitch"
 
 interface LoggedInLayoutProps {
   children?: React.ReactNode
@@ -44,7 +45,17 @@ export default function LoggedInLayout({ children }: LoggedInLayoutProps) {
         w-[14rem]
         h-[5rem]
         "
-      ></div>
+      >
+        <div
+          className="
+        lg:flex
+        justify-center
+        pt-[2rem]
+        "
+        >
+          <LanguageSwitch />
+        </div>
+      </div>
     </div>
   )
 }
