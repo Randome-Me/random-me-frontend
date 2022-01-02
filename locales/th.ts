@@ -39,7 +39,7 @@ const th = {
       weightOutOfRange: "กรุณาใส่ตัวเลขระหว่าง 1 และ 10",
       editOptionNamePrompt: "ใส่ชื่อตัวเลือกใหม่",
       options: "ตัวเลือก",
-      bias: "ค่าน้ำหนัก",
+      bias: "น้ำหนัก",
       addOptionPlaceholder: "เพิ่มตัวเลือก",
     },
     account: {
