@@ -1,5 +1,8 @@
 const en = {
   translation: {
+    utils: {
+      randomConfirm: "Selected {{option}}\nDo you like this option?",
+    },
     home: {
       title: "Random",
       description: "Let's randomize your life decisions with Random Me!",

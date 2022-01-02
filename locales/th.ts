@@ -1,5 +1,8 @@
 const th = {
   translation: {
+    utils: {
+      randomConfirm: "สุ่มได้ {{option}}\nคุณชอบตัวเลือกนี้หรือไม่",
+    },
     home: {
       title: "สุ่ม",
       description: "มาสุ่มชะตาชีวิตของเราด้วย Random Me กันเถอะ",

@@ -3,6 +3,7 @@ import store from "store"
 import { RandomPolicy } from "types/mab"
 import { getProbabilityOfEveryArm } from "./MAB"
 import i18n from "locales"
+import { t as translate } from "i18next"
 
 export const switchLanguage = () => {
   i18n.changeLanguage(
@@ -80,7 +81,7 @@ export const randomMe = () => {
   const { arms, probabilityOfEveryArm } = getArmsWithProbabilities()
   const selectedArm = choice(arms, probabilityOfEveryArm)
   const reward = confirm(
-    `Selected ${selectedArm.name}\nDo you like this option?`
+    translate("utils.randomConfirm", { option: selectedArm.name })
   )
   selectedArm.pull(reward ? 1 : 0)
 }
