@@ -1,4 +1,3 @@
-import { Topic } from "types"
 import { ArmState, RandomPolicy } from "types/mab"
 import { Arm } from "./Arm"
 import {
@@ -32,15 +31,5 @@ export const getProbabilityOfEveryArm = (
       return multinomial(biases)
     default:
       throw new Error(`Unknown policy: ${policy}`)
-  }
-}
-
-export const createDefaultTopic = (name: string): Topic => {
-  return {
-    _id: Date.now() + "",
-    name,
-    options: [],
-    policy: RandomPolicy.MULTINOMIAL,
-    t: 0,
   }
 }

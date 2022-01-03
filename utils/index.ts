@@ -1,4 +1,4 @@
-import { LocalStorageKey, User } from "types"
+import { LocalStorageKey, Topic, User } from "types"
 import { Arm } from "./MAB/Arm"
 import store from "store"
 import { RandomPolicy } from "types/mab"
@@ -119,4 +119,14 @@ export const randomMe = () => {
     translate("utils.randomConfirm", { option: selectedArm.name })
   )
   selectedArm.pull(reward ? 1 : 0)
+}
+
+export const createDefaultTopic = (name: string): Topic => {
+  return {
+    _id: Date.now() + "",
+    name,
+    options: [],
+    policy: RandomPolicy.MULTINOMIAL,
+    t: 0,
+  }
 }

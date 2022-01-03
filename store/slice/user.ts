@@ -1,4 +1,4 @@
-import { createDefaultTopic } from "utils/MAB"
+import { createDefaultTopic } from "utils"
 import { minBias } from "utils/constants"
 import { AvailableLanguages } from "types/internationalization"
 import { RandomPolicy } from "types/mab"
