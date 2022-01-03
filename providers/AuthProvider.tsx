@@ -1,5 +1,7 @@
 import { useAppDispatch, useAppSelector } from "hooks"
+import { fallbackLng } from "locales"
 import { useEffect, useRef } from "react"
+import { useTranslation } from "react-i18next"
 import { setUser } from "store/slice/user"
 import { getLocalUser, saveToLocal } from "utils"
 
@@ -8,6 +10,7 @@ interface AuthProviderProps {
 }
 
 const AuthProvider = ({ children }: AuthProviderProps) => {
+  const { i18n } = useTranslation()
   const user = useAppSelector((state) => state.user)
   const dispatch = useAppDispatch()
 
@@ -23,7 +26,9 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   }, [user])
 
   useEffect(() => {
-    dispatch(setUser(getLocalUser()))
+    const user = getLocalUser()
+    dispatch(setUser(user))
+    i18n.changeLanguage(user.lang ?? fallbackLng)
   }, [])
 
   return <div>{children}</div>
