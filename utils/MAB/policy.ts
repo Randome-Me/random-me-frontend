@@ -71,7 +71,7 @@ export const softmax = (
   return normalizedExpoPowers.map((p) => Math.exp(p) / denominator)
 }
 
-export const ucb = (states: ArmState[], t: number): ProbabilityOfEveryArm => {
+export const ucb1 = (states: ArmState[], t: number): ProbabilityOfEveryArm => {
   const selectedArmIndex = argMaxOfNumbers(
     states.map(
       ([pulls, reward]) =>
