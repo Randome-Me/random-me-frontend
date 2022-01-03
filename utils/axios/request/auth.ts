@@ -2,20 +2,20 @@ import axiosClientInstance from "../instance/client"
 
 export const checkMe = () => {
   interface ResponseData {}
-  return axiosClientInstance.get<ResponseData>("/auth/me")
+  return axiosClientInstance.get<ResponseData>("auth/me")
 }
 
-export const login = (email: string, password: string) => {
+export const login = (username: string, password: string) => {
   interface ResponseData {}
-  return axiosClientInstance.post<ResponseData>("/auth/login", {
-    email,
+  return axiosClientInstance.post<ResponseData>("auth/login", {
+    username,
     password,
   })
 }
 
 export const logout = () => {
   interface ResponseData {}
-  return axiosClientInstance.post<ResponseData>("/auth/logout")
+  return axiosClientInstance.post<ResponseData>("auth/logout")
 }
 
 export const register = (
@@ -25,7 +25,7 @@ export const register = (
   confirmPassword: string
 ) => {
   interface ResponseData {}
-  return axiosClientInstance.post<ResponseData>("/auth/register", {
+  return axiosClientInstance.post<ResponseData>("auth/register", {
     email,
     username,
     password,
