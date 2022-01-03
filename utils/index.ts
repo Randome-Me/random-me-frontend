@@ -140,9 +140,9 @@ export const randomMe = () => {
   selectedArm.pull(reward ? 1 : 0)
 }
 
-export const createDefaultTopic = (name: string): Topic => {
+export const createDefaultTopic = (_id: string, name: string): Topic => {
   return {
-    _id: Date.now() + "",
+    _id,
     name,
     options: [],
     policy: RandomPolicy.MULTINOMIAL,

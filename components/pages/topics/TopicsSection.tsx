@@ -5,18 +5,25 @@ import { useTranslation, withTranslation } from "react-i18next"
 import {
   addTopic,
   removeTopic,
+  resetSelectedTopic,
   selectTopic,
   setTopicName,
 } from "store/slice/user"
 import {
   addTopicDB,
   removeTopicDB,
+  resetSelectTopicDB,
   selectTopicDB,
   setTopicNameDB,
 } from "utils/axios/request/database"
+import { anonymousUserId } from "utils/constants"
 
 const TopicsSection = () => {
-  const { topics, selectedTopicId } = useAppSelector((state) => state.user)
+  const {
+    topics,
+    selectedTopicId,
+    _id: userId,
+  } = useAppSelector((state) => state.user)
   const dispatch = useAppDispatch()
   const { t } = useTranslation("translation", { keyPrefix: "topics" })
 
@@ -24,8 +31,23 @@ const TopicsSection = () => {
 
   const handleTopicSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    await addTopicDB(addTopicText)
-    dispatch(addTopic({ name: addTopicText }))
+    if (addTopicText.trim() === "") {
+      alert(t("emptyTopicAlert"))
+      return
+    }
+
+    let newTopicId: string
+
+    if (userId === anonymousUserId) {
+      newTopicId = Date.now() + "" + Math.floor(Math.random() * 1000)
+    } else {
+      const {
+        data: { _id },
+      } = await addTopicDB(addTopicText)
+      newTopicId = _id
+    }
+
+    dispatch(addTopic({ newTopicId, name: addTopicText }))
     setAddTopicText("")
   }
 
@@ -41,16 +63,14 @@ const TopicsSection = () => {
   }
 
   const deleteTopic = async () => {
-    // remove the topic
-    // await removeTopicDB(selectedTopicId)
+    await removeTopicDB(selectedTopicId)
     dispatch(removeTopic({ topicId: selectedTopicId }))
+    await resetSelectTopicDB()
     dispatch(resetSelectedTopic())
-    // then select the first topic
-    // await handleSelectTopic(topics.length ? topics[0]._id : null)
   }
 
   const handleSelectTopic = async (topicId: string) => {
-    // await selectTopicDB(topicId)
+    await selectTopicDB(topicId)
     dispatch(selectTopic({ topicId }))
   }
 
@@ -155,6 +175,3 @@ const TopicsSection = () => {
 }
 
 export default withTranslation()(TopicsSection)
-function resetSelectedTopic(): any {
-  throw new Error("Function not implemented.")
-}

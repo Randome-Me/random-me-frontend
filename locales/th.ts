@@ -57,6 +57,7 @@ const th = {
       options: "ตัวเลือก",
       bias: "น้ำหนัก",
       addOptionPlaceholder: "เพิ่มตัวเลือก",
+      emptyTopicAlert: "กรุณาเพิ่มหัวข้อก่อน",
     },
     account: {
       title: "บัญชี",

@@ -6,12 +6,13 @@ import axiosClientInstance from "../instance/client"
  * Create a new topic
  */
 export const addTopicDB = (name: string) => {
-  interface ResponseData {}
+  interface ResponseData {
+    _id: string
+  }
   return axiosClientInstance.post<ResponseData>(`topics`, {
     name,
   })
 }
-
 /**
  * Add a new option to a topic
  */
@@ -23,10 +24,21 @@ export const addOptionDB = (topicId: string, name: string, bias: number) => {
   })
 }
 
-export const selectTopicDB = (topicId: string) => {
+/**
+ * @param topicId topic id to select or if null, reset the selectedTopicId field
+ * @returns
+ */
+export const selectTopicDB = (topicId: string | null) => {
   interface ResponseData {}
-  return axiosClientInstance.put<ResponseData>(`topics/${topicId}`, {
+  return axiosClientInstance.patch<ResponseData>(`topics`, {
     topicId,
+  })
+}
+
+export const resetSelectTopicDB = () => {
+  interface ResponseData {}
+  return axiosClientInstance.patch<ResponseData>(`topics`, {
+    topicId: null,
   })
 }
 
@@ -62,7 +74,7 @@ export const pullDB = (topicId: string, optionId: string, reward: 0 | 1) => {
   return axiosClientInstance.post<ResponseData>(
     `topics/${topicId}/${optionId}`,
     {
-      reward: Boolean(reward),
+      reward,
     }
   )
 }

@@ -95,6 +95,9 @@ export const userSlice = createSlice({
         1
       )
     },
+    resetSelectedTopic: (state) => {
+      state.selectedTopicId = null
+    },
     removeTopic: (
       state,
       { payload: { topicId } }: PayloadAction<{ topicId: string }>
@@ -107,11 +110,13 @@ export const userSlice = createSlice({
     },
     addTopic: (
       state,
-      { payload: { name } }: PayloadAction<{ name: string }>
+      {
+        payload: { name, newTopicId },
+      }: PayloadAction<{ name: string; newTopicId: string }>
     ) => {
       // TODO: get the topic passed in as a payload instead of using a dummy
       // const topic = get from db
-      state.topics.push(createDefaultTopic(name))
+      state.topics.push(createDefaultTopic(newTopicId, name))
     },
     addOption: (
       state,
@@ -146,6 +151,7 @@ export const {
   removeOption,
   removeTopic,
   addTopic,
+  resetSelectedTopic,
   addOption,
   changeLanguage,
 } = userSlice.actions
