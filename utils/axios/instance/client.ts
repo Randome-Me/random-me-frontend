@@ -5,7 +5,7 @@ const axiosClientInstance = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
-  baseURL: process.env.BACKEND_BASE_URL,
+  baseURL: "api/",
 })
 
 export default axiosClientInstance

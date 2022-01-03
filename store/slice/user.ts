@@ -1,12 +1,13 @@
+import { createNullUser } from "utils"
 import { createDefaultTopic } from "utils"
 import { minBias } from "utils/constants"
 import { AvailableLanguages } from "types/internationalization"
 import { RandomPolicy } from "types/mab"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { User } from "types"
-import { createLocalUser } from "utils"
 
-const initialState: User = createLocalUser()
+const initialState: User = createNullUser()
+// const initialState: User = null
 
 export const userSlice = createSlice({
   name: "user",
@@ -118,7 +119,6 @@ export const userSlice = createSlice({
         payload: { topicId, name, bias = minBias },
       }: PayloadAction<{ topicId: string; name: string; bias?: number }>
     ) => {
-      console.log(">>> | add option to topicId", topicId)
       // TODO: add this option to the database
       // const option = get from database
       state.topics

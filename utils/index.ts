@@ -5,6 +5,7 @@ import { RandomPolicy } from "types/mab"
 import { getProbabilityOfEveryArm } from "./MAB"
 import i18n from "locales"
 import { t as translate } from "i18next"
+import { anonymousUserId, nullUserId } from "./constants"
 
 export const saveToLocal = (key: LocalStorageKey, data: any) => {
   localStorage.setItem(key, JSON.stringify(data))
@@ -15,21 +16,25 @@ export const getFromLocal = <T>(key: LocalStorageKey): T | null => {
 }
 
 export const getLocalUser = () => {
-  let user = getFromLocal<User>("user")
-  if (user) return user
-  user = createLocalUser()
-  saveToLocal("user", user)
-  return user
+  return getFromLocal<User>("user")
 }
 
-export const createLocalUser = (): User => {
+export const createLocalUser = (_id: string): User => {
   const user = {
-    _id: Date.now() + "",
-    username: "guest",
+    _id,
+    username: _id,
     selectedTopicId: null,
     topics: [],
   }
   return user
+}
+
+export const createNullUser = () => {
+  return createLocalUser(nullUserId)
+}
+
+export const createAnonymousUser = () => {
+  return createLocalUser(anonymousUserId)
 }
 
 export const switchLanguage = () => {

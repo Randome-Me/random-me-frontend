@@ -19,6 +19,7 @@ const en = {
       or: "or",
       continueAsGuest: "continue as guest",
       login: "Login",
+      loginFailedAlert: "Login failed. Please try again.",
     },
     register: {
       title: "Register",

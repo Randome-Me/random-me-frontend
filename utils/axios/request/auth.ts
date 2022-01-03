@@ -1,8 +1,16 @@
+import { User } from "types"
 import axiosClientInstance from "../instance/client"
 
-export const checkMe = () => {
-  interface ResponseData {}
-  return axiosClientInstance.get<ResponseData>("auth/me")
+export const checkMe = async () => {
+  type ResponseData = User
+  const { data } = await axiosClientInstance
+    .get<ResponseData>("auth/me")
+    .catch<{
+      data: null
+    }>(() => ({
+      data: null,
+    }))
+  return data
 }
 
 export const login = (username: string, password: string) => {

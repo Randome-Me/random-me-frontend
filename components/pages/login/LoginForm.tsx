@@ -2,17 +2,23 @@ import {
   LoginInputText,
   LoginInputPassword,
 } from "components/common/LoginInput"
+import { useAppDispatch } from "hooks"
 import Link from "next/link"
+import { useRouter } from "next/router"
 import { FormEvent, useState } from "react"
 import { useTranslation, withTranslation } from "react-i18next"
+import { setUser } from "store/slice/user"
+import { checkMe, login } from "utils/axios/request/auth"
 
 const LoginForm = () => {
   const { t } = useTranslation("translation", { keyPrefix: "login" })
+  const dispatch = useAppDispatch()
+  const router = useRouter()
 
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (username.trim() === "") {
       alert(t("emptyUsernameAlert"))
@@ -23,9 +29,15 @@ const LoginForm = () => {
       return
     }
 
-    // TODO: go to home page
-    setUsername("")
+    await login(username, password).catch(() => {
+      alert(t("loginFailedAlert"))
+    })
+
+    dispatch(setUser(await checkMe()))
+    router.replace("/")
+
     setPassword("")
+    setUsername("")
   }
 
   const handleForgotPassword = () => {
