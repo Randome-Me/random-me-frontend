@@ -8,7 +8,7 @@ import { useRouter } from "next/router"
 import { FormEvent, useState } from "react"
 import { useTranslation, withTranslation } from "react-i18next"
 import { setUser } from "store/slice/user"
-import { checkMe, login } from "utils/axios/request/auth"
+import { login } from "utils/axios/request/auth"
 
 const LoginForm = () => {
   const { t } = useTranslation("translation", { keyPrefix: "login" })
@@ -20,6 +20,7 @@ const LoginForm = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+
     if (username.trim() === "") {
       alert(t("emptyUsernameAlert"))
       return
@@ -29,11 +30,13 @@ const LoginForm = () => {
       return
     }
 
-    await login(username, password).catch(() => {
+    const user = await login(username, password)
+    if (!user) {
       alert(t("loginFailedAlert"))
-    })
+      return
+    }
 
-    dispatch(setUser(await checkMe()))
+    dispatch(setUser(user))
     router.replace("/")
 
     setPassword("")

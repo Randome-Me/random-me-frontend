@@ -13,12 +13,19 @@ export const checkMe = async () => {
   return data
 }
 
-export const login = (username: string, password: string) => {
-  interface ResponseData {}
-  return axiosClientInstance.post<ResponseData>("auth/login", {
-    username,
-    password,
-  })
+export const login = async (username: string, password: string) => {
+  type ResponseData = User
+  const { data } = await axiosClientInstance
+    .post<ResponseData>("auth/login", {
+      username,
+      password,
+    })
+    .catch<{
+      data: null
+    }>(() => ({
+      data: null,
+    }))
+  return data
 }
 
 export const logout = () => {
@@ -32,7 +39,7 @@ export const register = (
   password: string,
   confirmPassword: string
 ) => {
-  interface ResponseData {}
+  type ResponseData = User
   return axiosClientInstance.post<ResponseData>("auth/register", {
     email,
     username,
