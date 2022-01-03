@@ -14,6 +14,7 @@ import { withTranslation } from "react-i18next"
 import RandomMeButton from "components/pages/home/RandomMeButton"
 import ProbabilityTable from "components/pages/home/ProbabilityTable"
 import { Topic } from "types"
+import { changeTopicPolicyDB } from "utils/axios/request/database"
 
 const policies: RandomPolicy[] = [
   RandomPolicy.MULTINOMIAL,
@@ -45,6 +46,11 @@ const Home = () => {
     setProbabilityInfo(getProbabilities())
     setTopicsWithOptions(topics.filter((topic) => topic.options.length > 0))
   }, [topics, selectedTopicId])
+
+  const handleChangePolicy = async (policy: RandomPolicy) => {
+    await changeTopicPolicyDB(selectedTopicId, policy)
+    dispatch(changeTopicPolicy(policy))
+  }
 
   return (
     <>
@@ -144,7 +150,7 @@ const Home = () => {
                           <select
                             value={selectedPolicy}
                             onChange={(e) =>
-                              dispatch(changeTopicPolicy(+e.target.value))
+                              handleChangePolicy(+e.target.value)
                             }
                             className="form-select max-w-[90%] self-center"
                           >
