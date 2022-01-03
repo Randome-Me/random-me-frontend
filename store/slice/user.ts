@@ -1,4 +1,5 @@
-import { minBias } from "./../../utils/constants"
+import { createDefaultTopic } from "utils/MAB"
+import { minBias } from "utils/constants"
 import { AvailableLanguages } from "types/internationalization"
 import { RandomPolicy } from "types/mab"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
@@ -118,14 +119,7 @@ export const userSlice = createSlice({
     ) => {
       // TODO: add this topic to the database
       // const topic = get from db
-      const _id = Date.now() + ""
-      state.topics.push({
-        _id,
-        name,
-        options: [],
-        policy: RandomPolicy.MULTINOMIAL,
-        t: -1,
-      })
+      state.topics.push(createDefaultTopic(name))
     },
     addOption: (
       state,
