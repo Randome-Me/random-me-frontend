@@ -194,6 +194,8 @@ const Home = () => {
                         className="
                       clickable-text-cyan
                       text-yellow-400
+                      decoration-2
+                      decoration-yellow-400
                       "
                       >
                         /topics
