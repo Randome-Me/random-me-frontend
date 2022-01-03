@@ -39,20 +39,15 @@ const OptionsSection = () => {
   }
 
   const editWeight = (option: BanditArm) => {
-    let weight: string | number = window.prompt(
+    let bias: string | number = window.prompt(
       t("editWeightPrompt"),
       option.bias + ""
     )
-    if (!weight) return
+    if (!bias) return
 
-    if (isNaN(Number(weight))) {
-      alert(t("invalidWeight"))
-      return
-    }
-
-    weight = Number(weight)
-    if (weight < 1 || weight > 10) {
-      alert(t("weightOutOfRange"))
+    bias = parseInt(bias)
+    if (isNaN(bias) || bias < 1 || bias > 10) {
+      alert(t("biasOutOfRange", { max: 10, min: 1 }))
       return
     }
 
@@ -60,7 +55,7 @@ const OptionsSection = () => {
       setOptionWeight({
         topicId: selectedTopicId,
         optionId: option._id,
-        weight,
+        weight: bias,
       })
     )
   }
