@@ -6,9 +6,13 @@ interface MobileSidebarProps {
   routeMap: {
     [key: string]: string
   }
+  menuText: string
 }
 
-export default function MobileSidebar({ routeMap }: MobileSidebarProps) {
+export default function MobileSidebar({
+  routeMap,
+  menuText,
+}: MobileSidebarProps) {
   const [isHamburgerSidebarOpen, setIsHamburgerSidebarOpen] = useState(false)
 
   return (
@@ -38,7 +42,7 @@ export default function MobileSidebar({ routeMap }: MobileSidebarProps) {
             p-10
             fixed"
         >
-          <Sidebar routeMap={routeMap} />
+          <Sidebar menuText={menuText} routeMap={routeMap} />
         </div>
       )}
     </>

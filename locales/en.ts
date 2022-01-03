@@ -2,6 +2,7 @@ const en = {
   translation: {
     utils: {
       randomConfirm: "Selected {{option}}\nDo you like this option?",
+      menuText: "Menu",
     },
     login: {
       title: "Login",

@@ -1,19 +1,23 @@
 import Sidebar from "components/common/Sidebar"
 import MobileSidebar from "components/common/MobileSidebar"
 import LanguageSwitch from "components/common/LanguageSwitch"
+import { useTranslation } from "react-i18next"
 
 interface LoggedInLayoutProps {
   children?: React.ReactNode
 }
 
-const routeMap = {
-  "/": "Random Me",
-  "/topics": "Topics",
-  "/account": "Account",
-  "/random-policies": "Random Policies",
-}
-
 export default function LoggedInLayout({ children }: LoggedInLayoutProps) {
+  const { t } = useTranslation()
+
+  const routeMap = {
+    "/": t("home.title"),
+    "/topics": t("topics.title"),
+    "/account": t("account.title"),
+    "/random-policies": t("policies.title"),
+  }
+  const menuText = t("utils.menuText")
+
   return (
     <div
       className="
@@ -29,7 +33,7 @@ export default function LoggedInLayout({ children }: LoggedInLayoutProps) {
         pt-[2rem]
     "
       >
-        <Sidebar routeMap={routeMap} />
+        <Sidebar menuText={menuText} routeMap={routeMap} />
       </div>
       <div
         className="
@@ -37,7 +41,7 @@ export default function LoggedInLayout({ children }: LoggedInLayoutProps) {
         z-10
         h-[5rem]"
       >
-        <MobileSidebar routeMap={routeMap} />
+        <MobileSidebar menuText={menuText} routeMap={routeMap} />
       </div>
       <div className="flex-1">{children}</div>
       <div

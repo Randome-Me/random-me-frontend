@@ -2,6 +2,7 @@ const th = {
   translation: {
     utils: {
       randomConfirm: "สุ่มได้ {{option}}\nคุณชอบตัวเลือกนี้หรือไม่",
+      menuText: "รายการ",
     },
     login: {
       title: "ลงชื่อเข้าใช้",
