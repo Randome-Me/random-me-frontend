@@ -50,7 +50,7 @@ const OptionsSection = () => {
       return
     }
 
-    await setOptionBiasDB(selectedTopicId, option._id, weight)
+    await setOptionBiasDB(option._id, weight)
     dispatch(
       setOptionBias({
         topicId: selectedTopicId,
@@ -66,12 +66,12 @@ const OptionsSection = () => {
     const name = window.prompt(t("editOptionNamePrompt"), oldName)
     if (!name) return
 
-    await setOptionNameDB(selectedTopicId, optionId, name)
+    await setOptionNameDB(optionId, name)
     dispatch(setOptionName({ topicId: selectedTopicId, optionId, name }))
   }
 
   const deleteOption = async (optionId: string) => {
-    await removeOptionDB(selectedTopicId, optionId)
+    await removeOptionDB(optionId)
     dispatch(removeOption({ topicId: selectedTopicId, optionId }))
   }
 
