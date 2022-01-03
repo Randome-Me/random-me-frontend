@@ -70,7 +70,7 @@ const OptionsSection = () => {
     biasInput.current.value = undefined
   }
 
-  const editWeight = (option: BanditArm) => {
+  const editWeight = async (option: BanditArm) => {
     let bias: string | number = window.prompt(
       t("editWeightPrompt"),
       option.bias + ""
@@ -83,7 +83,9 @@ const OptionsSection = () => {
       return
     }
 
-    // await setOptionBiasDB(selectedTopicId, option._id, bias)
+    // if (userId !== anonymousUserId) {
+    //   await setOptionBiasDB(selectedTopicId, option._id, bias)
+    // }
     dispatch(
       setOptionBias({
         topicId: selectedTopicId,
@@ -99,12 +101,16 @@ const OptionsSection = () => {
     const name = window.prompt(t("editOptionNamePrompt"), oldName)
     if (!name) return
 
-    // await setOptionNameDB(selectedTopicId, optionId, name)
+    // if (userId !== anonymousUserId) {
+    //   await setOptionNameDB(selectedTopicId, optionId, name)
+    // }
     dispatch(setOptionName({ topicId: selectedTopicId, optionId, name }))
   }
 
   const deleteOption = async (optionId: string) => {
-    // await removeOptionDB(selectedTopicId, optionId)
+    // if (userId !== anonymousUserId) {
+    //   await removeOptionDB(selectedTopicId, optionId)
+    // }
     dispatch(removeOption({ topicId: selectedTopicId, optionId }))
   }
 

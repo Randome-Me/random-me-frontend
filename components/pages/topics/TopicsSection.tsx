@@ -59,19 +59,29 @@ const TopicsSection = () => {
     )
     if (!name) return
 
-    await setTopicNameDB(selectedTopicId, name)
+    if (userId !== anonymousUserId) {
+      await setTopicNameDB(selectedTopicId, name)
+    }
+
     dispatch(setTopicName({ topicId: selectedTopicId, name }))
   }
 
   const deleteTopic = async () => {
-    await removeTopicDB(selectedTopicId)
+    if (userId !== anonymousUserId) {
+      await removeTopicDB(selectedTopicId)
+    }
     dispatch(removeTopic({ topicId: selectedTopicId }))
-    await resetSelectTopicDB()
+
+    if (userId !== anonymousUserId) {
+      await resetSelectTopicDB()
+    }
     dispatch(resetSelectedTopic())
   }
 
   const handleSelectTopic = async (topicId: string) => {
-    await selectTopicDB(topicId)
+    if (userId !== anonymousUserId) {
+      await selectTopicDB(topicId)
+    }
     dispatch(selectTopic({ topicId }))
   }
 

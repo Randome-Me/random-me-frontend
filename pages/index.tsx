@@ -15,6 +15,7 @@ import RandomMeButton from "components/pages/home/RandomMeButton"
 import ProbabilityTable from "components/pages/home/ProbabilityTable"
 import { Topic } from "types"
 import { changeTopicPolicyDB } from "utils/axios/request/database"
+import { anonymousUserId } from "utils/constants"
 
 const policies: RandomPolicy[] = [
   RandomPolicy.MULTINOMIAL,
@@ -27,7 +28,11 @@ const policies: RandomPolicy[] = [
 
 const Home = () => {
   const dispatch = useAppDispatch()
-  const { selectedTopicId, topics } = useAppSelector((state) => state.user)
+  const {
+    selectedTopicId,
+    topics,
+    _id: userId,
+  } = useAppSelector((state) => state.user)
   const { t } = useTranslation("translation", { keyPrefix: "home" })
 
   const [selectedPolicy, setSelectedPolicy] = useState<RandomPolicy>(
@@ -48,7 +53,9 @@ const Home = () => {
   }, [topics, selectedTopicId])
 
   const handleChangePolicy = async (policy: RandomPolicy) => {
-    await changeTopicPolicyDB(selectedTopicId, policy)
+    if (userId !== anonymousUserId) {
+      await changeTopicPolicyDB(selectedTopicId, policy)
+    }
     dispatch(changeTopicPolicy(policy))
   }
 
