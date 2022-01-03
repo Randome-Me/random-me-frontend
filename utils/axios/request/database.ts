@@ -2,60 +2,48 @@ import { AvailableLanguages } from "types/internationalization"
 import { RandomPolicy } from "types/mab"
 import axiosClientInstance from "../instance/client"
 
+/**
+ * Create a new topic
+ */
+export const addTopicDB = (name: string) => {
+  interface ResponseData {}
+  return axiosClientInstance.post<ResponseData>(`topics`, {
+    name,
+  })
+}
+
+/**
+ * Add a new option to a topic
+ */
+export const addOptionDB = (topicId: string, name: string) => {
+  interface ResponseData {}
+  // TODO: Ask Ply if topicId in the body is necessary or not
+  return axiosClientInstance.post<ResponseData>(`topics/${topicId}`, {
+    topicId,
+    name,
+  })
+}
+
 export const selectTopicDB = (topicId: string) => {
   interface ResponseData {}
-  return axiosClientInstance.post<ResponseData>(`/topics/select`, {
+  return axiosClientInstance.put<ResponseData>(`topics/${topicId}`, {
     topicId,
   })
 }
 
 export const changeTopicPolicyDB = (topicId: string, policy: RandomPolicy) => {
   interface ResponseData {}
-  return axiosClientInstance.post<ResponseData>(`/topics/policy`, {
-    topicId,
-    policy,
-  })
-}
-
-/**
- * Pull in the context of Multi-armed bandit
- */
-export const pullDB = (optionId: string, reward: 0 | 1) => {
-  interface ResponseData {}
-  return axiosClientInstance.post<ResponseData>(`/options/pull`, {
-    optionId,
-    reward,
-  })
-}
-
-export const setOptionBiasDB = (optionId: string, bias: number) => {
-  interface ResponseData {}
-  return axiosClientInstance.post<ResponseData>(`/options/bias`, {
-    optionId,
-    bias,
+  return axiosClientInstance.patch<ResponseData>(`topics/${topicId}`, {
+    field: "policy",
+    value: policy,
   })
 }
 
 export const setTopicNameDB = (topicId: string, name: string) => {
   interface ResponseData {}
-  return axiosClientInstance.post<ResponseData>(`/topics/name`, {
-    topicId,
-    name,
-  })
-}
-
-export const setOptionNameDB = (optionId: string, name: string) => {
-  interface ResponseData {}
-  return axiosClientInstance.post<ResponseData>(`/options/name`, {
-    optionId,
-    name,
-  })
-}
-
-export const removeOptionDB = (optionId: string) => {
-  interface ResponseData {}
-  return axiosClientInstance.post<ResponseData>(`/options/remove`, {
-    optionId,
+  return axiosClientInstance.patch<ResponseData>(`topics/${topicId}`, {
+    field: "name",
+    value: name,
   })
 }
 
@@ -64,24 +52,57 @@ export const removeOptionDB = (optionId: string) => {
  */
 export const removeTopicDB = (topicId: string) => {
   interface ResponseData {}
-  return axiosClientInstance.post<ResponseData>(`/topics/remove`, {
-    topicId,
-  })
+  return axiosClientInstance.delete<ResponseData>(`topics/${topicId}`)
 }
 
-export const addTopicDB = (name: string) => {
+/**
+ * Pull in the context of Multi-armed bandit
+ */
+export const pullDB = (topicId: string, optionId: string, reward: 0 | 1) => {
   interface ResponseData {}
-  return axiosClientInstance.post<ResponseData>(`/topics/add`, {
-    name,
-  })
+  return axiosClientInstance.post<ResponseData>(
+    `topics/${topicId}/${optionId}`,
+    {
+      reward: Boolean(reward),
+    }
+  )
 }
 
-export const addOptionDB = (topicId: string, name: string) => {
+export const setOptionBiasDB = (
+  topicId: string,
+  optionId: string,
+  bias: number
+) => {
   interface ResponseData {}
-  return axiosClientInstance.post<ResponseData>(`/options/add`, {
-    topicId,
-    name,
-  })
+  return axiosClientInstance.put<ResponseData>(
+    `topics/${topicId}/${optionId}`,
+    {
+      field: "bias",
+      value: bias,
+    }
+  )
+}
+
+export const setOptionNameDB = (
+  topicId: string,
+  optionId: string,
+  name: string
+) => {
+  interface ResponseData {}
+  return axiosClientInstance.put<ResponseData>(
+    `topics/${topicId}/${optionId}`,
+    {
+      field: "name",
+      value: name,
+    }
+  )
+}
+
+export const removeOptionDB = (topicId: string, optionId: string) => {
+  interface ResponseData {}
+  return axiosClientInstance.delete<ResponseData>(
+    `topics/${topicId}/${optionId}`
+  )
 }
 
 export const changeLanguageDB = (language: AvailableLanguages) => {
