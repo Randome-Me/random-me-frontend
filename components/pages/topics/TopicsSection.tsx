@@ -111,7 +111,7 @@ const TopicsSection = () => {
             {topic._id === selectedTopicId && (
               <div className="flex item-center gap-2">
                 <Icon
-                  onClick={() => editTopicName()}
+                  onClick={editTopicName}
                   className="
                   w-5 
                   h-5 
@@ -121,8 +121,8 @@ const TopicsSection = () => {
                 />
                 <Icon
                   onClick={(e) => {
-                    deleteTopic()
                     e.stopPropagation()
+                    deleteTopic()
                   }}
                   className="
                   w-5 

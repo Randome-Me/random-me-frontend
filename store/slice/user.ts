@@ -10,8 +10,17 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    setUser: (state, action: PayloadAction<User>) => {
-      state = action.payload
+    setUser: (
+      state,
+      {
+        payload: { _id, selectedTopicId, topics, username, lang },
+      }: PayloadAction<User>
+    ) => {
+      state._id = _id
+      state.selectedTopicId = selectedTopicId
+      state.topics = topics
+      state.username = username
+      state.lang = lang
     },
     selectTopic: (
       state,

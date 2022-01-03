@@ -11,18 +11,15 @@ export const saveToLocal = (key: LocalStorageKey, data: any) => {
 }
 
 export const getFromLocal = <T>(key: LocalStorageKey): T | null => {
-  return JSON.parse(localStorage.getItem(key) || null)
+  return JSON.parse(localStorage.getItem(key))
 }
 
 export const getLocalUser = () => {
-  return (
-    getFromLocal<User>("user") ??
-    (() => {
-      const user = createLocalUser()
-      saveToLocal("user", user)
-      return user
-    })()
-  )
+  let user = getFromLocal<User>("user")
+  if (user) return user
+  user = createLocalUser()
+  saveToLocal("user", user)
+  return user
 }
 
 export const createLocalUser = (): User => {
