@@ -19,6 +19,28 @@ export default function Register() {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+
+    if (username.trim() === "") {
+      alert(t("emptyUsernameAlert"))
+      return
+    }
+    if (email.trim() === "") {
+      alert(t("emptyEmailAlert"))
+      return
+    }
+    if (password.trim() === "") {
+      alert(t("emptyPasswordAlert"))
+      return
+    }
+    if (passwordConfirm.trim() === "") {
+      alert(t("emptyPasswordConfirmAlert"))
+      return
+    }
+    if (password !== passwordConfirm) {
+      alert(t("passwordConfirmAlert"))
+      return
+    }
+
     console.log({ username, email, password, passwordConfirm })
   }
 
@@ -34,22 +56,22 @@ export default function Register() {
           <LoginInputText
             onChange={(e) => setUsername(e.target.value)}
             value={username}
-            placeholder="Username"
+            placeholder={t("usernameExamplePlaceholder")}
           />
           <LoginInputEmail
             onChange={(e) => setEmail(e.target.value)}
             value={email}
-            placeholder="Email"
+            placeholder={t("emailExamplePlaceholder")}
           />
           <LoginInputPassword
             onChange={(e) => setPassword(e.target.value)}
             value={password}
-            placeholder="Password"
+            placeholder={t("passwordExamplePlaceholder")}
           />
           <LoginInputPassword
             onChange={(e) => setPasswordConfirm(e.target.value)}
             value={passwordConfirm}
-            placeholder="Confirm Password"
+            placeholder={t("passwordConfirmExamplePlaceholder")}
           />
 
           <div className="space-y-1">
