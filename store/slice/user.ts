@@ -1,4 +1,4 @@
-import { createLocalOption, createNullUser } from "utils"
+import { createOption, createNullUser } from "utils"
 import { createDefaultTopic } from "utils"
 import { minBias } from "utils/constants"
 import { AvailableLanguages } from "types/internationalization"
@@ -114,21 +114,22 @@ export const userSlice = createSlice({
         payload: { name, newTopicId },
       }: PayloadAction<{ name: string; newTopicId: string }>
     ) => {
-      // TODO: get the topic passed in as a payload instead of using a dummy
-      // const topic = get from db
       state.topics.push(createDefaultTopic(newTopicId, name))
     },
     addOption: (
       state,
       {
-        payload: { topicId, name, bias = minBias },
-      }: PayloadAction<{ topicId: string; name: string; bias?: number }>
+        payload: { topicId, optionId, name, bias = minBias },
+      }: PayloadAction<{
+        topicId: string
+        optionId: string
+        name: string
+        bias?: number
+      }>
     ) => {
-      // TODO: add this option to the database
-      // const option = get from database
       state.topics
         .find((topic) => topic._id === topicId)
-        .options.push(createLocalOption(name, bias))
+        .options.push(createOption(optionId, name, bias))
     },
     changeLanguage: (
       state,

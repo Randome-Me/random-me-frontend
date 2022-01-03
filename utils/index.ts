@@ -38,10 +38,19 @@ export const createAnonymousUser = () => {
   return createLocalUser(anonymousUserId)
 }
 
-export const createLocalOption = (name: string, bias: number): BanditArm => {
-  const _id =
-    Math.random().toString(36).substring(2, 15) +
-    Math.random().toString(36).substring(2, 15)
+export const uuid = () => {
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
+    const r = (Math.random() * 16) | 0,
+      v = c == "x" ? r : (r & 0x3) | 0x8
+    return v.toString(16)
+  })
+}
+
+export const createOption = (
+  _id: string,
+  name: string,
+  bias: number
+): BanditArm => {
   return {
     _id,
     name,

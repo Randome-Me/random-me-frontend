@@ -9,17 +9,22 @@ import {
   addOption,
 } from "store/slice/user"
 import { BanditArm } from "types/mab"
+import { uuid } from "utils"
 import {
   addOptionDB,
   removeOptionDB,
   setOptionBiasDB,
   setOptionNameDB,
 } from "utils/axios/request/database"
-import { maxBias, minBias } from "utils/constants"
+import { anonymousUserId, maxBias, minBias } from "utils/constants"
 import BiasInputDatalist from "./BiasInputDatalist"
 
 const OptionsSection = () => {
-  const { topics, selectedTopicId } = useAppSelector((state) => state.user)
+  const {
+    topics,
+    selectedTopicId,
+    _id: userId,
+  } = useAppSelector((state) => state.user)
   const dispatch = useAppDispatch()
   const { t } = useTranslation("translation", { keyPrefix: "topics" })
 
@@ -36,11 +41,27 @@ const OptionsSection = () => {
       bias = undefined
     }
 
-    // await addOptionDB(selectedTopicId, addOptionText)
+    if (addOptionText.trim() === "") {
+      alert(t("emptyOptionAlert"))
+      return
+    }
+
+    let optionId: string
+
+    if (userId === anonymousUserId) {
+      optionId = uuid()
+    } else {
+      const {
+        data: { _id },
+      } = await addOptionDB(selectedTopicId, addOptionText, bias)
+      optionId = _id
+    }
+
     dispatch(
       addOption({
-        name: addOptionText,
         topicId: selectedTopicId,
+        optionId,
+        name: addOptionText,
         bias,
       })
     )

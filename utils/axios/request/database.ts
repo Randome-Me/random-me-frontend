@@ -1,5 +1,6 @@
 import { AvailableLanguages } from "types/internationalization"
 import { RandomPolicy } from "types/mab"
+import { minBias } from "utils/constants"
 import axiosClientInstance from "../instance/client"
 
 /**
@@ -17,8 +18,14 @@ export const addTopicDB = (name: string) => {
 /**
  * Add a new option to a topic
  */
-export const addOptionDB = (topicId: string, name: string, bias: number) => {
-  interface ResponseData {}
+export const addOptionDB = (
+  topicId: string,
+  name: string,
+  bias: number = minBias
+) => {
+  interface ResponseData {
+    _id: string
+  }
   return axiosClientInstance.post<ResponseData>(`topics/${topicId}`, {
     bias,
     name,

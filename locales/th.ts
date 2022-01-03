@@ -21,6 +21,7 @@ const th = {
       continueAsGuest: "ดำเนินการต่อแบบผู้ใช้ทั่วไป",
       login: "ลงชื่อเข้าใช้",
       loginFailedAlert: "ลงชื่อเข้าใช้ล้มเหลว กรุณาลองอีกครั้ง",
+      emptyOptionAlert: "กรุณากรอกตัวเลือกของคุณ",
     },
     register: {
       title: "ลงทะเบียน",

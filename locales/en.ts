@@ -60,6 +60,7 @@ const en = {
       bias: "Bias",
       addOptionPlaceholder: "Add an option",
       emptyTopicAlert: "Please enter a topic name.",
+      emptyOptionAlert: "Please enter an option name.",
     },
     account: {
       title: "Account",

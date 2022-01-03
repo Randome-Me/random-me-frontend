@@ -9,6 +9,7 @@ import {
   selectTopic,
   setTopicName,
 } from "store/slice/user"
+import { uuid } from "utils"
 import {
   addTopicDB,
   removeTopicDB,
@@ -39,7 +40,7 @@ const TopicsSection = () => {
     let newTopicId: string
 
     if (userId === anonymousUserId) {
-      newTopicId = Date.now() + "" + Math.floor(Math.random() * 1000)
+      newTopicId = uuid()
     } else {
       const {
         data: { _id },
