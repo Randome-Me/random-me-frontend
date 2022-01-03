@@ -23,7 +23,8 @@ const getCurrentDecay = (
 }
 
 export const equalWeight = (states: ArmState[]): ProbabilityOfEveryArm => {
-  return states.map(() => 1 / states.length)
+  const probabilities = 1 / states.length
+  return states.map(() => probabilities)
 }
 
 export const randomize = (states: ArmState[]): ProbabilityOfEveryArm => {
