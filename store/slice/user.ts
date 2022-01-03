@@ -89,11 +89,13 @@ export const userSlice = createSlice({
         payload: { topicId, optionId },
       }: PayloadAction<{ topicId: string; optionId: string }>
     ) => {
-      const { options } = state.topics.find((topic) => topic._id === topicId)
-      options.splice(
-        options.findIndex((option) => option._id === optionId),
-        1
+      const topic = state.topics.find((topic) => topic._id === topicId)
+      const { options } = topic
+      const toBeRemovedOption = options.find(
+        (option) => option._id === optionId
       )
+      options.splice(options.indexOf(toBeRemovedOption), 1)
+      topic.t -= toBeRemovedOption.pulls
     },
     resetSelectedTopic: (state) => {
       state.selectedTopicId = null
