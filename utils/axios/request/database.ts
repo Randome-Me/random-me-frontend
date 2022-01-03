@@ -13,6 +13,7 @@ export const addTopicDB = (name: string) => {
     name,
   })
 }
+
 /**
  * Add a new option to a topic
  */

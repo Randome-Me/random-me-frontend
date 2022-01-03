@@ -11,7 +11,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   if (method === "POST") {
     const response = await axiosServerInstance.post(
-      `/topics/${topicId}`,
+      `/topics/${topicId}/`,
       {
         name,
         bias,
@@ -26,7 +26,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   if (method === "PATCH") {
     const response = await axiosServerInstance.patch(
-      `/topics/${topicId}`,
+      `/topics/${topicId}/`,
       {
         field,
         value,
@@ -41,7 +41,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   if (method === "PUT") {
     const response = await axiosServerInstance.put(
-      `/topics/${topicId}`,
+      `/topics/${topicId}/`,
       {},
       {
         headers: { cookie },
@@ -52,7 +52,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   if (method === "DELETE") {
-    const response = await axiosServerInstance.delete(`/topics/${topicId}`, {
+    const response = await axiosServerInstance.delete(`/topics/${topicId}/`, {
       headers: { cookie },
     })
     res.status(response.status).json(response.data)
