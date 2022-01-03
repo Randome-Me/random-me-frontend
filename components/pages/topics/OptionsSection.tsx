@@ -9,6 +9,8 @@ import {
   addOption,
 } from "store/slice/user"
 import { BanditArm } from "types/mab"
+import { maxBias, minBias } from "utils/constants"
+import BiasInputDatalist from "./BiasInputDatalist"
 
 const OptionsSection = () => {
   const { topics, selectedTopicId } = useAppSelector((state) => state.user)
@@ -17,6 +19,8 @@ const OptionsSection = () => {
 
   const [addOptionText, setAddOptionText] = useState("")
   const biasInput = useRef<HTMLInputElement>(null)
+
+  const biasInputListId = "bias-input-datalist"
 
   const handleOptionSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -46,8 +50,8 @@ const OptionsSection = () => {
     if (!bias) return
 
     bias = parseInt(bias)
-    if (isNaN(bias) || bias < 1 || bias > 10) {
-      alert(t("biasOutOfRange", { max: 10, min: 1 }))
+    if (isNaN(bias) || bias < minBias || bias > maxBias) {
+      alert(t("biasOutOfRange", { max: maxBias, min: minBias }))
       return
     }
 
@@ -104,16 +108,19 @@ const OptionsSection = () => {
               <input
                 type="number"
                 ref={biasInput}
-                min={1}
-                max={10}
+                min={minBias}
+                max={maxBias}
+                list={biasInputListId}
                 className="
+              w-[8ch]
               bg-transparent
               placeholder:text-cyan-800/75
               border-0 border-b-2 border-slate-500/75
               focus:ring-transparent focus:border-slate-500
               "
-                placeholder={t("bias")}
+                placeholder={minBias + ""}
               />
+              <BiasInputDatalist biasInputListId={biasInputListId} />
               <input
                 value={addOptionText}
                 onChange={(e) => setAddOptionText(e.target.value)}

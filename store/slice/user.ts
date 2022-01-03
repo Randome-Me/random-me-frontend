@@ -1,3 +1,4 @@
+import { minBias } from "./../../utils/constants"
 import { AvailableLanguages } from "types/internationalization"
 import { RandomPolicy } from "types/mab"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
@@ -129,7 +130,7 @@ export const userSlice = createSlice({
     addOption: (
       state,
       {
-        payload: { topicId, name, bias = 1 },
+        payload: { topicId, name, bias = minBias },
       }: PayloadAction<{ topicId: string; name: string; bias?: number }>
     ) => {
       console.log(">>> | add option to topicId", topicId)
