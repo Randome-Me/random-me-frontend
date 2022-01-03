@@ -15,6 +15,8 @@ import {
   setOptionBiasDB,
   setOptionNameDB,
 } from "utils/axios/request/database"
+import { maxBias, minBias } from "utils/constants"
+import BiasInputDatalist from "./BiasInputDatalist"
 
 const OptionsSection = () => {
   const { topics, selectedTopicId } = useAppSelector((state) => state.user)
@@ -22,40 +24,50 @@ const OptionsSection = () => {
   const { t } = useTranslation("translation", { keyPrefix: "topics" })
 
   const [addOptionText, setAddOptionText] = useState("")
-  const weightInput = useRef<HTMLInputElement>(null)
+  const biasInput = useRef<HTMLInputElement>(null)
+
+  const biasInputListId = "bias-input-datalist"
 
   const handleOptionSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    await addOptionDB(selectedTopicId, addOptionText)
-    dispatch(addOption({ name: addOptionText, topicId: selectedTopicId }))
+
+    let bias = biasInput.current.valueAsNumber
+    if (isNaN(bias)) {
+      bias = undefined
+    }
+
+    // await addOptionDB(selectedTopicId, addOptionText)
+    dispatch(
+      addOption({
+        name: addOptionText,
+        topicId: selectedTopicId,
+        bias,
+      })
+    )
+
     setAddOptionText("")
-    weightInput.current.value = undefined
+    biasInput.current.value = undefined
   }
 
-  const editWeight = async (option: BanditArm) => {
-    let weight: string | number = window.prompt(
+  const editWeight = (option: BanditArm) => {
+    let bias: string | number = window.prompt(
       t("editWeightPrompt"),
       option.bias + ""
     )
-    if (!weight) return
+    if (!bias) return
 
-    if (isNaN(Number(weight))) {
-      alert(t("invalidWeight"))
+    bias = parseInt(bias)
+    if (isNaN(bias) || bias < minBias || bias > maxBias) {
+      alert(t("biasOutOfRange", { max: maxBias, min: minBias }))
       return
     }
 
-    weight = Number(weight)
-    if (weight < 1 || weight > 10) {
-      alert(t("weightOutOfRange"))
-      return
-    }
-
-    await setOptionBiasDB(option._id, weight)
+    // await setOptionBiasDB(selectedTopicId, option._id, bias)
     dispatch(
       setOptionBias({
         topicId: selectedTopicId,
         optionId: option._id,
-        weight,
+        weight: bias,
       })
     )
   }
@@ -66,60 +78,65 @@ const OptionsSection = () => {
     const name = window.prompt(t("editOptionNamePrompt"), oldName)
     if (!name) return
 
-    await setOptionNameDB(optionId, name)
+    // await setOptionNameDB(selectedTopicId, optionId, name)
     dispatch(setOptionName({ topicId: selectedTopicId, optionId, name }))
   }
 
   const deleteOption = async (optionId: string) => {
-    await removeOptionDB(optionId)
+    // await removeOptionDB(selectedTopicId, optionId)
     dispatch(removeOption({ topicId: selectedTopicId, optionId }))
   }
 
   return (
-    <div
-      className="
+    <>
+      {topics.length > 0 && selectedTopicId !== null && (
+        <div
+          className="
       flex 
       flex-col 
       text-center
       space-y-4 xl:space-y-12"
-    >
-      <h1 className="font-Sen font-bold">{t("options")}</h1>
-      <div
-        className="
+        >
+          <h1 className="font-Sen font-bold">{t("options")}</h1>
+          <div
+            className="
         w-full 
         bg-slate-50 
         text-cyan-600
         rounded-lg 
         overflow-y-auto"
-      >
-        <form
-          onSubmit={handleOptionSubmit}
-          className="
+          >
+            <form
+              onSubmit={handleOptionSubmit}
+              className="
           flex 
           items-center 
           space-x-2 sm:space-x-4 
           px-4 
           h-16"
-        >
-          <input
-            type="number"
-            ref={weightInput}
-            min={1}
-            max={10}
-            required
-            className="
+            >
+              <input
+                type="number"
+                ref={biasInput}
+                min={minBias}
+                max={maxBias}
+                list={biasInputListId}
+                className="
+              w-[8ch]
               bg-transparent
               placeholder:text-cyan-800/75
               border-0 border-b-2 border-slate-500/75
               focus:ring-transparent focus:border-slate-500
               "
-            placeholder={t("bias")}
-          />
-          <input
-            value={addOptionText}
-            onChange={(e) => setAddOptionText(e.target.value)}
-            type="text"
-            className="
+                placeholder={minBias + ""}
+              />
+              <BiasInputDatalist biasInputListId={biasInputListId} />
+              <input
+                value={addOptionText}
+                onChange={(e) => setAddOptionText(e.target.value)}
+                type="text"
+                required
+                className="
               w-[10rem]
               xs:flex-1
               bg-transparent
@@ -127,43 +144,43 @@ const OptionsSection = () => {
               border-0 border-b-2 border-slate-500/75
               focus:ring-transparent focus:border-slate-500
             "
-            placeholder={t("addOptionPlaceholder")}
-          />
-          <button type="submit">
-            <Icon
-              icon="akar-icons:plus"
-              className="w-6 h-6 text-slate-800/75"
-            />
-          </button>
-        </form>
-        {topics
-          .find((t) => t._id === selectedTopicId)
-          ?.options.map((option) => {
-            return (
-              <form
-                key={option._id}
-                className="
+                placeholder={t("addOptionPlaceholder")}
+              />
+              <button type="submit">
+                <Icon
+                  icon="akar-icons:plus"
+                  className="w-6 h-6 text-slate-800/75"
+                />
+              </button>
+            </form>
+            {topics
+              .find((t) => t._id === selectedTopicId)
+              ?.options.map((option) => {
+                return (
+                  <form
+                    key={option._id}
+                    className="
                 flex 
                 items-center 
                 space-x-4 
                 px-4
                 py-3
               even:bg-sky-100"
-              >
-                <div className="flex items-center gap-3">
-                  <span>{option.bias}</span>
-                  <Icon
-                    onClick={() => editWeight(option)}
-                    className="w-5 h-5 cursor-pointer text-slate-800/75
+                  >
+                    <div className="flex items-center gap-3">
+                      <span>{option.bias}</span>
+                      <Icon
+                        onClick={() => editWeight(option)}
+                        className="w-5 h-5 cursor-pointer text-slate-800/75
                                 hover:text-slate-800/50"
-                    icon="clarity:edit-solid"
-                  />
-                </div>
-                <input
-                  type="text"
-                  value={option.name}
-                  disabled
-                  className="
+                        icon="clarity:edit-solid"
+                      />
+                    </div>
+                    <input
+                      type="text"
+                      value={option.name}
+                      disabled
+                      className="
                     w-[10rem]
                     xs:flex-1
                     bg-transparent
@@ -172,29 +189,31 @@ const OptionsSection = () => {
                     focus:ring-transparent focus:border-slate-500
                     disabled:border-0
                   "
-                />
-                <div
-                  className="flex item-center text-slate-800/75
+                    />
+                    <div
+                      className="flex item-center text-slate-800/75
                       space-x-2"
-                >
-                  <Icon
-                    onClick={() => editOptionName(option)}
-                    className="w-5 h-5 cursor-pointer 
+                    >
+                      <Icon
+                        onClick={() => editOptionName(option)}
+                        className="w-5 h-5 cursor-pointer 
                           hover:text-slate-800/50"
-                    icon="clarity:edit-solid"
-                  />
-                  <Icon
-                    onClick={() => deleteOption(option._id)}
-                    className="w-5 h-5 cursor-pointer 
+                        icon="clarity:edit-solid"
+                      />
+                      <Icon
+                        onClick={() => deleteOption(option._id)}
+                        className="w-5 h-5 cursor-pointer 
                           hover:text-slate-800/50"
-                    icon="fluent:delete-24-filled"
-                  />
-                </div>
-              </form>
-            )
-          })}
-      </div>
-    </div>
+                        icon="fluent:delete-24-filled"
+                      />
+                    </div>
+                  </form>
+                )
+              })}
+          </div>
+        </div>
+      )}
+    </>
   )
 }
 

@@ -1,22 +1,37 @@
+import { createDefaultTopic } from "utils"
+import { minBias } from "utils/constants"
 import { AvailableLanguages } from "types/internationalization"
 import { RandomPolicy } from "types/mab"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
-import { User, dumbUser } from "types"
+import { User } from "types"
+import { createLocalUser } from "utils"
 
-const initialState: User | null = dumbUser
+const initialState: User = createLocalUser()
 
 export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    setUser: (state, action: PayloadAction<User>) => {
-      state = action.payload
+    setUser: (
+      state,
+      {
+        payload: { _id, selectedTopicId, topics, username, lang },
+      }: PayloadAction<User>
+    ) => {
+      state._id = _id
+      state.selectedTopicId = selectedTopicId
+      state.topics = topics
+      state.username = username
+      state.lang = lang
     },
     selectTopic: (
       state,
       { payload: { topicId } }: PayloadAction<{ topicId: string }>
     ) => {
       state.selectedTopicId = topicId
+    },
+    resetSelectTopic: (state) => {
+      state.selectedTopicId = null
     },
     changeTopicPolicy: (state, action: PayloadAction<RandomPolicy>) => {
       state.topics.find((topic) => topic._id === state.selectedTopicId).policy =
@@ -87,6 +102,7 @@ export const userSlice = createSlice({
         state.topics.findIndex((topic) => topic._id === topicId),
         1
       )
+      // resetSelectedTopic()
     },
     addTopic: (
       state,
@@ -94,21 +110,17 @@ export const userSlice = createSlice({
     ) => {
       // TODO: get the topic passed in as a payload instead of using a dummy
       // const topic = get from db
-      state.topics.push({
-        _id: `${Math.random()}${Math.random()}`,
-        name,
-        options: [],
-        policy: RandomPolicy.MULTINOMIAL,
-        t: -1,
-      })
+      state.topics.push(createDefaultTopic(name))
     },
     addOption: (
       state,
       {
-        payload: { topicId, name, weight = 1 },
-      }: PayloadAction<{ topicId: string; name: string; weight?: number }>
+        payload: { topicId, name, bias = minBias },
+      }: PayloadAction<{ topicId: string; name: string; bias?: number }>
     ) => {
-      // TODO: get the option passed in as a payload instead of using a dummy
+      console.log(">>> | add option to topicId", topicId)
+      // TODO: add this option to the database
+      // const option = get from database
       state.topics
         .find((topic) => topic._id === topicId)
         .options.push({
@@ -116,7 +128,7 @@ export const userSlice = createSlice({
           name,
           pulls: 0,
           reward: 0,
-          bias: weight,
+          bias,
         })
     },
     changeLanguage: (
@@ -131,6 +143,7 @@ export const userSlice = createSlice({
 export const {
   setUser,
   selectTopic,
+  resetSelectTopic,
   changeTopicPolicy,
   pull,
   setOptionBias,

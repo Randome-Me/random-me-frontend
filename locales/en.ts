@@ -2,6 +2,7 @@ const en = {
   translation: {
     utils: {
       randomConfirm: "Selected {{option}}\nDo you like this option?",
+      menuText: "Menu",
     },
     login: {
       title: "Login",
@@ -41,6 +42,8 @@ const en = {
       "see probabilities": "See probabilities",
       probability: "Probability",
       option: "Option",
+      noTopics:
+        "No topics with at least <em>one option</em> yet.<br />Add one!",
     },
     topics: {
       title: "Topics",
@@ -49,8 +52,7 @@ const en = {
       editTopicNamePrompt: "Enter a new topic name",
       addTopicPlaceholder: "Add a topic",
       editWeightPrompt: "Enter a new bias",
-      invalidWeight: "Please enter a number",
-      weightOutOfRange: "Please enter a number between 1 and 10",
+      biasOutOfRange: "Please enter a number between 1 and 10",
       editOptionNamePrompt: "Enter a new option name",
       options: "Options",
       bias: "Bias",

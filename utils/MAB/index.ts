@@ -5,7 +5,7 @@ import {
   randomize,
   epsilonGreedy,
   softmax,
-  ucb,
+  ucb1,
   multinomial,
 } from "./policy"
 
@@ -25,7 +25,7 @@ export const getProbabilityOfEveryArm = (
     case RandomPolicy.SOFTMAX:
       return softmax(states, t)
     case RandomPolicy.UCB:
-      return ucb(states, t)
+      return ucb1(states, t)
     case RandomPolicy.MULTINOMIAL:
       const biases = arms.map((arm) => arm.bias)
       return multinomial(biases)

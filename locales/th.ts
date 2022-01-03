@@ -2,6 +2,7 @@ const th = {
   translation: {
     utils: {
       randomConfirm: "สุ่มได้ {{option}}\nคุณชอบตัวเลือกนี้หรือไม่",
+      menuText: "รายการ",
     },
     login: {
       title: "ลงชื่อเข้าใช้",
@@ -41,6 +42,7 @@ const th = {
       "see probabilities": "ดูความน่าจะเป็น",
       probability: "ความน่าจะเป็น",
       option: "ตัวเลือก",
+      noTopics: "ยังไม่มีหัวข้อ<em>ที่มีตัวเลือก</em>เลย<br />เพิ่มสิ",
     },
     topics: {
       title: "หัวข้อ",
@@ -48,8 +50,7 @@ const th = {
       editTopicNamePrompt: "ใส่ชื่อหัวข้อใหม่",
       addTopicPlaceholder: "เพิ่มหัวข้อ",
       editWeightPrompt: "ใส่ค่าน้ำหนักใหม่",
-      invalidWeight: "กรุณาใส่ตัวเลข",
-      weightOutOfRange: "กรุณาใส่ตัวเลขระหว่าง 1 และ 10",
+      biasOutOfRange: "กรุณาใส่ตัวเลขระหว่าง {{min}} และ {{max}}",
       editOptionNamePrompt: "ใส่ชื่อตัวเลือกใหม่",
       options: "ตัวเลือก",
       bias: "น้ำหนัก",

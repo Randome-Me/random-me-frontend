@@ -5,9 +5,10 @@ interface SidebarProps {
   routeMap: {
     [path: string]: string
   }
+  menuText: string
 }
 
-export default function Sidebar({ routeMap }: SidebarProps) {
+export default function Sidebar({ routeMap, menuText }: SidebarProps) {
   const { pathname: currentPath } = useRouter()
 
   return (
@@ -22,7 +23,7 @@ export default function Sidebar({ routeMap }: SidebarProps) {
         inline-flex
         flex-col"
       >
-        <h2 className="text-sky-100">MENU</h2>
+        <h2 className="text-sky-100">{menuText}</h2>
         <ul>
           {Object.keys(routeMap).map((route) => (
             <li key={route}>

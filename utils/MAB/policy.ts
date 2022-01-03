@@ -23,7 +23,8 @@ const getCurrentDecay = (
 }
 
 export const equalWeight = (states: ArmState[]): ProbabilityOfEveryArm => {
-  return states.map(() => 1 / states.length)
+  const probabilities = 1 / states.length
+  return states.map(() => probabilities)
 }
 
 export const randomize = (states: ArmState[]): ProbabilityOfEveryArm => {
@@ -53,8 +54,8 @@ export const epsilonGreedy = (
 export const softmax = (
   states: ArmState[],
   t: number,
-  startTemp: number = 0.1,
-  endTemp: number = 0.001,
+  startTemp: number = 1,
+  endTemp: number = 0.1,
   gamma: number = 0.99
 ): ProbabilityOfEveryArm => {
   const rates = getRates(states)
@@ -71,15 +72,23 @@ export const softmax = (
   return normalizedExpoPowers.map((p) => Math.exp(p) / denominator)
 }
 
-export const ucb = (states: ArmState[], t: number): ProbabilityOfEveryArm => {
-  const selectedArmIndex = argMaxOfNumbers(
-    states.map(
-      ([pulls, reward]) =>
-        getRate(pulls, reward) + Math.sqrt((2 * Math.log(t)) / pulls)
-    )
+export const ucb1 = (states: ArmState[], t: number): ProbabilityOfEveryArm => {
+  const ucb1Values = states.map(
+    ([pulls, reward]) =>
+      getRate(pulls, reward) + Math.sqrt((2 * Math.log(t)) / pulls)
   )
   const probabilities = states.map(() => 0)
-  probabilities[selectedArmIndex] = 1
+
+  // prioritize on selecting an arm that has not been pulled yet
+  // that is, if pull = 0, then its ucb1 value is Infinity
+  // note: if t = 0, it's also Infinity
+  const NaNIndex = ucb1Values.findIndex((v) => isNaN(v))
+  if (NaNIndex !== -1) {
+    probabilities[NaNIndex] = 1
+  } else {
+    probabilities[argMaxOfNumbers(ucb1Values)] = 1
+  }
+
   return probabilities
 }
 

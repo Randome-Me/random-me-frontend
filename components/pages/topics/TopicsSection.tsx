@@ -42,14 +42,15 @@ const TopicsSection = () => {
 
   const deleteTopic = async () => {
     // remove the topic
-    await removeTopicDB(selectedTopicId)
+    // await removeTopicDB(selectedTopicId)
     dispatch(removeTopic({ topicId: selectedTopicId }))
+    dispatch(resetSelectedTopic())
     // then select the first topic
-    await handleSelectTopic(topics.length ? topics[0]._id : null)
+    // await handleSelectTopic(topics.length ? topics[0]._id : null)
   }
 
   const handleSelectTopic = async (topicId: string) => {
-    await selectTopicDB(topicId)
+    // await selectTopicDB(topicId)
     dispatch(selectTopic({ topicId }))
   }
 
@@ -124,7 +125,7 @@ const TopicsSection = () => {
             {topic._id === selectedTopicId && (
               <div className="flex item-center gap-2">
                 <Icon
-                  onClick={() => editTopicName()}
+                  onClick={editTopicName}
                   className="
                   w-5 
                   h-5 
@@ -133,7 +134,10 @@ const TopicsSection = () => {
                   icon="clarity:edit-solid"
                 />
                 <Icon
-                  onClick={() => deleteTopic()}
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    deleteTopic()
+                  }}
                   className="
                   w-5 
                   h-5 
@@ -151,3 +155,6 @@ const TopicsSection = () => {
 }
 
 export default withTranslation()(TopicsSection)
+function resetSelectedTopic(): any {
+  throw new Error("Function not implemented.")
+}
