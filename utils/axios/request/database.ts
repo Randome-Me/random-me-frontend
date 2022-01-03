@@ -15,11 +15,10 @@ export const addTopicDB = (name: string) => {
 /**
  * Add a new option to a topic
  */
-export const addOptionDB = (topicId: string, name: string) => {
+export const addOptionDB = (topicId: string, name: string, bias: number) => {
   interface ResponseData {}
-  // TODO: Ask Ply if topicId in the body is necessary or not
   return axiosClientInstance.post<ResponseData>(`topics/${topicId}`, {
-    topicId,
+    bias,
     name,
   })
 }
