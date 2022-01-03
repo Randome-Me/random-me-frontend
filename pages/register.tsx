@@ -6,18 +6,21 @@ import {
 import LoginRegisterLayout from "components/layout/LoginRegisterLayout"
 import Head from "next/head"
 import Link from "next/link"
+import { useRouter } from "next/router"
 import { FormEvent, useState } from "react"
 import { useTranslation } from "react-i18next"
+import { register } from "utils/axios/request/auth"
 
 export default function Register() {
   const { t } = useTranslation("translation", { keyPrefix: "register" })
+  const router = useRouter()
 
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [passwordConfirm, setPasswordConfirm] = useState("")
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     if (username.trim() === "") {
@@ -41,7 +44,8 @@ export default function Register() {
       return
     }
 
-    console.log({ username, email, password, passwordConfirm })
+    await register(email, username, password, passwordConfirm)
+    router.replace("/")
   }
 
   return (
