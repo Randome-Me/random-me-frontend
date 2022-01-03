@@ -54,8 +54,8 @@ export const epsilonGreedy = (
 export const softmax = (
   states: ArmState[],
   t: number,
-  startTemp: number = 0.1,
-  endTemp: number = 0.001,
+  startTemp: number = 1,
+  endTemp: number = 0.1,
   gamma: number = 0.99
 ): ProbabilityOfEveryArm => {
   const rates = getRates(states)
