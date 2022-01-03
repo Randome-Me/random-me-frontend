@@ -19,6 +19,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   const router = useRouter()
 
   const firstLoad = useRef(true)
+  const checkedMe = useRef(false)
 
   useEffect(() => {
     // user on the first load is set to default user initially
@@ -38,6 +39,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   useEffect(() => {
     const onMount = async () => {
       const userDB = await checkMe()
+      checkedMe.current = true
       if (userDB) {
         dispatch(setUser(userDB))
         router.replace("/")
@@ -55,7 +57,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 
   return (
     <div>
-      {user._id === nullUserId ? (
+      {user._id === nullUserId && !checkedMe ? (
         <h1 className="text-slate-50">{t("utils.loading")}</h1>
       ) : (
         children

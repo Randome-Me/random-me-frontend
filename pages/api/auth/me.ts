@@ -12,12 +12,16 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       message: "Method not allowed",
     })
 
-  const { data, status } = await axiosServerInstance.get("/auth/me/", {
-    headers: {
-      cookie,
-    },
-  })
-  res.status(status).json(data)
+  const { data } = await axiosServerInstance
+    .get("/auth/me/", {
+      headers: {
+        cookie,
+      },
+    })
+    .catch<{
+      data: null
+    }>(({}) => ({ data: null }))
+  res.json(data)
 }
 
 export default handler

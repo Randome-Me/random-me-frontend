@@ -2,25 +2,19 @@ import { NextApiRequest, NextApiResponse } from "next"
 import axiosServerInstance from "utils/axios/instance/server"
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const {
-    body: { username, password },
-    method,
-  } = req
+  const { method } = req
 
   if (method !== "POST")
     return res.status(405).json({
       message: "Method not allowed",
     })
 
-  const response = await axiosServerInstance.post("/auth/login/", {
-    username,
-    password,
-  })
-
-  res
-    .setHeader("Set-Cookie", response.headers["set-cookie"])
-    .status(response.status)
-    .json(response.data)
+  await axiosServerInstance.post("/auth/logout/")
+  res.setHeader(
+    "Set-Cookie",
+    "jwt=deleted; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT"
+  )
+  res.end()
 }
 
 export default handler
