@@ -57,7 +57,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 
   return (
     <div>
-      {user._id === nullUserId && !checkedMe ? (
+      {user._id === nullUserId && !checkedMe.current ? (
         <h1 className="text-slate-50">{t("utils.loading")}</h1>
       ) : (
         children
