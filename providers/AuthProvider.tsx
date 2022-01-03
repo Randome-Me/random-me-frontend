@@ -28,7 +28,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     }
     if (!user) return
 
-    i18n.changeLanguage(user.lang ?? fallbackLng)
+    i18n.changeLanguage(user.language)
 
     if (user._id === anonymousUserId) {
       saveToLocal("user", user)

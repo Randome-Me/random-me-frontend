@@ -16,14 +16,14 @@ export const userSlice = createSlice({
     setUser: (
       state,
       {
-        payload: { _id, selectedTopicId, topics, username, lang },
+        payload: { _id, selectedTopicId, topics, username, language },
       }: PayloadAction<User>
     ) => {
       state._id = _id
       state.selectedTopicId = selectedTopicId
       state.topics = topics
       state.username = username
-      state.lang = lang
+      state.language = language
     },
     selectTopic: (
       state,
@@ -135,7 +135,7 @@ export const userSlice = createSlice({
       state,
       { payload: { language } }: PayloadAction<{ language: AvailableLanguages }>
     ) => {
-      state.lang = language
+      state.language = language
     },
   },
 })

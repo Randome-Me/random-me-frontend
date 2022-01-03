@@ -13,7 +13,7 @@ export interface Topic {
 
 export interface User {
   _id: string
-  lang?: AvailableLanguages // 'en' | 'th'
+  language: AvailableLanguages
   username: string
   selectedTopicId: string | null // the current selected topic
   topics: Topic[]
