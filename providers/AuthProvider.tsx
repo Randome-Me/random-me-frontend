@@ -51,6 +51,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
         router.replace("/login")
         return
       }
+      router.replace("/")
     }
     onMount()
   }, [])
