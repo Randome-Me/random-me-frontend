@@ -1,9 +1,9 @@
 import { LocalStorageKey, Topic, User } from "types"
 import { Arm } from "./MAB/Arm"
 import store from "store"
-import { RandomPolicy } from "types/mab"
+import { BanditArm, RandomPolicy } from "types/mab"
 import { getProbabilityOfEveryArm } from "./MAB"
-import i18n from "locales"
+import i18n, { fallbackLng } from "locales"
 import { t as translate } from "i18next"
 import { anonymousUserId, nullUserId } from "./constants"
 
@@ -20,11 +20,12 @@ export const getLocalUser = () => {
 }
 
 export const createLocalUser = (_id: string): User => {
-  const user = {
+  const user: User = {
     _id,
     username: _id,
     selectedTopicId: null,
     topics: [],
+    language: fallbackLng,
   }
   return user
 }
@@ -35,6 +36,19 @@ export const createNullUser = () => {
 
 export const createAnonymousUser = () => {
   return createLocalUser(anonymousUserId)
+}
+
+export const createLocalOption = (name: string, bias: number): BanditArm => {
+  const _id =
+    Math.random().toString(36).substring(2, 15) +
+    Math.random().toString(36).substring(2, 15)
+  return {
+    _id,
+    name,
+    pulls: 0,
+    reward: 0,
+    bias,
+  }
 }
 
 export const switchLanguage = () => {

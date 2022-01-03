@@ -1,4 +1,4 @@
-import { createNullUser } from "utils"
+import { createLocalOption, createNullUser } from "utils"
 import { createDefaultTopic } from "utils"
 import { minBias } from "utils/constants"
 import { AvailableLanguages } from "types/internationalization"
@@ -123,13 +123,7 @@ export const userSlice = createSlice({
       // const option = get from database
       state.topics
         .find((topic) => topic._id === topicId)
-        .options.push({
-          _id: `${Math.random()}${Math.random()}`,
-          name,
-          pulls: 0,
-          reward: 0,
-          bias,
-        })
+        .options.push(createLocalOption(name, bias))
     },
     changeLanguage: (
       state,
