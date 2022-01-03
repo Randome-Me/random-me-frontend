@@ -16,13 +16,26 @@ const OptionsSection = () => {
   const { t } = useTranslation("translation", { keyPrefix: "topics" })
 
   const [addOptionText, setAddOptionText] = useState("")
-  const weightInput = useRef<HTMLInputElement>(null)
+  const biasInput = useRef<HTMLInputElement>(null)
 
   const handleOptionSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    dispatch(addOption({ name: addOptionText, topicId: selectedTopicId }))
+
+    let bias = biasInput.current.valueAsNumber
+    if (isNaN(bias)) {
+      bias = undefined
+    }
+
+    dispatch(
+      addOption({
+        name: addOptionText,
+        topicId: selectedTopicId,
+        bias,
+      })
+    )
+
     setAddOptionText("")
-    weightInput.current.value = undefined
+    biasInput.current.value = undefined
   }
 
   const editWeight = (option: BanditArm) => {
@@ -95,10 +108,9 @@ const OptionsSection = () => {
             >
               <input
                 type="number"
-                ref={weightInput}
+                ref={biasInput}
                 min={1}
                 max={10}
-                required
                 className="
               bg-transparent
               placeholder:text-cyan-800/75
@@ -111,6 +123,7 @@ const OptionsSection = () => {
                 value={addOptionText}
                 onChange={(e) => setAddOptionText(e.target.value)}
                 type="text"
+                required
                 className="
               w-[10rem]
               xs:flex-1
