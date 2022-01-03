@@ -6,14 +6,14 @@ import { useTranslation } from "react-i18next"
 import { setUser } from "store/slice/user"
 import { getLocalUser, saveToLocal } from "utils"
 import { checkMe } from "utils/axios/request/auth"
-import { anonymousUserId } from "utils/constants"
+import { anonymousUserId, nullUserId } from "utils/constants"
 
 interface AuthProviderProps {
   children: React.ReactNode
 }
 
 const AuthProvider = ({ children }: AuthProviderProps) => {
-  const { i18n } = useTranslation()
+  const { t, i18n } = useTranslation()
   const user = useAppSelector((state) => state.user)
   const dispatch = useAppDispatch()
   const router = useRouter()
@@ -53,7 +53,15 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     onMount()
   }, [])
 
-  return <div>{children}</div>
+  return (
+    <div>
+      {user._id === nullUserId ? (
+        <h1 className="text-slate-50">{t("utils.loading")}</h1>
+      ) : (
+        children
+      )}
+    </div>
+  )
 }
 
 export default AuthProvider

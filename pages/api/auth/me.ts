@@ -17,7 +17,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       cookie,
     },
   })
-  console.log(">>> | data", data)
   res.status(status).json(data)
 }
 

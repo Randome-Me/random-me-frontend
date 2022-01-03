@@ -3,6 +3,7 @@ const en = {
     utils: {
       randomConfirm: "Selected {{option}}\nDo you like this option?",
       menuText: "Menu",
+      loading: "Loading...",
     },
     login: {
       title: "Login",

@@ -3,6 +3,7 @@ const th = {
     utils: {
       randomConfirm: "สุ่มได้ {{option}}\nคุณชอบตัวเลือกนี้หรือไม่",
       menuText: "รายการ",
+      loading: "กำลังโหลด...",
     },
     login: {
       title: "ลงชื่อเข้าใช้",
