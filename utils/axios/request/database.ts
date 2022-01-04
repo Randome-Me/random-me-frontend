@@ -93,7 +93,7 @@ export const setOptionBiasDB = (
   bias: number
 ) => {
   interface ResponseData {}
-  return axiosClientInstance.put<ResponseData>(
+  return axiosClientInstance.patch<ResponseData>(
     `topics/${topicId}/${optionId}`,
     {
       field: "bias",
@@ -108,7 +108,7 @@ export const setOptionNameDB = (
   name: string
 ) => {
   interface ResponseData {}
-  return axiosClientInstance.put<ResponseData>(
+  return axiosClientInstance.patch<ResponseData>(
     `topics/${topicId}/${optionId}`,
     {
       field: "name",

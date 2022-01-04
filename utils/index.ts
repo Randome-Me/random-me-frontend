@@ -6,6 +6,7 @@ import { getProbabilityOfEveryArm } from "./MAB"
 import i18n, { fallbackLng } from "locales"
 import { t as translate } from "i18next"
 import { anonymousUserId, nullUserId } from "./constants"
+import { pullDB } from "./axios/request/database"
 
 export const saveToLocal = (key: LocalStorageKey, data: any) => {
   localStorage.setItem(key, JSON.stringify(data))
@@ -144,12 +145,16 @@ export const getProbabilities = () => {
   }
 }
 
-export const randomMe = () => {
+export const randomMe = async () => {
+  const {
+    user: { selectedTopicId },
+  } = store.getState()
   const { arms, probabilityOfEveryArm } = getArmsWithProbabilities()
   const selectedArm = choice(arms, probabilityOfEveryArm)
-  const reward = confirm(
-    translate("utils.randomConfirm", { option: selectedArm.name })
-  )
+  const reward = Number(
+    confirm(translate("utils.randomConfirm", { option: selectedArm.name }))
+  ) as 0 | 1
+  await pullDB(selectedTopicId, selectedArm._id, reward)
   selectedArm.pull(reward ? 1 : 0)
 }
 

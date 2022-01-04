@@ -83,9 +83,9 @@ const OptionsSection = () => {
       return
     }
 
-    // if (userId !== anonymousUserId) {
-    //   await setOptionBiasDB(selectedTopicId, option._id, bias)
-    // }
+    if (userId !== anonymousUserId) {
+      await setOptionBiasDB(selectedTopicId, option._id, bias)
+    }
     dispatch(
       setOptionBias({
         topicId: selectedTopicId,
@@ -101,16 +101,16 @@ const OptionsSection = () => {
     const name = window.prompt(t("editOptionNamePrompt"), oldName)
     if (!name) return
 
-    // if (userId !== anonymousUserId) {
-    //   await setOptionNameDB(selectedTopicId, optionId, name)
-    // }
+    if (userId !== anonymousUserId) {
+      await setOptionNameDB(selectedTopicId, optionId, name)
+    }
     dispatch(setOptionName({ topicId: selectedTopicId, optionId, name }))
   }
 
   const deleteOption = async (optionId: string) => {
-    // if (userId !== anonymousUserId) {
-    //   await removeOptionDB(selectedTopicId, optionId)
-    // }
+    if (userId !== anonymousUserId) {
+      await removeOptionDB(selectedTopicId, optionId)
+    }
     dispatch(removeOption({ topicId: selectedTopicId, optionId }))
   }
 
