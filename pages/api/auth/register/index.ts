@@ -25,8 +25,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       .setHeader("Set-Cookie", response.headers["set-cookie"])
       .status(response.status)
       .json(response.data)
-  } catch (error) {
-    res.status(error.response.status).json(error.response.data)
+  } catch ({ response: { status, data } }) {
+    res.status(status).json(data)
   }
 }
 

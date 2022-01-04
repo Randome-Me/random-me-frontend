@@ -23,9 +23,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           headers: { cookie },
         }
       )
-      .catch((err) => {
-        console.error(err.message)
-        return { status: 500, data: err.message }
+      .catch(({ response: { status, data } }) => {
+        return { status, data }
       })
     res.status(status).json(data)
     return
@@ -43,9 +42,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           headers: { cookie },
         }
       )
-      .catch((err) => {
-        console.error(err.message)
-        return { status: 500, data: err.message }
+      .catch(({ response: { status, data } }) => {
+        return { status, data }
       })
     res.status(status).json(data)
     return
@@ -57,9 +55,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       .delete(`topics/${topicId}/${optionId}/`, {
         headers: { cookie },
       })
-      .catch((err) => {
-        console.error(err.message)
-        return { status: 500, data: err.message }
+      .catch(({ response: { status, data } }) => {
+        return { status, data }
       })
     res.status(status).json(data)
     return
