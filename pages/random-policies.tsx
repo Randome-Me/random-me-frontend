@@ -29,7 +29,9 @@ const RandomPolicies = () => {
     <>
       <Head>
         <title>{t("title")} | Random Me</title>
-        <meta name="description" content={t("description")} />
+        <meta name="description" content={t("description")} />{" "}
+        <meta property="og:title" content={t("title")} />
+        <meta property="og:description" content={t("description")} />
       </Head>
 
       <PageBackground src="/images/bg-random-policies.svg">
