@@ -34,7 +34,10 @@ const RandomPolicies = () => {
         <meta property="og:description" content={t("description")} />
       </Head>
 
-      <PageBackground src="/images/bg-random-policies.svg">
+      <PageBackground
+        objectPosition="90% 50%"
+        src="/images/bg-random-policies.svg"
+      >
         <LoggedInLayout>
           <CenteredSpanGlassLayout>
             <main
