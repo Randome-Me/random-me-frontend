@@ -70,6 +70,8 @@ const TopicsSection = () => {
   }
 
   const handleSelectTopic = (topicId: string) => {
+    if (topicId === selectedTopicId) return
+
     dispatch(selectTopic({ topicId }))
     if (userId !== guestUserId) {
       selectTopicDB(topicId)
@@ -142,7 +144,11 @@ const TopicsSection = () => {
             transition-colors 
             flex 
             items-center
-            ${selectedTopicId === topic._id ? "bg-sky-100 text-cyan-600" : ""}`}
+            ${
+              selectedTopicId === topic._id
+                ? "bg-sky-100 text-cyan-600 cursor-default"
+                : ""
+            }`}
           >
             <span className="flex-1">
               {topic.name} ({topic.options.length})
