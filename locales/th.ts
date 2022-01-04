@@ -48,6 +48,17 @@ const th = {
       emptyEmailAlert: "กรุณากรอกอีเมลของคุณ",
       successAlert: "วิธีการเปลี่ยนรหัสผ่านถูกส่งไปยังอีเมลของคุณแล้ว",
     },
+    changePassword: {
+      title: "เปลี่ยนรหัสผ่าน",
+      description: "เปลี่ยนรหัสผ่านของคุณ",
+      emptyPasswordAlert: "กรุณากรอกรหัสผ่านของคุณ",
+      emptyConfirmPasswordAlert: "กรุณากรอกรหัสผ่านอีกครั้ง",
+      passwordConfirmAlert: "รหัสผ่านไม่ตรงกัน",
+      passwordExamplePlaceholder: "ตัวอย่าง password123",
+      passwordConfirmExamplePlaceholder: "password123",
+      changePassword: "เปลี่ยนรหัสผ่าน",
+      login: "ลงชื่อเข้าใช้",
+    },
     home: {
       title: "สุ่ม",
       description: "มาสุ่มชะตาชีวิตของเราด้วย Random Me กันเถอะ",

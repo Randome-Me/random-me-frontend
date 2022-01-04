@@ -47,6 +47,17 @@ const en = {
       emptyEmailAlert: "Please enter your email.",
       successAlert: "How to reset your password is sent to your email.",
     },
+    changePassword: {
+      title: "Change Password",
+      description: "Enter your new password.",
+      emptyPasswordAlert: "Please enter your new password.",
+      emptyConfirmPasswordAlert: "Please confirm your new password.",
+      passwordConfirmAlert: "Passwords do not match.",
+      passwordExamplePlaceholder: "e.g. password123",
+      passwordConfirmExamplePlaceholder: "password123",
+      changePassword: "Change Password",
+      login: "Login",
+    },
     home: {
       title: "Random",
       description: "Let's randomize your life decisions with Random Me!",
