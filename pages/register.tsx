@@ -10,6 +10,7 @@ import Link from "next/link"
 import { useRouter } from "next/router"
 import { FormEvent, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
+import { hideLoader, showLoader } from "store/slice/app"
 import { setUser } from "store/slice/user"
 import { User } from "types"
 import { AvailableLanguages } from "types/internationalization"
@@ -54,7 +55,8 @@ export default function Register() {
       return
     }
 
-    if (withCurrentGuest) {
+    dispatch(showLoader())
+    if (withCurrentGuest && currentGuest) {
       const { language, selectedTopicId, topics } = currentGuest
       const _id = await registerWithCurrentGuest(
         username,
@@ -78,7 +80,8 @@ export default function Register() {
       dispatch(setUser(user))
     }
 
-    router.replace("/")
+    await router.replace("/")
+    dispatch(hideLoader())
   }
 
   useEffect(() => {
