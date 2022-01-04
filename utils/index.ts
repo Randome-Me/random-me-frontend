@@ -1,7 +1,7 @@
 import { LocalStorageKey, Topic, User } from "types"
 import { Arm } from "./MAB/Arm"
 import store from "store"
-import { BanditArm, RandomPolicy } from "types/mab"
+import { BanditArm, ProbabilityOfEveryArm, RandomPolicy } from "types/mab"
 import { getProbabilityOfEveryArm } from "./MAB"
 import i18n, { fallbackLng } from "locales"
 import { t as translate } from "i18next"
@@ -100,7 +100,11 @@ const choice = <T>(array: T[], probabilities: number[]) => {
   throw new Error("Should not reach here")
 }
 
-const getArmsWithProbabilities = () => {
+const getArmsWithProbabilities = (): {
+  arms: Arm[]
+  probabilityOfEveryArm: ProbabilityOfEveryArm
+  policy: RandomPolicy
+} => {
   const {
     user: { selectedTopicId, topics },
   } = store.getState()
@@ -108,8 +112,8 @@ const getArmsWithProbabilities = () => {
   const selectedTopic = topics.find((topic) => topic._id === selectedTopicId)
   if (!selectedTopic) {
     return {
-      arms: [],
-      probabilities: [],
+      arms: [] as Arm[],
+      probabilityOfEveryArm: [] as ProbabilityOfEveryArm,
       policy: RandomPolicy.RANDOMIZE,
     }
   }
