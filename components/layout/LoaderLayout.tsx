@@ -6,8 +6,9 @@ interface LoaderLayoutProps {
 }
 
 const LoaderLayout = ({ children }: LoaderLayoutProps) => {
-  const { isLoading, loaderAfter, loaderBefore, loaderBackgroundOpacity } =
-    useAppSelector((state) => state.app)
+  const { isLoading, loaderAfter, loaderBefore } = useAppSelector(
+    (state) => state.app
+  )
 
   return (
     <div>

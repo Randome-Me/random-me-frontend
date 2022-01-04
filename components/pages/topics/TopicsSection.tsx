@@ -30,7 +30,7 @@ const TopicsSection = () => {
 
   const [addTopicText, setAddTopicText] = useState("")
 
-  const handleTopicSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const handleTopicSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (addTopicText.trim() === "") {
       alert(t("emptyTopicAlert"))
