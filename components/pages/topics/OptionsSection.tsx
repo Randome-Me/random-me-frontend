@@ -124,7 +124,15 @@ const OptionsSection = () => {
       text-center
       space-y-4 xl:space-y-12"
         >
-          <h1 className="font-Sen font-bold">{t("options")}</h1>
+          <h1
+            className="
+          font-Kanit 
+          font-bold
+          text-slate-50
+          "
+          >
+            {t("options")}
+          </h1>
           <div
             className="
         w-full 

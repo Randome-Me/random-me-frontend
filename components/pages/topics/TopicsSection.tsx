@@ -95,7 +95,10 @@ const TopicsSection = () => {
     >
       <h1
         className="
-      font-Sen font-bold"
+      font-Kanit 
+      font-bold
+      text-slate-50
+      "
       >
         {t("title")}
       </h1>
