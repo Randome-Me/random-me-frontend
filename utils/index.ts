@@ -20,7 +20,7 @@ export const getLocalUser = () => {
   return getFromLocal<User>("user")
 }
 
-export const createLocalUser = (_id: string): User => {
+const createLocalUser = (_id: string): User => {
   const user: User = {
     _id,
     username: _id,

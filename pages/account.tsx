@@ -8,6 +8,7 @@ import Image from "next/image"
 import { useRouter } from "next/router"
 import { useTranslation, withTranslation } from "react-i18next"
 import { logout } from "utils/axios/request/auth"
+import { anonymousUserId } from "utils/constants"
 
 const Account = () => {
   const user = useAppSelector((state) => state.user)
@@ -15,7 +16,9 @@ const Account = () => {
   const router = useRouter()
 
   const handleLogout = async () => {
-    await logout()
+    if (user._id !== anonymousUserId) {
+      await logout()
+    }
     router.replace("/login")
   }
 

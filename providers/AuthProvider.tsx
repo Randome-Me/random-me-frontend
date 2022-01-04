@@ -42,7 +42,6 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
       checkedMe.current = true
       if (userDB) {
         dispatch(setUser(userDB))
-        router.replace("/")
         return
       }
       const localUser = getLocalUser()
@@ -51,7 +50,12 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
         router.replace("/login")
         return
       }
-      router.replace("/")
+      if (localUser._id === nullUserId) {
+        router.replace("/login")
+        return
+      }
+      // anonymous user is saved
+      dispatch(setUser(localUser))
     }
     onMount()
   }, [])
