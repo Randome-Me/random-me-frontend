@@ -33,7 +33,7 @@ const OptionsSection = () => {
 
   const biasInputListId = "bias-input-datalist"
 
-  const handleOptionSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const handleOptionSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     let bias = biasInput.current.valueAsNumber
@@ -46,17 +46,7 @@ const OptionsSection = () => {
       return
     }
 
-    let optionId: string
-
-    if (userId === guestUserId) {
-      optionId = uuid()
-    } else {
-      const {
-        data: { _id },
-      } = await addOptionDB(selectedTopicId, addOptionText, bias)
-      optionId = _id
-    }
-
+    const optionId = uuid()
     dispatch(
       addOption({
         topicId: selectedTopicId,
@@ -65,12 +55,14 @@ const OptionsSection = () => {
         bias,
       })
     )
+    if (userId !== guestUserId)
+      addOptionDB(optionId, selectedTopicId, addOptionText, bias)
 
     setAddOptionText("")
     biasInput.current.value = undefined
   }
 
-  const editWeight = async (option: BanditArm) => {
+  const editWeight = (option: BanditArm) => {
     let bias: string | number = window.prompt(
       t("editWeightPrompt"),
       option.bias + ""
@@ -83,9 +75,6 @@ const OptionsSection = () => {
       return
     }
 
-    if (userId !== guestUserId) {
-      await setOptionBiasDB(selectedTopicId, option._id, bias)
-    }
     dispatch(
       setOptionBias({
         topicId: selectedTopicId,
@@ -93,25 +82,28 @@ const OptionsSection = () => {
         weight: bias,
       })
     )
+    if (userId !== guestUserId) {
+      setOptionBiasDB(selectedTopicId, option._id, bias)
+    }
   }
 
-  const editOptionName = async (option: BanditArm) => {
+  const editOptionName = (option: BanditArm) => {
     const { name: oldName, _id: optionId } = option
 
     const name = window.prompt(t("editOptionNamePrompt"), oldName)
     if (!name) return
 
-    if (userId !== guestUserId) {
-      await setOptionNameDB(selectedTopicId, optionId, name)
-    }
     dispatch(setOptionName({ topicId: selectedTopicId, optionId, name }))
+    if (userId !== guestUserId) {
+      setOptionNameDB(selectedTopicId, optionId, name)
+    }
   }
 
-  const deleteOption = async (optionId: string) => {
-    if (userId !== guestUserId) {
-      await removeOptionDB(selectedTopicId, optionId)
-    }
+  const deleteOption = (optionId: string) => {
     dispatch(removeOption({ topicId: selectedTopicId, optionId }))
+    if (userId !== guestUserId) {
+      removeOptionDB(selectedTopicId, optionId)
+    }
   }
 
   return (

@@ -19,6 +19,7 @@ export const addTopicDB = (topicId: string, name: string) => {
  * Add a new option to a topic
  */
 export const addOptionDB = (
+  optionId: string,
   topicId: string,
   name: string,
   bias: number = minBias
@@ -29,6 +30,7 @@ export const addOptionDB = (
   return axiosClientInstance.post<ResponseData>(`topics/${topicId}`, {
     bias,
     name,
+    optionId,
   })
 }
 
