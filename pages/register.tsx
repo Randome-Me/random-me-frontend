@@ -92,6 +92,28 @@ export default function Register() {
               <Link href="/login">
                 <a className="clickable-text-cyan text-sm">{t("login")}</a>
               </Link>
+              <label
+                className="
+              space-x-1
+              "
+                htmlFor="withCurrentGuest"
+              >
+                <input
+                  id="withCurrentGuest"
+                  className="
+                my-checkbox
+                "
+                  type="checkbox"
+                />
+                <span
+                  className="
+                text-sm
+                font-semibold
+                "
+                >
+                  {t("withCurrentGuest")}
+                </span>
+              </label>
             </div>
           </div>
         </form>

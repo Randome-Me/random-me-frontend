@@ -36,6 +36,7 @@ const th = {
       passwordExamplePlaceholder: "ตัวอย่าง password123",
       passwordConfirmExamplePlaceholder: "password123",
       login: "ลงชื่อเข้าใช้",
+      withCurrentGuest: "ด้วยข้อมูลปัจจุบัน",
     },
     home: {
       title: "สุ่ม",

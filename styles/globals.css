@@ -117,6 +117,15 @@
     focus:ring-offset-1 
     focus:ring-offset-transparent;
   }
+
+  .my-checkbox {
+    @apply rounded 
+    bg-transparent
+    text-yellow-600
+    focus:ring-0
+    focus:ring-offset-transparent
+    focus:ring-transparent;
+  }
 }
 
 @layer utilities {

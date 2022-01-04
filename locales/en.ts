@@ -35,6 +35,7 @@ const en = {
       passwordExamplePlaceholder: "e.g. password123",
       passwordConfirmExamplePlaceholder: "password123",
       login: "Login",
+      withCurrentGuest: "with current guest",
     },
     home: {
       title: "Random",

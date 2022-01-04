@@ -176,13 +176,8 @@ const Home = () => {
                               type="checkbox"
                               onChange={() => setShowInfo(!showInfo)}
                               className="
-                          rounded 
-                          bg-transparent
-                          text-yellow-600
-                          focus:ring-0
-                          focus:ring-offset-transparent
-                          focus:ring-transparent
-                          "
+                              my-checkbox
+                              "
                             />
                             <span className="self-center font-semibold hover:text-slate-700">
                               {t("see probabilities")}
