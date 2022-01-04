@@ -50,7 +50,7 @@ const ForgotPassword = () => {
           <LoginInputEmail
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="Email"
+            placeholder={t("email")}
           />
           <button
             type="submit"
