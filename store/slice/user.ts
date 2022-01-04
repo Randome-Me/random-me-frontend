@@ -1,12 +1,13 @@
+import { createOption, createNullUser } from "utils"
 import { createDefaultTopic } from "utils"
 import { minBias } from "utils/constants"
 import { AvailableLanguages } from "types/internationalization"
 import { RandomPolicy } from "types/mab"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { User } from "types"
-import { createLocalUser } from "utils"
 
-const initialState: User = createLocalUser()
+const initialState: User = createNullUser()
+// const initialState: User = null
 
 export const userSlice = createSlice({
   name: "user",
@@ -15,28 +16,25 @@ export const userSlice = createSlice({
     setUser: (
       state,
       {
-        payload: { _id, selectedTopicId, topics, username, lang },
+        payload: { _id, selectedTopicId, topics, username, language },
       }: PayloadAction<User>
     ) => {
       state._id = _id
       state.selectedTopicId = selectedTopicId
       state.topics = topics
       state.username = username
-      state.lang = lang
+      state.language = language
     },
     selectTopic: (
       state,
       { payload: { topicId } }: PayloadAction<{ topicId: string }>
     ) => {
-      // TODO: update the user's selected topic in database
       state.selectedTopicId = topicId
     },
-    resetSelectedTopic: (state) => {
-      // TODO: reset the user's selected topic in database
+    resetSelectTopic: (state) => {
       state.selectedTopicId = null
     },
     changeTopicPolicy: (state, action: PayloadAction<RandomPolicy>) => {
-      // TODO: update the policy of user's selected topic in database
       state.topics.find((topic) => topic._id === state.selectedTopicId).policy =
         action.payload
     },
@@ -49,7 +47,6 @@ export const userSlice = createSlice({
         optionId: string
       }>
     ) => {
-      // TODO: save the state of this arm (option) to the sever
       const topic = state.topics.find(
         (topic) => topic._id === state.selectedTopicId
       )
@@ -58,13 +55,12 @@ export const userSlice = createSlice({
       option.reward += reward
       topic.t += 1
     },
-    setOptionWeight: (
+    setOptionBias: (
       state,
       {
         payload: { topicId, optionId, weight },
       }: PayloadAction<{ topicId: string; optionId: string; weight: number }>
     ) => {
-      // TODO: update the weight of this option in the database
       state.topics
         .find((topic) => topic._id === topicId)
         .options.find((option) => option._id === optionId).bias = weight
@@ -75,7 +71,6 @@ export const userSlice = createSlice({
         payload: { topicId, name },
       }: PayloadAction<{ topicId: string; name: string }>
     ) => {
-      // TODO: update the name of this topic in the database
       state.topics.find((topic) => topic._id === topicId).name = name
     },
     setOptionName: (
@@ -84,7 +79,6 @@ export const userSlice = createSlice({
         payload: { topicId, optionId, name },
       }: PayloadAction<{ topicId: string; optionId: string; name: string }>
     ) => {
-      // TODO: update the name of this option in the database
       state.topics
         .find((topic) => topic._id === topicId)
         .options.find((option) => option._id === optionId).name = name
@@ -95,18 +89,21 @@ export const userSlice = createSlice({
         payload: { topicId, optionId },
       }: PayloadAction<{ topicId: string; optionId: string }>
     ) => {
-      // TODO: remove this option from the database
-      const { options } = state.topics.find((topic) => topic._id === topicId)
-      options.splice(
-        options.findIndex((option) => option._id === optionId),
-        1
+      const topic = state.topics.find((topic) => topic._id === topicId)
+      const { options } = topic
+      const toBeRemovedOption = options.find(
+        (option) => option._id === optionId
       )
+      options.splice(options.indexOf(toBeRemovedOption), 1)
+      topic.t -= toBeRemovedOption.pulls
+    },
+    resetSelectedTopic: (state) => {
+      state.selectedTopicId = null
     },
     removeTopic: (
       state,
       { payload: { topicId } }: PayloadAction<{ topicId: string }>
     ) => {
-      // TODO: remove this topic from the database
       state.topics.splice(
         state.topics.findIndex((topic) => topic._id === topicId),
         1
@@ -115,36 +112,32 @@ export const userSlice = createSlice({
     },
     addTopic: (
       state,
-      { payload: { name } }: PayloadAction<{ name: string }>
+      {
+        payload: { name, newTopicId },
+      }: PayloadAction<{ name: string; newTopicId: string }>
     ) => {
-      // TODO: add this topic to the database
-      // const topic = get from db
-      state.topics.push(createDefaultTopic(name))
+      state.topics.push(createDefaultTopic(newTopicId, name))
     },
     addOption: (
       state,
       {
-        payload: { topicId, name, bias = minBias },
-      }: PayloadAction<{ topicId: string; name: string; bias?: number }>
+        payload: { topicId, optionId, name, bias = minBias },
+      }: PayloadAction<{
+        topicId: string
+        optionId: string
+        name: string
+        bias?: number
+      }>
     ) => {
-      console.log(">>> | add option to topicId", topicId)
-      // TODO: add this option to the database
-      // const option = get from database
       state.topics
         .find((topic) => topic._id === topicId)
-        .options.push({
-          _id: `${Math.random()}${Math.random()}`,
-          name,
-          pulls: 0,
-          reward: 0,
-          bias,
-        })
+        .options.push(createOption(optionId, name, bias))
     },
     changeLanguage: (
       state,
       { payload: { language } }: PayloadAction<{ language: AvailableLanguages }>
     ) => {
-      state.lang = language
+      state.language = language
     },
   },
 })
@@ -152,15 +145,16 @@ export const userSlice = createSlice({
 export const {
   setUser,
   selectTopic,
+  resetSelectTopic,
   changeTopicPolicy,
   pull,
-  setOptionWeight,
+  setOptionBias,
   setTopicName,
   setOptionName,
-  resetSelectedTopic,
   removeOption,
   removeTopic,
   addTopic,
+  resetSelectedTopic,
   addOption,
   changeLanguage,
 } = userSlice.actions

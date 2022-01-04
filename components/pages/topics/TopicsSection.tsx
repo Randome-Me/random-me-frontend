@@ -9,33 +9,80 @@ import {
   selectTopic,
   setTopicName,
 } from "store/slice/user"
+import { uuid } from "utils"
+import {
+  addTopicDB,
+  removeTopicDB,
+  resetSelectTopicDB,
+  selectTopicDB,
+  setTopicNameDB,
+} from "utils/axios/request/database"
+import { anonymousUserId } from "utils/constants"
 
 const TopicsSection = () => {
-  const { topics, selectedTopicId } = useAppSelector((state) => state.user)
+  const {
+    topics,
+    selectedTopicId,
+    _id: userId,
+  } = useAppSelector((state) => state.user)
   const dispatch = useAppDispatch()
   const { t } = useTranslation("translation", { keyPrefix: "topics" })
 
   const [addTopicText, setAddTopicText] = useState("")
 
-  const handleTopicSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleTopicSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    dispatch(addTopic({ name: addTopicText }))
+    if (addTopicText.trim() === "") {
+      alert(t("emptyTopicAlert"))
+      return
+    }
+
+    let newTopicId: string
+
+    if (userId === anonymousUserId) {
+      newTopicId = uuid()
+    } else {
+      const {
+        data: { _id },
+      } = await addTopicDB(addTopicText)
+      newTopicId = _id
+    }
+
+    dispatch(addTopic({ newTopicId, name: addTopicText }))
     setAddTopicText("")
   }
 
-  const editTopicName = () => {
+  const editTopicName = async () => {
     const name = window.prompt(
       t("editTopicNamePrompt"),
       topics.find((t) => t._id === selectedTopicId).name
     )
     if (!name) return
 
+    if (userId !== anonymousUserId) {
+      await setTopicNameDB(selectedTopicId, name)
+    }
+
     dispatch(setTopicName({ topicId: selectedTopicId, name }))
   }
 
-  const deleteTopic = () => {
+  const deleteTopic = async () => {
+    if (userId !== anonymousUserId) {
+      await removeTopicDB(selectedTopicId)
+    }
     dispatch(removeTopic({ topicId: selectedTopicId }))
+
+    if (userId !== anonymousUserId) {
+      await resetSelectTopicDB()
+    }
     dispatch(resetSelectedTopic())
+  }
+
+  const handleSelectTopic = async (topicId: string) => {
+    if (userId !== anonymousUserId) {
+      await selectTopicDB(topicId)
+    }
+    dispatch(selectTopic({ topicId }))
   }
 
   return (
@@ -88,9 +135,7 @@ const TopicsSection = () => {
         </div>
         {topics.map((topic) => (
           <div
-            onClick={() => {
-              dispatch(selectTopic({ topicId: topic._id }))
-            }}
+            onClick={() => handleSelectTopic(topic._id)}
             key={topic._id}
             className={`
             w-full 

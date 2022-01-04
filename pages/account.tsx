@@ -5,11 +5,19 @@ import ScreenCenterLayout from "components/layout/ScreenCenterLayout"
 import { useAppSelector } from "hooks"
 import Head from "next/head"
 import Image from "next/image"
+import { useRouter } from "next/router"
 import { useTranslation, withTranslation } from "react-i18next"
+import { logout } from "utils/axios/request/auth"
 
 const Account = () => {
   const user = useAppSelector((state) => state.user)
   const { t } = useTranslation("translation", { keyPrefix: "account" })
+  const router = useRouter()
+
+  const handleLogout = async () => {
+    await logout()
+    router.replace("/login")
+  }
 
   return (
     <>
@@ -56,6 +64,14 @@ const Account = () => {
                   {t("resetPassword")}
                 </a>
               </div>
+              <button
+                onClick={handleLogout}
+                className="
+              login-register-button uppercase
+              "
+              >
+                logout
+              </button>
             </Glass>
           </ScreenCenterLayout>
         </LoggedInLayout>

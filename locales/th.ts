@@ -3,6 +3,7 @@ const th = {
     utils: {
       randomConfirm: "สุ่มได้ {{option}}\nคุณชอบตัวเลือกนี้หรือไม่",
       menuText: "รายการ",
+      loading: "กำลังโหลด...",
     },
     login: {
       title: "ลงชื่อเข้าใช้",
@@ -19,6 +20,21 @@ const th = {
       or: "หรือ",
       continueAsGuest: "ดำเนินการต่อแบบผู้ใช้ทั่วไป",
       login: "ลงชื่อเข้าใช้",
+      loginFailedAlert: "ลงชื่อเข้าใช้ล้มเหลว กรุณาลองอีกครั้ง",
+      emptyOptionAlert: "กรุณากรอกตัวเลือกของคุณ",
+    },
+    register: {
+      title: "ลงทะเบียน",
+      description: "ลงทะเบียนกับ Random Me",
+      emptyUsernameAlert: "กรุณากรอกชื่อผู้ใช้ของคุณ",
+      emptyPasswordAlert: "กรุณากรอกรหัสผ่านของคุณ",
+      emptyConfirmPasswordAlert: "กรุณากรอกรหัสผ่านอีกครั้ง",
+      emptyEmailAlert: "กรุณากรอกอีเมลของคุณ",
+      passwordConfirmAlert: "รหัสผ่านไม่ตรงกัน",
+      usernameExamplePlaceholder: "ตัวอย่าง johndoe",
+      emailExamplePlaceholder: "ตัวอย่าง johndoe@example.com",
+      passwordExamplePlaceholder: "ตัวอย่าง password123",
+      passwordConfirmExamplePlaceholder: "password123",
     },
     home: {
       title: "สุ่ม",
@@ -42,6 +58,7 @@ const th = {
       options: "ตัวเลือก",
       bias: "น้ำหนัก",
       addOptionPlaceholder: "เพิ่มตัวเลือก",
+      emptyTopicAlert: "กรุณาเพิ่มหัวข้อก่อน",
     },
     account: {
       title: "บัญชี",

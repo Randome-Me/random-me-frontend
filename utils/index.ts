@@ -1,10 +1,12 @@
 import { LocalStorageKey, Topic, User } from "types"
 import { Arm } from "./MAB/Arm"
 import store from "store"
-import { RandomPolicy } from "types/mab"
+import { BanditArm, ProbabilityOfEveryArm, RandomPolicy } from "types/mab"
 import { getProbabilityOfEveryArm } from "./MAB"
-import i18n from "locales"
+import i18n, { fallbackLng } from "locales"
 import { t as translate } from "i18next"
+import { anonymousUserId, nullUserId } from "./constants"
+import { pullDB } from "./axios/request/database"
 
 export const saveToLocal = (key: LocalStorageKey, data: any) => {
   localStorage.setItem(key, JSON.stringify(data))
@@ -15,21 +17,48 @@ export const getFromLocal = <T>(key: LocalStorageKey): T | null => {
 }
 
 export const getLocalUser = () => {
-  let user = getFromLocal<User>("user")
-  if (user) return user
-  user = createLocalUser()
-  saveToLocal("user", user)
+  return getFromLocal<User>("user")
+}
+
+export const createLocalUser = (_id: string): User => {
+  const user: User = {
+    _id,
+    username: _id,
+    selectedTopicId: null,
+    topics: [],
+    language: fallbackLng,
+  }
   return user
 }
 
-export const createLocalUser = (): User => {
-  const user = {
-    _id: Date.now() + "",
-    username: "guest",
-    selectedTopicId: null,
-    topics: [],
+export const createNullUser = () => {
+  return createLocalUser(nullUserId)
+}
+
+export const createAnonymousUser = () => {
+  return createLocalUser(anonymousUserId)
+}
+
+export const uuid = () => {
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
+    const r = (Math.random() * 16) | 0,
+      v = c == "x" ? r : (r & 0x3) | 0x8
+    return v.toString(16)
+  })
+}
+
+export const createOption = (
+  _id: string,
+  name: string,
+  bias: number
+): BanditArm => {
+  return {
+    _id,
+    name,
+    pulls: 0,
+    reward: 0,
+    bias,
   }
-  return user
 }
 
 export const switchLanguage = () => {
@@ -72,7 +101,11 @@ const choice = <T>(array: T[], probabilities: number[]) => {
   throw new Error("Should not reach here")
 }
 
-const getArmsWithProbabilities = () => {
+const getArmsWithProbabilities = (): {
+  arms: Arm[]
+  probabilityOfEveryArm: ProbabilityOfEveryArm
+  policy: RandomPolicy
+} => {
   const {
     user: { selectedTopicId, topics },
   } = store.getState()
@@ -80,8 +113,8 @@ const getArmsWithProbabilities = () => {
   const selectedTopic = topics.find((topic) => topic._id === selectedTopicId)
   if (!selectedTopic) {
     return {
-      arms: [],
-      probabilities: [],
+      arms: [] as Arm[],
+      probabilityOfEveryArm: [] as ProbabilityOfEveryArm,
       policy: RandomPolicy.RANDOMIZE,
     }
   }
@@ -112,18 +145,22 @@ export const getProbabilities = () => {
   }
 }
 
-export const randomMe = () => {
+export const randomMe = async () => {
+  const {
+    user: { selectedTopicId },
+  } = store.getState()
   const { arms, probabilityOfEveryArm } = getArmsWithProbabilities()
   const selectedArm = choice(arms, probabilityOfEveryArm)
-  const reward = confirm(
-    translate("utils.randomConfirm", { option: selectedArm.name })
-  )
+  const reward = Number(
+    confirm(translate("utils.randomConfirm", { option: selectedArm.name }))
+  ) as 0 | 1
+  await pullDB(selectedTopicId, selectedArm._id, reward)
   selectedArm.pull(reward ? 1 : 0)
 }
 
-export const createDefaultTopic = (name: string): Topic => {
+export const createDefaultTopic = (_id: string, name: string): Topic => {
   return {
-    _id: Date.now() + "",
+    _id,
     name,
     options: [],
     policy: RandomPolicy.MULTINOMIAL,

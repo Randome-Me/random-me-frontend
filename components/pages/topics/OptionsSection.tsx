@@ -3,17 +3,28 @@ import { useAppSelector, useAppDispatch } from "hooks"
 import { FormEvent, useRef, useState } from "react"
 import { useTranslation, withTranslation } from "react-i18next"
 import {
-  setOptionWeight,
+  setOptionBias,
   setOptionName,
   removeOption,
   addOption,
 } from "store/slice/user"
 import { BanditArm } from "types/mab"
-import { maxBias, minBias } from "utils/constants"
+import { uuid } from "utils"
+import {
+  addOptionDB,
+  removeOptionDB,
+  setOptionBiasDB,
+  setOptionNameDB,
+} from "utils/axios/request/database"
+import { anonymousUserId, maxBias, minBias } from "utils/constants"
 import BiasInputDatalist from "./BiasInputDatalist"
 
 const OptionsSection = () => {
-  const { topics, selectedTopicId } = useAppSelector((state) => state.user)
+  const {
+    topics,
+    selectedTopicId,
+    _id: userId,
+  } = useAppSelector((state) => state.user)
   const dispatch = useAppDispatch()
   const { t } = useTranslation("translation", { keyPrefix: "topics" })
 
@@ -22,7 +33,7 @@ const OptionsSection = () => {
 
   const biasInputListId = "bias-input-datalist"
 
-  const handleOptionSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleOptionSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     let bias = biasInput.current.valueAsNumber
@@ -30,10 +41,27 @@ const OptionsSection = () => {
       bias = undefined
     }
 
+    if (addOptionText.trim() === "") {
+      alert(t("emptyOptionAlert"))
+      return
+    }
+
+    let optionId: string
+
+    if (userId === anonymousUserId) {
+      optionId = uuid()
+    } else {
+      const {
+        data: { _id },
+      } = await addOptionDB(selectedTopicId, addOptionText, bias)
+      optionId = _id
+    }
+
     dispatch(
       addOption({
-        name: addOptionText,
         topicId: selectedTopicId,
+        optionId,
+        name: addOptionText,
         bias,
       })
     )
@@ -42,7 +70,7 @@ const OptionsSection = () => {
     biasInput.current.value = undefined
   }
 
-  const editWeight = (option: BanditArm) => {
+  const editWeight = async (option: BanditArm) => {
     let bias: string | number = window.prompt(
       t("editWeightPrompt"),
       option.bias + ""
@@ -55,8 +83,11 @@ const OptionsSection = () => {
       return
     }
 
+    if (userId !== anonymousUserId) {
+      await setOptionBiasDB(selectedTopicId, option._id, bias)
+    }
     dispatch(
-      setOptionWeight({
+      setOptionBias({
         topicId: selectedTopicId,
         optionId: option._id,
         weight: bias,
@@ -64,16 +95,22 @@ const OptionsSection = () => {
     )
   }
 
-  const editOptionName = (option: BanditArm) => {
+  const editOptionName = async (option: BanditArm) => {
     const { name: oldName, _id: optionId } = option
 
     const name = window.prompt(t("editOptionNamePrompt"), oldName)
     if (!name) return
 
+    if (userId !== anonymousUserId) {
+      await setOptionNameDB(selectedTopicId, optionId, name)
+    }
     dispatch(setOptionName({ topicId: selectedTopicId, optionId, name }))
   }
 
-  const deleteOption = (optionId: string) => {
+  const deleteOption = async (optionId: string) => {
+    if (userId !== anonymousUserId) {
+      await removeOptionDB(selectedTopicId, optionId)
+    }
     dispatch(removeOption({ topicId: selectedTopicId, optionId }))
   }
 

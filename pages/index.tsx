@@ -14,6 +14,8 @@ import { withTranslation } from "react-i18next"
 import RandomMeButton from "components/pages/home/RandomMeButton"
 import ProbabilityTable from "components/pages/home/ProbabilityTable"
 import { Topic } from "types"
+import { changeTopicPolicyDB } from "utils/axios/request/database"
+import { anonymousUserId } from "utils/constants"
 
 const policies: RandomPolicy[] = [
   RandomPolicy.MULTINOMIAL,
@@ -26,7 +28,11 @@ const policies: RandomPolicy[] = [
 
 const Home = () => {
   const dispatch = useAppDispatch()
-  const { selectedTopicId, topics } = useAppSelector((state) => state.user)
+  const {
+    selectedTopicId,
+    topics,
+    _id: userId,
+  } = useAppSelector((state) => state.user)
   const { t } = useTranslation("translation", { keyPrefix: "home" })
 
   const [selectedPolicy, setSelectedPolicy] = useState<RandomPolicy>(
@@ -45,6 +51,13 @@ const Home = () => {
     setProbabilityInfo(getProbabilities())
     setTopicsWithOptions(topics.filter((topic) => topic.options.length > 0))
   }, [topics, selectedTopicId])
+
+  const handleChangePolicy = async (policy: RandomPolicy) => {
+    if (userId !== anonymousUserId) {
+      await changeTopicPolicyDB(selectedTopicId, policy)
+    }
+    dispatch(changeTopicPolicy(policy))
+  }
 
   return (
     <>
@@ -144,7 +157,7 @@ const Home = () => {
                           <select
                             value={selectedPolicy}
                             onChange={(e) =>
-                              dispatch(changeTopicPolicy(+e.target.value))
+                              handleChangePolicy(+e.target.value)
                             }
                             className="form-select max-w-[90%] self-center"
                           >

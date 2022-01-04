@@ -3,6 +3,7 @@ const en = {
     utils: {
       randomConfirm: "Selected {{option}}\nDo you like this option?",
       menuText: "Menu",
+      loading: "Loading...",
     },
     login: {
       title: "Login",
@@ -19,6 +20,20 @@ const en = {
       or: "or",
       continueAsGuest: "continue as guest",
       login: "Login",
+      loginFailedAlert: "Login failed. Please try again.",
+    },
+    register: {
+      title: "Register",
+      description: "Register to Random Me.",
+      emptyUsernameAlert: "Please enter your username.",
+      emptyPasswordAlert: "Please enter your password.",
+      emptyConfirmPasswordAlert: "Please confirm your password.",
+      emptyEmailAlert: "Please enter your email.",
+      passwordConfirmAlert: "Passwords do not match.",
+      usernameExamplePlaceholder: "e.g. johndoe",
+      emailExamplePlaceholder: "e.g. johndoe@example.com",
+      passwordExamplePlaceholder: "e.g. password123",
+      passwordConfirmExamplePlaceholder: "password123",
     },
     home: {
       title: "Random",
@@ -44,6 +59,8 @@ const en = {
       options: "Options",
       bias: "Bias",
       addOptionPlaceholder: "Add an option",
+      emptyTopicAlert: "Please enter a topic name.",
+      emptyOptionAlert: "Please enter an option name.",
     },
     account: {
       title: "Account",
