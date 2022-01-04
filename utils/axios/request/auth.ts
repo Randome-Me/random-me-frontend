@@ -84,23 +84,16 @@ export const registerWithCurrentGuest = async (
   return newUserId
 }
 
-// /**
-//  * @param by Tell the server to search by email or username
-//  * @param text Email if by is 'email' else username
-//  */
-// export const forgotPassword = (by: "email" | "username", text: string) => {
-//   interface ResponseData {}
-//   return axiosClientInstance.post<ResponseData>(
-//     `/auth/forgot-password?by=${by}`,
-//     {
-//       text,
-//     }
-//   )
-// }
+export const forgotPassword = (email: string) => {
+  interface ResponseData {}
+  return axiosClientInstance.post<ResponseData>(`/accounts/forgot-password`, {
+    email,
+  })
+}
 
 // export const resetPassword = (password: string) => {
 //   interface ResponseData {}
-//   return axiosClientInstance.post<ResponseData>("/auth/reset-password", {
+//   return axiosClientInstance.post<ResponseData>("/accounts/reset-password", {
 //     password,
 //   })
 // }

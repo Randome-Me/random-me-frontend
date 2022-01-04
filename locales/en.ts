@@ -44,6 +44,8 @@ const en = {
       sendFailedAlert: "Failed to send reset password email. Please try again.",
       title: "Forgot Password",
       description: "Enter your email to reset your password.",
+      emptyEmailAlert: "Please enter your email.",
+      successAlert: "How to reset your password is sent to your email.",
     },
     home: {
       title: "Random",

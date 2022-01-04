@@ -1,15 +1,39 @@
 import { LoginInputEmail } from "components/common/LoginInput"
 import LoginRegisterLayout from "components/layout/LoginRegisterLayout"
+import { useAppDispatch } from "hooks"
 import Head from "next/head"
 import Link from "next/link"
-import React, { FormEvent } from "react"
+import React, { FormEvent, useState } from "react"
 import { useTranslation } from "react-i18next"
+import { hideLoader, showLoader } from "store/slice/app"
+import { forgotPassword } from "utils/axios/request/auth"
 
 const ForgotPassword = () => {
   const { t } = useTranslation("translation", { keyPrefix: "forgotPassword" })
+  const dispatch = useAppDispatch()
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const [email, setEmail] = useState("")
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+
+    if (email.trim() === "") {
+      alert(t("emptyEmailAlert"))
+      return
+    }
+
+    dispatch(showLoader())
+    let error = false
+    await forgotPassword(email).catch((err) => {
+      alert(err)
+      error = true
+    })
+    dispatch(hideLoader())
+    if (error) {
+      return
+    }
+    setEmail("")
+    alert(t("successAlert"))
   }
 
   return (
@@ -23,7 +47,11 @@ const ForgotPassword = () => {
 
       <LoginRegisterLayout topic="Login">
         <form onSubmit={handleSubmit}>
-          <LoginInputEmail placeholder="Email" />
+          <LoginInputEmail
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email"
+          />
           <button
             type="submit"
             className="
