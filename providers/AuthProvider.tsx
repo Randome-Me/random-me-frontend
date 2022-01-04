@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next"
 import { setUser } from "store/slice/user"
 import { getLocalUser, saveToLocal } from "utils"
 import { checkMe } from "utils/axios/request/auth"
-import { anonymousUserId, nullUserId } from "utils/constants"
+import { guestUserId, nullUserId } from "utils/constants"
 
 interface AuthProviderProps {
   children: React.ReactNode
@@ -30,7 +30,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 
     i18n.changeLanguage(user.language)
 
-    if (user._id === anonymousUserId) {
+    if (user._id === guestUserId) {
       saveToLocal("user", user)
     }
   }, [i18n, user])

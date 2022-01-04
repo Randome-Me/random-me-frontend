@@ -5,7 +5,7 @@ import { BanditArm, ProbabilityOfEveryArm, RandomPolicy } from "types/mab"
 import { getProbabilityOfEveryArm } from "./MAB"
 import i18n, { fallbackLng } from "locales"
 import { t as translate } from "i18next"
-import { anonymousUserId, nullUserId } from "./constants"
+import { guestUserId, nullUserId } from "./constants"
 import { pullDB } from "./axios/request/database"
 
 export const saveToLocal = (key: LocalStorageKey, data: any) => {
@@ -35,8 +35,8 @@ export const createNullUser = () => {
   return createLocalUser(nullUserId)
 }
 
-export const createAnonymousUser = () => {
-  return createLocalUser(anonymousUserId)
+export const createGuestUser = () => {
+  return createLocalUser(guestUserId)
 }
 
 export const uuid = () => {

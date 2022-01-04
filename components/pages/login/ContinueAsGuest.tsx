@@ -3,18 +3,17 @@ import { useAppDispatch } from "hooks"
 import Link from "next/link"
 import { useTranslation, withTranslation } from "react-i18next"
 import { setUser } from "store/slice/user"
-import { createAnonymousUser, getLocalUser } from "utils"
+import { createGuestUser, getLocalUser } from "utils"
 
 const ContinueAsGuest = () => {
   const { t } = useTranslation("translation", { keyPrefix: "login" })
   const dispatch = useAppDispatch()
 
   const handleContinueAsGuest = () => {
-    console.log("object")
     // check if there exists an existing anonymous user
     let user = getLocalUser()
     if (!user) {
-      user = createAnonymousUser()
+      user = createGuestUser()
       dispatch(setUser(user))
     }
   }

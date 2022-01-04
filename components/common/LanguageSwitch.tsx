@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next"
 import { changeLanguage } from "store/slice/user"
 import { AvailableLanguages } from "types/internationalization"
 import { changeLanguageDB } from "utils/axios/request/database"
-import { anonymousUserId } from "utils/constants"
+import { guestUserId } from "utils/constants"
 
 const languages: AvailableLanguages[] = ["en", "th"]
 
@@ -16,7 +16,7 @@ const LanguageSwitch = () => {
 
   const handleChangeLanguage = async (language: AvailableLanguages) => {
     if (
-      userId !== anonymousUserId &&
+      userId !== guestUserId &&
       router.pathname !== "/login" &&
       router.pathname !== "/register"
     ) {

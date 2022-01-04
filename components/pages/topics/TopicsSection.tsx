@@ -17,7 +17,7 @@ import {
   selectTopicDB,
   setTopicNameDB,
 } from "utils/axios/request/database"
-import { anonymousUserId } from "utils/constants"
+import { guestUserId } from "utils/constants"
 
 const TopicsSection = () => {
   const {
@@ -39,7 +39,7 @@ const TopicsSection = () => {
 
     let newTopicId: string
 
-    if (userId === anonymousUserId) {
+    if (userId === guestUserId) {
       newTopicId = uuid()
     } else {
       const {
@@ -59,7 +59,7 @@ const TopicsSection = () => {
     )
     if (!name) return
 
-    if (userId !== anonymousUserId) {
+    if (userId !== guestUserId) {
       await setTopicNameDB(selectedTopicId, name)
     }
 
@@ -67,19 +67,19 @@ const TopicsSection = () => {
   }
 
   const deleteTopic = async () => {
-    if (userId !== anonymousUserId) {
+    if (userId !== guestUserId) {
       await removeTopicDB(selectedTopicId)
     }
     dispatch(removeTopic({ topicId: selectedTopicId }))
 
-    if (userId !== anonymousUserId) {
+    if (userId !== guestUserId) {
       await resetSelectTopicDB()
     }
     dispatch(resetSelectedTopic())
   }
 
   const handleSelectTopic = async (topicId: string) => {
-    if (userId !== anonymousUserId) {
+    if (userId !== guestUserId) {
       await selectTopicDB(topicId)
     }
     dispatch(selectTopic({ topicId }))

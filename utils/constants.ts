@@ -4,4 +4,4 @@ export const maxBias = biasRange[biasRange.length - 1]
 export const minBias = biasRange[0]
 
 export const nullUserId = "null"
-export const anonymousUserId = "anonymous"
+export const guestUserId = "guest"

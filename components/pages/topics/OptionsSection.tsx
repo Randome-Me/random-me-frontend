@@ -16,7 +16,7 @@ import {
   setOptionBiasDB,
   setOptionNameDB,
 } from "utils/axios/request/database"
-import { anonymousUserId, maxBias, minBias } from "utils/constants"
+import { guestUserId, maxBias, minBias } from "utils/constants"
 import BiasInputDatalist from "./BiasInputDatalist"
 
 const OptionsSection = () => {
@@ -48,7 +48,7 @@ const OptionsSection = () => {
 
     let optionId: string
 
-    if (userId === anonymousUserId) {
+    if (userId === guestUserId) {
       optionId = uuid()
     } else {
       const {
@@ -83,7 +83,7 @@ const OptionsSection = () => {
       return
     }
 
-    if (userId !== anonymousUserId) {
+    if (userId !== guestUserId) {
       await setOptionBiasDB(selectedTopicId, option._id, bias)
     }
     dispatch(
@@ -101,14 +101,14 @@ const OptionsSection = () => {
     const name = window.prompt(t("editOptionNamePrompt"), oldName)
     if (!name) return
 
-    if (userId !== anonymousUserId) {
+    if (userId !== guestUserId) {
       await setOptionNameDB(selectedTopicId, optionId, name)
     }
     dispatch(setOptionName({ topicId: selectedTopicId, optionId, name }))
   }
 
   const deleteOption = async (optionId: string) => {
-    if (userId !== anonymousUserId) {
+    if (userId !== guestUserId) {
       await removeOptionDB(selectedTopicId, optionId)
     }
     dispatch(removeOption({ topicId: selectedTopicId, optionId }))
