@@ -105,7 +105,7 @@ const Home = () => {
                       <div>
                         <div className="flex item-center justify-center md:justify-start">
                           <h3
-                            className="font-Sen
+                            className="font-Kanit
                           translate-y-2
                           w-[7ch]
                           hidden md:block"
@@ -146,7 +146,7 @@ const Home = () => {
                           <div className="hidden md:flex">
                             <Link href="/random-policies">
                               <a
-                                className="font-Sen
+                                className="font-Kanit
                               underline
                               translate-y-2"
                               >

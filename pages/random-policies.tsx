@@ -10,7 +10,7 @@ const RandomPolicies = () => {
 
   const h1Class = `
   text-slate-50
-  font-Sen
+  font-Kanit
   mb-6
   text-6xl
   `

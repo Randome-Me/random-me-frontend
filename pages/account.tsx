@@ -110,7 +110,7 @@ const Account = () => {
               login-register-button uppercase
               "
                 >
-                  logout
+                  {t("logout")}
                 </button>
               )}
             </Glass>
