@@ -21,7 +21,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     })
 
   try {
-    const response = await axiosServerInstance.post("/auth/register/", {
+    const response = await axiosServerInstance.post("/auth/register/guest/", {
       username,
       email,
       password,
