@@ -2,7 +2,7 @@ import Head from "next/head"
 import LoginRegisterLayout from "components/layout/LoginRegisterLayout"
 import ContinueAsGuest from "components/pages/login/ContinueAsGuest"
 import LoginForm from "components/pages/login/LoginForm"
-import LoginSocialMedia from "components/pages/login/LoginSocialMedia"
+// import LoginSocialMedia from "components/pages/login/LoginSocialMedia"
 import { useTranslation, withTranslation } from "react-i18next"
 
 const Login = () => {
@@ -19,7 +19,7 @@ const Login = () => {
 
       <LoginRegisterLayout topic="Login">
         <LoginForm />
-        <LoginSocialMedia />
+        {/* <LoginSocialMedia /> */}
         <ContinueAsGuest />
       </LoginRegisterLayout>
     </>
