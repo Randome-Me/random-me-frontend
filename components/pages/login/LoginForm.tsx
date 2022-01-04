@@ -48,10 +48,6 @@ const LoginForm = () => {
     setUsername("")
   }
 
-  const handleForgotPassword = () => {
-    // TODO: handle forgot password
-  }
-
   return (
     <form onSubmit={handleSubmit} className="mt-8">
       <h2 className="sr-only">Login with username and password</h2>
@@ -76,13 +72,9 @@ const LoginForm = () => {
           <Link href="/register">
             <a className="clickable-text-cyan text-sm">{t("register")}</a>
           </Link>
-          <a
-            onClick={handleForgotPassword}
-            href="#"
-            className="clickable-text-cyan text-sm"
-          >
-            {t("forgotPassword")}
-          </a>
+          <Link href="/forgot-password">
+            <a className="clickable-text-cyan text-sm">{t("forgotPassword")}</a>
+          </Link>
         </div>
       </div>
     </form>

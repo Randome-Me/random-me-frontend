@@ -38,6 +38,14 @@ const th = {
       login: "ลงชื่อเข้าใช้",
       withCurrentGuest: "ด้วยข้อมูลปัจจุบัน",
     },
+    forgotPassword: {
+      email: "อีเมล",
+      login: "ลงชื่อเข้าใช้",
+      send: "ส่ง",
+      sendFailedAlert: "การส่งอีเมลล้มเหลว กรุณาลองอีกครั้ง",
+      title: "ลืมรหัสผ่าน",
+      description: "กรุณากรอกอีเมลของคุณเพื่อส่งรหัสผ่านใหม่ไปยังอีเมลของคุณ",
+    },
     home: {
       title: "สุ่ม",
       description: "มาสุ่มชะตาชีวิตของเราด้วย Random Me กันเถอะ",

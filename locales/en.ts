@@ -37,6 +37,14 @@ const en = {
       login: "Login",
       withCurrentGuest: "with current guest",
     },
+    forgotPassword: {
+      email: "Email",
+      login: "Login",
+      send: "Send",
+      sendFailedAlert: "Failed to send reset password email. Please try again.",
+      title: "Forgot Password",
+      description: "Enter your email to reset your password.",
+    },
     home: {
       title: "Random",
       description: "Let's randomize your life decisions with Random Me!",
