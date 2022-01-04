@@ -5,13 +5,13 @@ import axiosClientInstance from "../instance/client"
 
 /**
  * Create a new topic
+ * @param topicId The new topic ID to set
  */
-export const addTopicDB = (name: string) => {
-  interface ResponseData {
-    _id: string
-  }
+export const addTopicDB = (topicId: string, name: string) => {
+  interface ResponseData {}
   return axiosClientInstance.post<ResponseData>(`topics`, {
     name,
+    topicId,
   })
 }
 

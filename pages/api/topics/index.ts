@@ -13,6 +13,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       `/topics/`,
       {
         name,
+        _id: topicId,
       },
       { headers: { cookie } }
     )

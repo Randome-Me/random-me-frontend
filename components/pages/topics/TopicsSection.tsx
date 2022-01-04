@@ -37,19 +37,12 @@ const TopicsSection = () => {
       return
     }
 
-    let newTopicId: string
-
-    // TODO decide on who's creating the topic id, frontend or backend
-    if (userId === guestUserId) {
-      newTopicId = uuid()
-    } else {
-      const {
-        data: { _id },
-      } = await addTopicDB(addTopicText)
-      newTopicId = _id
+    const newTopicId = uuid()
+    dispatch(addTopic({ newTopicId, name: addTopicText }))
+    if (userId !== guestUserId) {
+      addTopicDB(newTopicId, addTopicText)
     }
 
-    dispatch(addTopic({ newTopicId, name: addTopicText }))
     setAddTopicText("")
   }
 
