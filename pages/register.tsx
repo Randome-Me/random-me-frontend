@@ -79,12 +79,18 @@ export default function Register() {
           />
 
           <div className="space-y-1">
-            <button type="submit" className="login-register-button">
-              REGISTER
+            <button
+              type="submit"
+              className="
+            login-register-button
+            uppercase
+            "
+            >
+              {t("title")}
             </button>
             <div className="flex justify-between">
               <Link href="/login">
-                <a className="clickable-text-cyan text-sm">Back to login</a>
+                <a className="clickable-text-cyan text-sm">{t("login")}</a>
               </Link>
             </div>
           </div>

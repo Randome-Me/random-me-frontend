@@ -34,6 +34,7 @@ const en = {
       emailExamplePlaceholder: "e.g. johndoe@example.com",
       passwordExamplePlaceholder: "e.g. password123",
       passwordConfirmExamplePlaceholder: "password123",
+      login: "Login",
     },
     home: {
       title: "Random",

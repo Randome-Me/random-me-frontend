@@ -35,6 +35,7 @@ const th = {
       emailExamplePlaceholder: "ตัวอย่าง johndoe@example.com",
       passwordExamplePlaceholder: "ตัวอย่าง password123",
       passwordConfirmExamplePlaceholder: "password123",
+      login: "ลงชื่อเข้าใช้",
     },
     home: {
       title: "สุ่ม",
