@@ -21,11 +21,13 @@ export function LoginInputText({
   value,
   onChange,
   placeholder,
-}: LoginInputProps) {
+  ...rest
+}: LoginInputProps & React.InputHTMLAttributes<HTMLInputElement>) {
   return (
     <div className={loginInputContainerClass}>
       <Icon icon="bx:bx-user-circle" className={loginInputIconClass} />
       <input
+        {...rest}
         required
         minLength={minUsernameLength}
         maxLength={maxUsernameLength}
@@ -43,11 +45,13 @@ export function LoginInputPassword({
   onChange,
   placeholder,
   value,
-}: LoginInputProps) {
+  ...rest
+}: LoginInputProps & React.InputHTMLAttributes<HTMLInputElement>) {
   return (
     <div className={loginInputContainerClass}>
       <Icon icon="ri:lock-password-fill" className={loginInputIconClass} />
       <input
+        {...rest}
         required
         minLength={minPasswordLength}
         value={value}
@@ -64,11 +68,13 @@ export function LoginInputEmail({
   onChange,
   placeholder,
   value,
-}: LoginInputProps) {
+  ...rest
+}: LoginInputProps & React.InputHTMLAttributes<HTMLInputElement>) {
   return (
     <div className={loginInputContainerClass}>
       <Icon icon="eva:email-fill" className={loginInputIconClass} />
       <input
+        {...rest}
         required
         value={value}
         placeholder={placeholder}

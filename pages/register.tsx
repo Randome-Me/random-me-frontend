@@ -98,7 +98,7 @@ export default function Register() {
       </Head>
 
       <LoginRegisterLayout topic="Register">
-        <form className="space-y-4" onSubmit={handleSubmit}>
+        <form autoComplete="off" className="space-y-4" onSubmit={handleSubmit}>
           <LoginInputText
             onChange={(e) => setUsername(e.target.value)}
             value={username}
