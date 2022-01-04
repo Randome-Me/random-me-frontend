@@ -4,19 +4,24 @@ import {
   LoginInputText,
 } from "components/common/LoginInput"
 import LoginRegisterLayout from "components/layout/LoginRegisterLayout"
+import { useAppDispatch } from "hooks"
 import Head from "next/head"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { FormEvent, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
+import { setUser } from "store/slice/user"
 import { User } from "types"
-import { getLocalUser } from "utils"
-import { register } from "utils/axios/request/auth"
+import { AvailableLanguages } from "types/internationalization"
+import { getLocalUser, removeFromLocal } from "utils"
+import { register, registerWithCurrentGuest } from "utils/axios/request/auth"
 import { guestUserId } from "utils/constants"
 
 export default function Register() {
   const { t } = useTranslation("translation", { keyPrefix: "register" })
   const router = useRouter()
+  const { i18n } = useTranslation()
+  const dispatch = useAppDispatch()
 
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
@@ -49,7 +54,30 @@ export default function Register() {
       return
     }
 
-    await register(email, username, password, passwordConfirm)
+    if (withCurrentGuest) {
+      const { language, selectedTopicId, topics } = currentGuest
+      const _id = await registerWithCurrentGuest(
+        username,
+        email,
+        password,
+        passwordConfirm,
+        language,
+        selectedTopicId,
+        topics
+      )
+      dispatch(setUser({ _id, username, language, selectedTopicId, topics }))
+      removeFromLocal("user")
+    } else {
+      const user = await register(
+        email,
+        username,
+        password,
+        passwordConfirm,
+        i18n.language as AvailableLanguages
+      )
+      dispatch(setUser(user))
+    }
+
     router.replace("/")
   }
 

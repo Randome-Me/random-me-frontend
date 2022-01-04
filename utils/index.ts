@@ -16,6 +16,10 @@ export const getFromLocal = <T>(key: LocalStorageKey): T | null => {
   return JSON.parse(localStorage.getItem(key))
 }
 
+export const removeFromLocal = (key: LocalStorageKey) => {
+  localStorage.removeItem(key)
+}
+
 export const getLocalUser = () => {
   return getFromLocal<User>("user")
 }
