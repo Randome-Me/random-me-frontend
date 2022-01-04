@@ -2,6 +2,12 @@ import { useAppDispatch, useAppSelector } from "hooks"
 import { useRouter } from "next/router"
 import { useEffect, useRef } from "react"
 import { useTranslation } from "react-i18next"
+import {
+  hideLoader,
+  setLoaderBefore,
+  showThickLoader,
+  unsetLoaderBefore,
+} from "store/slice/app"
 import { setUser } from "store/slice/user"
 import { getLocalUser, saveToLocal } from "utils"
 import { checkMe } from "utils/axios/request/auth"
@@ -11,14 +17,27 @@ interface AuthProviderProps {
   children: React.ReactNode
 }
 
+// TODO add logo
+const logo = <div></div>
+
 const AuthProvider = ({ children }: AuthProviderProps) => {
-  const { t, i18n } = useTranslation()
+  const { i18n } = useTranslation()
   const user = useAppSelector((state) => state.user)
   const dispatch = useAppDispatch()
   const router = useRouter()
 
   const firstLoad = useRef(true)
   const checkedMe = useRef(false)
+
+  const showCheckMeLoader = () => {
+    dispatch(setLoaderBefore(logo))
+    dispatch(showThickLoader())
+  }
+
+  const hideCheckMeLoader = () => {
+    dispatch(unsetLoaderBefore())
+    dispatch(hideLoader())
+  }
 
   useEffect(() => {
     // user on the first load is set to default user initially
@@ -37,37 +56,48 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 
   useEffect(() => {
     const onMount = async () => {
+      showCheckMeLoader()
       const userDB = await checkMe()
       checkedMe.current = true
+
       if (userDB) {
         dispatch(setUser(userDB))
+        if (router.pathname === "/login" || router.pathname === "/register") {
+          await router.replace("/")
+        }
+        hideCheckMeLoader()
         return
       }
+
       const localUser = getLocalUser()
+
       if (!localUser) {
-        if (router.pathname === "/register") return
-        router.replace("/login")
+        if (router.pathname === "/register") {
+          hideCheckMeLoader()
+          return
+        }
+        await router.replace("/login")
+        hideCheckMeLoader()
         return
       }
+
       if (localUser._id === nullUserId) {
-        router.replace("/login")
+        await router.replace("/login")
+        hideCheckMeLoader()
         return
       }
+
       // anonymous user is saved
       dispatch(setUser(localUser))
+      if (router.pathname === "/login" || router.pathname === "/register") {
+        await router.replace("/")
+      }
+      hideCheckMeLoader()
     }
     onMount()
   }, [])
 
-  return (
-    <div>
-      {user._id === nullUserId && !checkedMe.current ? (
-        <h1 className="text-slate-50">{t("utils.loading")}</h1>
-      ) : (
-        children
-      )}
-    </div>
-  )
+  return <div>{children}</div>
 }
 
 export default AuthProvider
