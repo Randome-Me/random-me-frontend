@@ -57,6 +57,7 @@ const en = {
       passwordConfirmExamplePlaceholder: "password123",
       changePassword: "Change Password",
       login: "Login",
+      noTokenAlert: "Missing token. Please try again.",
     },
     home: {
       title: "Random",

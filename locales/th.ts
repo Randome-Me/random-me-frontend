@@ -58,6 +58,7 @@ const th = {
       passwordConfirmExamplePlaceholder: "password123",
       changePassword: "เปลี่ยนรหัสผ่าน",
       login: "ลงชื่อเข้าใช้",
+      noTokenAlert: "ไม่พบ token ของคุณ กรุณาลองอีกครั้ง",
     },
     home: {
       title: "สุ่ม",

@@ -57,7 +57,6 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   useEffect(() => {
     const onMount = async () => {
       if (router.pathname === "/change-password") {
-        console.log("object")
         setCheckedMe(true)
         return
       }

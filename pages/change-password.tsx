@@ -1,11 +1,13 @@
 import { LoginInputPassword } from "components/common/LoginInput"
 import LoginRegisterLayout from "components/layout/LoginRegisterLayout"
 import Head from "next/head"
-import { FormEvent, useState } from "react"
+import { useRouter } from "next/router"
+import { FormEvent, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 
-const ChangePassword = () => {
+const ChangePassword = ({ query: { token } }) => {
   const { t } = useTranslation("translation", { keyPrefix: "changePassword" })
+  const router = useRouter()
 
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
@@ -30,8 +32,15 @@ const ChangePassword = () => {
   }
 
   const goToLogin = () => {
-    window.location.href = "/login"
+    router.replace("/login")
   }
+
+  useEffect(() => {
+    if (!token) {
+      alert(t("noTokenAlert"))
+      goToLogin()
+    }
+  }, [])
 
   return (
     <>
@@ -75,6 +84,10 @@ const ChangePassword = () => {
       </LoginRegisterLayout>
     </>
   )
+}
+
+ChangePassword.getInitialProps = ({ query }) => {
+  return { query }
 }
 
 export default ChangePassword
