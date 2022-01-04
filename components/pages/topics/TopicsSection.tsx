@@ -39,6 +39,7 @@ const TopicsSection = () => {
 
     let newTopicId: string
 
+    // TODO decide on who's creating the topic id, frontend or backend
     if (userId === guestUserId) {
       newTopicId = uuid()
     } else {
@@ -52,37 +53,34 @@ const TopicsSection = () => {
     setAddTopicText("")
   }
 
-  const editTopicName = async () => {
+  const editTopicName = () => {
     const name = window.prompt(
       t("editTopicNamePrompt"),
       topics.find((t) => t._id === selectedTopicId).name
     )
     if (!name) return
 
-    if (userId !== guestUserId) {
-      await setTopicNameDB(selectedTopicId, name)
-    }
-
     dispatch(setTopicName({ topicId: selectedTopicId, name }))
+
+    if (userId !== guestUserId) {
+      setTopicNameDB(selectedTopicId, name)
+    }
   }
 
-  const deleteTopic = async () => {
-    if (userId !== guestUserId) {
-      await removeTopicDB(selectedTopicId)
-    }
-    dispatch(removeTopic({ topicId: selectedTopicId }))
-
-    if (userId !== guestUserId) {
-      await resetSelectTopicDB()
-    }
+  const deleteTopic = () => {
     dispatch(resetSelectedTopic())
+    dispatch(removeTopic({ topicId: selectedTopicId }))
+    if (userId !== guestUserId) {
+      resetSelectTopicDB()
+      removeTopicDB(selectedTopicId)
+    }
   }
 
-  const handleSelectTopic = async (topicId: string) => {
-    if (userId !== guestUserId) {
-      await selectTopicDB(topicId)
-    }
+  const handleSelectTopic = (topicId: string) => {
     dispatch(selectTopic({ topicId }))
+    if (userId !== guestUserId) {
+      selectTopicDB(topicId)
+    }
   }
 
   return (
