@@ -126,7 +126,7 @@ export const removeOptionDB = (topicId: string, optionId: string) => {
 
 export const changeLanguageDB = (language: AvailableLanguages) => {
   interface ResponseData {}
-  return axiosClientInstance.post<ResponseData>(`/language`, {
+  return axiosClientInstance.patch<ResponseData>(`/accounts/language`, {
     language,
   })
 }

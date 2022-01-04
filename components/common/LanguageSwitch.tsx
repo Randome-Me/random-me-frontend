@@ -1,16 +1,27 @@
-import { useAppDispatch } from "hooks"
+import { useAppDispatch, useAppSelector } from "hooks"
+import { useRouter } from "next/router"
 import { useTranslation } from "react-i18next"
 import { changeLanguage } from "store/slice/user"
 import { AvailableLanguages } from "types/internationalization"
+import { changeLanguageDB } from "utils/axios/request/database"
+import { anonymousUserId } from "utils/constants"
 
 const languages: AvailableLanguages[] = ["en", "th"]
 
 const LanguageSwitch = () => {
   const { i18n } = useTranslation()
   const dispatch = useAppDispatch()
+  const router = useRouter()
+  const { _id: userId } = useAppSelector((state) => state.user)
 
-  const handleChangeLanguage = (language: AvailableLanguages) => {
-    // TODO change language in database
+  const handleChangeLanguage = async (language: AvailableLanguages) => {
+    if (
+      userId !== anonymousUserId &&
+      router.pathname !== "/login" &&
+      router.pathname !== "/register"
+    ) {
+      await changeLanguageDB(language)
+    }
     dispatch(changeLanguage({ language }))
     i18n.changeLanguage(language)
   }
