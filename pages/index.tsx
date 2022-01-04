@@ -5,7 +5,7 @@ import LoggedInLayout from "components/layout/LoggedInLayout"
 import { useAppDispatch, useAppSelector } from "hooks"
 import Head from "next/head"
 import Link from "next/link"
-import { useEffect, useState } from "react"
+import { ChangeEvent, useEffect, useState } from "react"
 import { changeTopicPolicy, selectTopic } from "store/slice/user"
 import { RandomPolicy } from "types/mab"
 import { decodePolicy, getProbabilities } from "utils"
@@ -14,7 +14,10 @@ import { withTranslation } from "react-i18next"
 import RandomMeButton from "components/pages/home/RandomMeButton"
 import ProbabilityTable from "components/pages/home/ProbabilityTable"
 import { Topic } from "types"
-import { changeTopicPolicyDB } from "utils/axios/request/database"
+import {
+  changeTopicPolicyDB,
+  selectTopicDB,
+} from "utils/axios/request/database"
 import { guestUserId } from "utils/constants"
 
 const policies: RandomPolicy[] = [
@@ -52,11 +55,20 @@ const Home = () => {
     setTopicsWithOptions(topics.filter((topic) => topic.options.length > 0))
   }, [topics, selectedTopicId])
 
-  const handleChangePolicy = async (policy: RandomPolicy) => {
-    if (userId !== guestUserId) {
-      await changeTopicPolicyDB(selectedTopicId, policy)
-    }
+  const handleChangePolicy = (policy: RandomPolicy) => {
     dispatch(changeTopicPolicy(policy))
+    if (userId !== guestUserId) {
+      changeTopicPolicyDB(selectedTopicId, policy)
+    }
+  }
+
+  const handleSelectTopic = (e: ChangeEvent<HTMLSelectElement>) => {
+    dispatch(
+      selectTopic({
+        topicId: e.target.value,
+      })
+    )
+    selectTopicDB(e.target.value)
   }
 
   return (
@@ -93,7 +105,7 @@ const Home = () => {
                       <div>
                         <div className="flex item-center justify-center md:justify-start">
                           <h3
-                            className="font-Sen
+                            className="font-Kanit
                           translate-y-2
                           w-[7ch]
                           hidden md:block"
@@ -101,13 +113,7 @@ const Home = () => {
                             {t("topics")}
                           </h3>
                           <select
-                            onChange={(e) =>
-                              dispatch(
-                                selectTopic({
-                                  topicId: e.target.value,
-                                })
-                              )
-                            }
+                            onChange={handleSelectTopic}
                             value={selectedTopicId}
                             className="form-select max-w-[90%]"
                           >
@@ -140,7 +146,7 @@ const Home = () => {
                           <div className="hidden md:flex">
                             <Link href="/random-policies">
                               <a
-                                className="font-Sen
+                                className="font-Kanit
                               underline
                               translate-y-2"
                               >

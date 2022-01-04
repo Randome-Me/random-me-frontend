@@ -5,13 +5,13 @@ import axiosClientInstance from "../instance/client"
 
 /**
  * Create a new topic
+ * @param topicId The new topic ID to set
  */
-export const addTopicDB = (name: string) => {
-  interface ResponseData {
-    _id: string
-  }
+export const addTopicDB = (topicId: string, name: string) => {
+  interface ResponseData {}
   return axiosClientInstance.post<ResponseData>(`topics`, {
     name,
+    topicId,
   })
 }
 
@@ -19,6 +19,7 @@ export const addTopicDB = (name: string) => {
  * Add a new option to a topic
  */
 export const addOptionDB = (
+  optionId: string,
   topicId: string,
   name: string,
   bias: number = minBias
@@ -29,6 +30,7 @@ export const addOptionDB = (
   return axiosClientInstance.post<ResponseData>(`topics/${topicId}`, {
     bias,
     name,
+    optionId,
   })
 }
 

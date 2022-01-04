@@ -3,7 +3,7 @@ import { NextApiRequest, NextApiResponse } from "next"
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const {
-    body: { name, bias, value, field },
+    body: { name, bias, value, field, optionId },
     method,
     query: { topicId },
     headers: { cookie },
@@ -15,6 +15,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       {
         name,
         bias,
+        _id: optionId,
       },
       {
         headers: { cookie },

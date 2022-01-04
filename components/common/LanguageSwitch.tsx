@@ -15,6 +15,10 @@ const LanguageSwitch = () => {
   const { _id: userId } = useAppSelector((state) => state.user)
 
   const handleChangeLanguage = async (language: AvailableLanguages) => {
+    if (i18n.language === language) return
+
+    dispatch(changeLanguage({ language }))
+    i18n.changeLanguage(language)
     if (
       userId !== guestUserId &&
       router.pathname !== "/login" &&
@@ -22,8 +26,6 @@ const LanguageSwitch = () => {
     ) {
       await changeLanguageDB(language)
     }
-    dispatch(changeLanguage({ language }))
-    i18n.changeLanguage(language)
   }
 
   return (
@@ -50,7 +52,11 @@ const LanguageSwitch = () => {
         hover:bg-gray-700
         focus:outline-none
         focus:shadow-outline
-        ${language === i18n.language ? "bg-yellow-300" : "opacity-75"}
+        ${
+          language === i18n.language
+            ? "bg-yellow-300 cursor-auto"
+            : "opacity-75"
+        }
         `}
           onClick={() => handleChangeLanguage(language)}
         >
