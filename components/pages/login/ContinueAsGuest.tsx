@@ -14,8 +14,8 @@ const ContinueAsGuest = () => {
     let user = getLocalUser()
     if (!user) {
       user = createGuestUser()
-      dispatch(setUser(user))
     }
+    dispatch(setUser(user))
   }
 
   return (

@@ -64,6 +64,9 @@ const th = {
       title: "บัญชี",
       description: "คุณสามารถสร้างบัญชีได้ที่นี่",
       resetPassword: "รีเซ็ตรหัสผ่าน",
+      login: "ลงชื่อเข้าใช้",
+      register: "ลงทะเบียน",
+      logout: "ออกจากระบบ",
     },
     policies: {
       title: "วิธีการสุ่ม",

@@ -2,16 +2,20 @@ import Glass from "components/common/Glass"
 import PageBackground from "components/common/PageBackground"
 import LoggedInLayout from "components/layout/LoggedInLayout"
 import ScreenCenterLayout from "components/layout/ScreenCenterLayout"
-import { useAppSelector } from "hooks"
+import { useAppDispatch, useAppSelector } from "hooks"
 import Head from "next/head"
 import Image from "next/image"
+import Link from "next/link"
 import { useRouter } from "next/router"
 import { useTranslation, withTranslation } from "react-i18next"
+import { setUser } from "store/slice/user"
+import { createNullUser } from "utils"
 import { logout } from "utils/axios/request/auth"
 import { guestUserId } from "utils/constants"
 
 const Account = () => {
   const user = useAppSelector((state) => state.user)
+  const dispatch = useAppDispatch()
   const { t } = useTranslation("translation", { keyPrefix: "account" })
   const router = useRouter()
 
@@ -20,6 +24,7 @@ const Account = () => {
       await logout()
     }
     router.replace("/login")
+    dispatch(setUser(createNullUser()))
   }
 
   return (
@@ -58,23 +63,52 @@ const Account = () => {
                 >
                   {user.username}
                 </h1>
-                <a
-                  href="#"
-                  className="
+                {user._id !== guestUserId && (
+                  <a
+                    href="#"
+                    className="
                 clickable-text-cyan
                 text-sm block"
-                >
-                  {t("resetPassword")}
-                </a>
+                  >
+                    {t("resetPassword")}
+                  </a>
+                )}
               </div>
-              <button
-                onClick={handleLogout}
-                className="
+              {user._id === guestUserId ? (
+                <div>
+                  <Link href="/login">
+                    <a>
+                      <button
+                        className="
+                      login-register-button mt-2 uppercase
+                      "
+                      >
+                        {t("login")}
+                      </button>
+                    </a>
+                  </Link>
+                  <Link href="/register">
+                    <a>
+                      <button
+                        className="
+                      login-register-button mt-2 uppercase
+                      "
+                      >
+                        {t("register")}
+                      </button>
+                    </a>
+                  </Link>
+                </div>
+              ) : (
+                <button
+                  onClick={handleLogout}
+                  className="
               login-register-button uppercase
               "
-              >
-                logout
-              </button>
+                >
+                  logout
+                </button>
+              )}
             </Glass>
           </ScreenCenterLayout>
         </LoggedInLayout>

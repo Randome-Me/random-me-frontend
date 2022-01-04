@@ -66,6 +66,9 @@ const en = {
       title: "Account",
       description: "This is where you can edit your account information?",
       resetPassword: "Reset Password",
+      login: "Login",
+      register: "Register",
+      logout: "Logout",
     },
     policies: {
       title: "Random Policies",
