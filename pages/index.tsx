@@ -5,7 +5,7 @@ import LoggedInLayout from "components/layout/LoggedInLayout"
 import { useAppDispatch, useAppSelector } from "hooks"
 import Head from "next/head"
 import Link from "next/link"
-import { useEffect, useState } from "react"
+import { ChangeEvent, useEffect, useState } from "react"
 import { changeTopicPolicy, selectTopic } from "store/slice/user"
 import { RandomPolicy } from "types/mab"
 import { decodePolicy, getProbabilities } from "utils"
@@ -14,7 +14,10 @@ import { withTranslation } from "react-i18next"
 import RandomMeButton from "components/pages/home/RandomMeButton"
 import ProbabilityTable from "components/pages/home/ProbabilityTable"
 import { Topic } from "types"
-import { changeTopicPolicyDB } from "utils/axios/request/database"
+import {
+  changeTopicPolicyDB,
+  selectTopicDB,
+} from "utils/axios/request/database"
 import { guestUserId } from "utils/constants"
 
 const policies: RandomPolicy[] = [
@@ -59,6 +62,15 @@ const Home = () => {
     dispatch(changeTopicPolicy(policy))
   }
 
+  const handleSelectTopic = (e: ChangeEvent<HTMLSelectElement>) => {
+    dispatch(
+      selectTopic({
+        topicId: e.target.value,
+      })
+    )
+    selectTopicDB(e.target.value)
+  }
+
   return (
     <>
       <Head>
@@ -101,13 +113,7 @@ const Home = () => {
                             {t("topics")}
                           </h3>
                           <select
-                            onChange={(e) =>
-                              dispatch(
-                                selectTopic({
-                                  topicId: e.target.value,
-                                })
-                              )
-                            }
+                            onChange={handleSelectTopic}
                             value={selectedTopicId}
                             className="form-select max-w-[90%]"
                           >
