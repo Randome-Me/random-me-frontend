@@ -97,7 +97,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     onMount()
   }, [])
 
-  return <div>{children}</div>
+  return <>{checkedMe.current && <>{children}</>}</>
 }
 
 export default AuthProvider

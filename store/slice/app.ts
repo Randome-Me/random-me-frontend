@@ -35,7 +35,7 @@ export const appSlice = createSlice({
       state.loaderAfter = undefined
     },
     showThickLoader: (state) => {
-      state.loaderBackgroundOpacity = "bg-opacity-100"
+      state.loaderBackgroundOpacity = "bg-opacity-50"
       state.isLoading = true
     },
     showThinLoader: (state) => {

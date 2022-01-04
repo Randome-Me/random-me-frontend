@@ -23,7 +23,7 @@ const LoaderLayout = ({ children }: LoaderLayoutProps) => {
         justify-center
         items-center
         space-y-4 
-        ${loaderBackgroundOpacity} 
+        bg-opacity-50
         ${isLoading ? "" : "hidden"}`}
         aria-hidden="true"
       >

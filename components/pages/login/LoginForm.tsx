@@ -7,6 +7,7 @@ import Link from "next/link"
 import { useRouter } from "next/router"
 import { FormEvent, useState } from "react"
 import { useTranslation, withTranslation } from "react-i18next"
+import { hideLoader, showThinLoader } from "store/slice/app"
 import { setUser } from "store/slice/user"
 import { login } from "utils/axios/request/auth"
 
@@ -30,14 +31,18 @@ const LoginForm = () => {
       return
     }
 
+    dispatch(showThinLoader())
     const user = await login(username, password)
+
     if (!user) {
       alert(t("loginFailedAlert"))
+      dispatch(hideLoader())
       return
     }
 
     dispatch(setUser(user))
-    router.replace("/")
+    await router.replace("/")
+    dispatch(hideLoader())
 
     setPassword("")
     setUsername("")
