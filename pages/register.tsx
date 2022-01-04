@@ -55,6 +55,8 @@ export default function Register() {
       return
     }
 
+    // yo
+
     dispatch(showLoader())
     if (withCurrentGuest && currentGuest) {
       const { language, selectedTopicId, topics } = currentGuest
