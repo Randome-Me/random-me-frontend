@@ -8,7 +8,7 @@
   }
 
   body {
-    @apply font-Montserrat 
+    @apply font-Prompt 
     bg-cyan-600 
     text-slate-800;
   }
@@ -89,7 +89,7 @@
   }
 
   .login-register-button {
-    @apply font-Spartan 
+    @apply font-Kanit 
     font-bold 
     w-full 
     bg-yellow-400 

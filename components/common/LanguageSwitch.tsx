@@ -46,7 +46,7 @@ const LanguageSwitch = () => {
         rounded
         hover:text-slate-50
         font-extrabold
-        font-Sen
+        font-Kanit
         hover:bg-gray-700
         focus:outline-none
         focus:shadow-outline

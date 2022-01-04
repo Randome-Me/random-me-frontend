@@ -13,8 +13,8 @@ module.exports = {
       },
       fontFamily: {
         Sen: ["Sen", ...defaultTheme.fontFamily.sans],
-        Montserrat: ["Montserrat", ...defaultTheme.fontFamily.sans],
-        Spartan: ["Spartan", ...defaultTheme.fontFamily.sans],
+        Prompt: ["Prompt", ...defaultTheme.fontFamily.sans],
+        Kanit: ["Kanit", ...defaultTheme.fontFamily.sans],
       },
     },
   },
