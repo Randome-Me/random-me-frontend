@@ -7,9 +7,12 @@ import LoginRegisterLayout from "components/layout/LoginRegisterLayout"
 import Head from "next/head"
 import Link from "next/link"
 import { useRouter } from "next/router"
-import { FormEvent, useState } from "react"
+import { FormEvent, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
+import { User } from "types"
+import { getLocalUser } from "utils"
 import { register } from "utils/axios/request/auth"
+import { guestUserId } from "utils/constants"
 
 export default function Register() {
   const { t } = useTranslation("translation", { keyPrefix: "register" })
@@ -19,6 +22,8 @@ export default function Register() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [passwordConfirm, setPasswordConfirm] = useState("")
+  const [currentGuest, setCurrentGuest] = useState<User>(null)
+  const [withCurrentGuest, setWithCurrentGuest] = useState(true)
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -47,6 +52,13 @@ export default function Register() {
     await register(email, username, password, passwordConfirm)
     router.replace("/")
   }
+
+  useEffect(() => {
+    const user = getLocalUser()
+    if (user && user._id === guestUserId) {
+      setCurrentGuest(user)
+    }
+  }, [])
 
   return (
     <>
@@ -92,28 +104,32 @@ export default function Register() {
               <Link href="/login">
                 <a className="clickable-text-cyan text-sm">{t("login")}</a>
               </Link>
-              <label
-                className="
+              {currentGuest !== null && (
+                <label
+                  className="
               space-x-1
               "
-                htmlFor="withCurrentGuest"
-              >
-                <input
-                  id="withCurrentGuest"
-                  className="
+                  htmlFor="withCurrentGuest"
+                >
+                  <input
+                    checked={withCurrentGuest}
+                    onChange={() => setWithCurrentGuest(!withCurrentGuest)}
+                    id="withCurrentGuest"
+                    className="
                 my-checkbox
                 "
-                  type="checkbox"
-                />
-                <span
-                  className="
+                    type="checkbox"
+                  />
+                  <span
+                    className="
                 text-sm
                 font-semibold
                 "
-                >
-                  {t("withCurrentGuest")}
-                </span>
-              </label>
+                  >
+                    {t("withCurrentGuest")}
+                  </span>
+                </label>
+              )}
             </div>
           </div>
         </form>
