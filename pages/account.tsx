@@ -8,6 +8,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { useTranslation, withTranslation } from "react-i18next"
+import { hideLoader, showLoader } from "store/slice/app"
 import { setUser } from "store/slice/user"
 import { createNullUser } from "utils"
 import { logout } from "utils/axios/request/auth"
@@ -21,9 +22,12 @@ const Account = () => {
 
   const handleLogout = async () => {
     if (user._id !== guestUserId) {
+      dispatch(showLoader())
       await logout()
+      dispatch(hideLoader())
     }
-    router.replace("/login")
+
+    await router.replace("/login")
     dispatch(setUser(createNullUser()))
   }
 
