@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next"
 import {
   hideLoader,
   setLoaderBefore,
-  showThickLoader,
+  showLoader,
   unsetLoaderBefore,
 } from "store/slice/app"
 import { setUser } from "store/slice/user"
@@ -31,7 +31,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const showCheckMeLoader = () => {
     dispatch(setLoaderBefore(logo))
-    dispatch(showThickLoader())
+    dispatch(showLoader())
   }
 
   const hideCheckMeLoader = () => {
