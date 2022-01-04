@@ -151,15 +151,17 @@ export const getProbabilities = () => {
 
 export const randomMe = async () => {
   const {
-    user: { selectedTopicId },
+    user: { selectedTopicId, _id: userId },
   } = store.getState()
   const { arms, probabilityOfEveryArm } = getArmsWithProbabilities()
   const selectedArm = choice(arms, probabilityOfEveryArm)
   const reward = Number(
     confirm(translate("utils.randomConfirm", { option: selectedArm.name }))
   ) as 0 | 1
-  await pullDB(selectedTopicId, selectedArm._id, reward)
   selectedArm.pull(reward ? 1 : 0)
+  if (userId !== guestUserId) {
+    await pullDB(selectedTopicId, selectedArm._id, reward)
+  }
 }
 
 export const createDefaultTopic = (_id: string, name: string): Topic => {

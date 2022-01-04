@@ -55,11 +55,11 @@ const Home = () => {
     setTopicsWithOptions(topics.filter((topic) => topic.options.length > 0))
   }, [topics, selectedTopicId])
 
-  const handleChangePolicy = async (policy: RandomPolicy) => {
-    if (userId !== guestUserId) {
-      await changeTopicPolicyDB(selectedTopicId, policy)
-    }
+  const handleChangePolicy = (policy: RandomPolicy) => {
     dispatch(changeTopicPolicy(policy))
+    if (userId !== guestUserId) {
+      changeTopicPolicyDB(selectedTopicId, policy)
+    }
   }
 
   const handleSelectTopic = (e: ChangeEvent<HTMLSelectElement>) => {
