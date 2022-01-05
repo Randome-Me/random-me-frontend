@@ -26,12 +26,6 @@ const ContinueAsGuest = () => {
           {t("continueAsGuest")}
         </a>
       </Link>
-      <a href="#">
-        <Icon
-          icon="bi:info-circle-fill"
-          className="inline clickable-text-cyan"
-        />
-      </a>
     </span>
   )
 }
