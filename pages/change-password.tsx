@@ -56,7 +56,7 @@ const ChangePassword: FC<{ token: string }> = ({ token }) => {
 
     dispatch(showLoader())
     await resetPassword({ token, password, confirmPassword }).catch((err) => {
-      alert(err.message)
+      alert(err.response.data.message)
     })
     dispatch(hideLoader())
     await goToLogin()

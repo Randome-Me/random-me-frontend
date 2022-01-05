@@ -56,31 +56,35 @@ export default function Register() {
     }
 
     dispatch(showLoader())
-    if (withCurrentGuest && currentGuest) {
-      const { language, selectedTopicId, topics } = currentGuest
-      const _id = await registerWithCurrentGuest(
-        username,
-        email,
-        password,
-        passwordConfirm,
-        language,
-        selectedTopicId,
-        topics
-      )
-      dispatch(setUser({ _id, username, language, selectedTopicId, topics }))
-      removeFromLocal("user")
-    } else {
-      const user = await register(
-        email,
-        username,
-        password,
-        passwordConfirm,
-        i18n.language as AvailableLanguages
-      )
-      dispatch(setUser(user))
-    }
+    try {
+      if (withCurrentGuest && currentGuest) {
+        const { language, selectedTopicId, topics } = currentGuest
+        const _id = await registerWithCurrentGuest(
+          username,
+          email,
+          password,
+          passwordConfirm,
+          language,
+          selectedTopicId,
+          topics
+        )
+        dispatch(setUser({ _id, username, language, selectedTopicId, topics }))
+        removeFromLocal("user")
+      } else {
+        const user = await register(
+          email,
+          username,
+          password,
+          passwordConfirm,
+          i18n.language as AvailableLanguages
+        )
+        dispatch(setUser(user))
+      }
 
-    await router.replace("/")
+      await router.replace("/")
+    } catch (err) {
+      alert(err.response.data.message)
+    }
     dispatch(hideLoader())
   }
 
