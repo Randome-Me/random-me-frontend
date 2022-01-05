@@ -97,8 +97,11 @@ const TopicsSection = () => {
         <div>
           <form
             onSubmit={handleTopicSubmit}
-            className="flex w-full items-center space-x-4 px-4
-                    py-3"
+            className="flex 
+            items-center 
+            space-x-2 sm:space-x-4 
+            px-4 
+            h-16"
           >
             <input
               value={addTopicText}
