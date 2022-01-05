@@ -59,7 +59,9 @@ export default function Register() {
     try {
       if (withCurrentGuest && currentGuest) {
         const { language, selectedTopicId, topics } = currentGuest
-        const _id = await registerWithCurrentGuest(
+        const {
+          data: { _id },
+        } = await registerWithCurrentGuest(
           username,
           email,
           password,
@@ -71,7 +73,7 @@ export default function Register() {
         dispatch(setUser({ _id, username, language, selectedTopicId, topics }))
         removeFromLocal("user")
       } else {
-        const user = await register(
+        const { data: user } = await register(
           email,
           username,
           password,

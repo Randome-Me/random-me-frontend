@@ -13,6 +13,7 @@ import { getLocalUser, saveToLocal } from "utils"
 import { checkMe } from "utils/axios/request/auth"
 import { guestUserId, nullUserId } from "utils/constants"
 import Image from "next/image"
+import { User } from "types"
 
 interface AuthProviderProps {
   children: React.ReactNode
@@ -62,7 +63,13 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
       }
 
       showCheckMeLoader()
-      const userDB = await checkMe()
+      const {
+        data: userDB,
+      }: {
+        data: User | null
+      } = await checkMe().catch(() => ({
+        data: null,
+      }))
       setCheckedMe(true)
 
       if (userDB) {

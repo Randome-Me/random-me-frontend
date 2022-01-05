@@ -32,20 +32,17 @@ const LoginForm = () => {
     }
 
     dispatch(showLoader())
-    const user = await login(username, password)
-
-    if (!user) {
-      alert(t("loginFailedAlert"))
+    try {
+      const { data: user } = await login(username, password)
+      dispatch(setUser(user))
+      setPassword("")
+      setUsername("")
+      await router.replace("/")
       dispatch(hideLoader())
-      return
+    } catch (error) {
+      alert(error.response.data.message)
     }
-
-    dispatch(setUser(user))
-    await router.replace("/")
     dispatch(hideLoader())
-
-    setPassword("")
-    setUsername("")
   }
 
   return (

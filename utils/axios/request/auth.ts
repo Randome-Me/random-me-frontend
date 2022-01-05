@@ -1,32 +1,18 @@
-import { AvailableLanguages } from "./../../../types/internationalization"
+import { AvailableLanguages } from "types/internationalization"
 import { Topic, User } from "types"
 import axiosClientInstance from "../instance/client"
 
-export const checkMe = async () => {
+export const checkMe = () => {
   type ResponseData = User
-  const { data } = await axiosClientInstance
-    .get<ResponseData>("auth/me")
-    .catch<{
-      data: null
-    }>(() => ({
-      data: null,
-    }))
-  return data
+  return axiosClientInstance.get<ResponseData>("auth/me")
 }
 
-export const login = async (username: string, password: string) => {
+export const login = (username: string, password: string) => {
   type ResponseData = User
-  const { data } = await axiosClientInstance
-    .post<ResponseData>("auth/login", {
-      username,
-      password,
-    })
-    .catch<{
-      data: null
-    }>(() => ({
-      data: null,
-    }))
-  return data
+  return axiosClientInstance.post<ResponseData>("auth/login", {
+    username,
+    password,
+  })
 }
 
 export const logout = () => {
@@ -42,24 +28,20 @@ export const register = async (
   language: AvailableLanguages
 ) => {
   type ResponseData = User
-  const { data: user } = await axiosClientInstance.post<ResponseData>(
-    "auth/register",
-    {
-      email,
-      username,
-      password,
-      confirmPassword,
-      language,
-    }
-  )
-  return user
+  return axiosClientInstance.post<ResponseData>("auth/register", {
+    email,
+    username,
+    password,
+    confirmPassword,
+    language,
+  })
 }
 
 /**
  * Register a new user with existing guest information
  * @returns The new user id
  */
-export const registerWithCurrentGuest = async (
+export const registerWithCurrentGuest = (
   username: string,
   email: string,
   password: string,
@@ -68,20 +50,16 @@ export const registerWithCurrentGuest = async (
   selectedTopicId: string,
   topics: Topic[]
 ) => {
-  type ResponseData = string
-  const { data: newUserId } = await axiosClientInstance.post<ResponseData>(
-    "auth/register/guest",
-    {
-      username,
-      email,
-      password,
-      confirmPassword,
-      language,
-      selectedTopicId,
-      topics,
-    }
-  )
-  return newUserId
+  type ResponseData = { _id: string }
+  return axiosClientInstance.post<ResponseData>("auth/register/guest", {
+    username,
+    email,
+    password,
+    confirmPassword,
+    language,
+    selectedTopicId,
+    topics,
+  })
 }
 
 export const forgotPassword = (email: string) => {
