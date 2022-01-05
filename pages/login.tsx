@@ -17,7 +17,7 @@ const Login = () => {
         <meta property="og:description" content={t("description")} />
       </Head>
 
-      <LoginRegisterLayout topic="Login">
+      <LoginRegisterLayout topic={t("title")}>
         <LoginForm />
         {/* <LoginSocialMedia /> */}
         <ContinueAsGuest />

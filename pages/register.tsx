@@ -106,7 +106,7 @@ export default function Register() {
         <meta property="og:description" content={t("description")} />
       </Head>
 
-      <LoginRegisterLayout topic="Register">
+      <LoginRegisterLayout topic={t("title")}>
         <form autoComplete="off" className="space-y-4" onSubmit={handleSubmit}>
           <LoginInputText
             onChange={(e) => setUsername(e.target.value)}

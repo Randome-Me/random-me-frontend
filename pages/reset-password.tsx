@@ -82,7 +82,7 @@ const ResetPassword: FC<{ token: string }> = ({ token }) => {
         <meta property="og:description" content={t("description")} />
       </Head>
 
-      <LoginRegisterLayout topic="Change Password">
+      <LoginRegisterLayout topic={t("title")}>
         <form
           onSubmit={handleSubmit}
           className="

@@ -45,7 +45,7 @@ const ForgotPassword = () => {
         <meta property="og:description" content={t("description")} />
       </Head>
 
-      <LoginRegisterLayout topic="Login">
+      <LoginRegisterLayout topic={t("title")}>
         <form onSubmit={handleSubmit}>
           <LoginInputEmail
             value={email}
