@@ -89,13 +89,14 @@ export const resetPassword = ({
   token,
   password,
   confirmPassword,
+  language,
 }: ResetPasswordBody) => {
   interface ResponseData {}
   const payload: ResetPasswordBody = {
     token,
     password,
     confirmPassword,
-    language: i18n.language as AvailableLanguages,
+    language,
   }
   return axiosClientInstance.post<ResponseData>(
     "/accounts/reset-password",

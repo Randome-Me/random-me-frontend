@@ -8,6 +8,8 @@ import { GetServerSideProps } from "next"
 import { useAppDispatch } from "hooks"
 import { hideLoader, showLoader } from "store/slice/app"
 import { resetPassword } from "utils/axios/request/auth"
+import i18n from "locales"
+import { AvailableLanguages } from "types/internationalization"
 
 export const getServerSideProps: GetServerSideProps = async ({
   query: { token },
@@ -55,7 +57,12 @@ const ChangePassword: FC<{ token: string }> = ({ token }) => {
     }
 
     dispatch(showLoader())
-    await resetPassword({ token, password, confirmPassword }).catch((err) => {
+    await resetPassword({
+      token,
+      password,
+      confirmPassword,
+      language: i18n.language as AvailableLanguages,
+    }).catch((err) => {
       alert(err.response.data.message)
     })
     dispatch(hideLoader())
