@@ -1,41 +1,20 @@
-import { Icon } from "@iconify/react"
 import Glass from "components/common/Glass"
 import PageBackground from "components/common/PageBackground"
 import LoggedInLayout from "components/layout/LoggedInLayout"
-import { useAppDispatch, useAppSelector } from "hooks"
+import { useAppSelector } from "hooks"
 import Head from "next/head"
 import Link from "next/link"
-import { ChangeEvent, useEffect, useState } from "react"
-import { changeTopicPolicy, selectTopic } from "store/slice/user"
+import { useEffect, useState } from "react"
 import { RandomPolicy } from "types/mab"
-import { decodePolicy, getProbabilities } from "utils"
+import { getProbabilities } from "utils"
 import { useTranslation } from "react-i18next"
 import { withTranslation } from "react-i18next"
-import RandomMeButton from "components/pages/home/RandomMeButton"
 import ProbabilityTable from "components/pages/home/ProbabilityTable"
 import { Topic } from "types"
-import {
-  changeTopicPolicyDB,
-  selectTopicDB,
-} from "utils/axios/request/database"
-import { guestUserId } from "utils/constants"
-
-const policies: RandomPolicy[] = [
-  RandomPolicy.MULTINOMIAL,
-  RandomPolicy.EQUAL_WEIGHT,
-  RandomPolicy.RANDOMIZE,
-  RandomPolicy.UCB,
-  RandomPolicy.EPSILON_GREEDY,
-  RandomPolicy.SOFTMAX,
-]
+import TopicsWithOptions from "components/pages/home/TopicsWithOptions"
 
 const Home = () => {
-  const dispatch = useAppDispatch()
-  const {
-    selectedTopicId,
-    topics,
-    _id: userId,
-  } = useAppSelector((state) => state.user)
+  const { selectedTopicId, topics } = useAppSelector((state) => state.user)
   const { t } = useTranslation("translation", { keyPrefix: "home" })
 
   const [selectedPolicy, setSelectedPolicy] = useState<RandomPolicy>(
@@ -54,24 +33,6 @@ const Home = () => {
     setProbabilityInfo(getProbabilities())
     setTopicsWithOptions(topics.filter((topic) => topic.options.length > 0))
   }, [topics, selectedTopicId])
-
-  const handleChangePolicy = (policy: RandomPolicy) => {
-    dispatch(changeTopicPolicy(policy))
-    if (userId !== guestUserId) {
-      changeTopicPolicyDB(selectedTopicId, policy)
-    }
-  }
-
-  const handleSelectTopic = (e: ChangeEvent<HTMLSelectElement>) => {
-    dispatch(
-      selectTopic({
-        topicId: e.target.value,
-      })
-    )
-    if (userId !== guestUserId) {
-      selectTopicDB(e.target.value)
-    }
-  }
 
   return (
     <>
@@ -103,100 +64,12 @@ const Home = () => {
             >
               <main className="space-y-10">
                 {topicsWithOptions.length > 0 && (
-                  <>
-                    <RandomMeButton />
-                    <div className="flex flex-col items-center">
-                      <div>
-                        <div className="flex item-center justify-center md:justify-start">
-                          <h3
-                            className="font-Kanit
-                          translate-y-2
-                          w-[7ch]
-                          hidden md:block"
-                          >
-                            {t("topics")}
-                          </h3>
-                          <select
-                            onChange={handleSelectTopic}
-                            value={selectedTopicId}
-                            className="form-select max-w-[90%]"
-                          >
-                            {topicsWithOptions.map((topic) => (
-                              <option
-                                className="bg-yellow-500"
-                                key={topic._id}
-                                value={topic._id}
-                              >
-                                {topic.name}
-                              </option>
-                            ))}
-                          </select>
-                          <div className="hidden md:flex">
-                            <Link href="/topics">
-                              <a
-                                className="
-                                self-center
-                                font-semibold
-                                underline
-                                hover:text-slate-700
-                                ml-[1ch]"
-                              >
-                                {t("add option")}
-                              </a>
-                            </Link>
-                          </div>
-                        </div>
-                        <div className="flex flex-col justify-center md:flex-row item-center">
-                          <div className="hidden md:flex">
-                            <Link href="/random-policies">
-                              <a
-                                className="font-Kanit
-                              underline
-                              translate-y-2"
-                              >
-                                <h3 className="w-[7ch]">
-                                  {t("policy")}
-                                  <Icon
-                                    icon="bi:info-circle-fill"
-                                    className="inline w-3"
-                                  />
-                                </h3>
-                              </a>
-                            </Link>
-                          </div>
-                          <select
-                            value={selectedPolicy}
-                            onChange={(e) =>
-                              handleChangePolicy(+e.target.value)
-                            }
-                            className="form-select max-w-[90%] self-center"
-                          >
-                            {policies.map((policy) => (
-                              <option
-                                className="bg-yellow-500"
-                                key={policy}
-                                value={policy}
-                              >
-                                {decodePolicy(policy)}
-                              </option>
-                            ))}
-                          </select>
-                          <div className="mx-auto md:my-auto md:ml-[1ch] space-x-2">
-                            <input
-                              type="checkbox"
-                              onChange={() => setShowInfo(!showInfo)}
-                              className="
-                              my-checkbox
-                              "
-                            />
-                            <span className="self-center font-semibold hover:text-slate-700">
-                              {t("see probabilities")}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </>
+                  <TopicsWithOptions
+                    selectedPolicy={selectedPolicy}
+                    setShowInfo={setShowInfo}
+                    topicsWithOptions={topicsWithOptions}
+                    showInfo={showInfo}
+                  />
                 )}
                 {topicsWithOptions.length === 0 && (
                   <>
