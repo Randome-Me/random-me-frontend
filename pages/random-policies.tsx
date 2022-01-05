@@ -36,7 +36,8 @@ const RandomPolicies = () => {
 
       <PageBackground
         objectPosition="90% 50%"
-        src="/images/bg-random-policies.svg"
+        dark="/images/bg-random-policies-dark.svg"
+        light="/images/bg-random-policies.svg"
       >
         <LoggedInLayout>
           <CenteredSpanGlassLayout>

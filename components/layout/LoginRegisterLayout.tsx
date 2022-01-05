@@ -12,7 +12,10 @@ export default function LoginRegisterLayout({
   topic,
 }: LoginRegisterLayoutProps) {
   return (
-    <PageBackground src="/images/bg-login-register.svg">
+    <PageBackground
+      dark="/images/bg-login-register-dark.svg"
+      light="/images/bg-login-register.svg"
+    >
       <div
         className="
         fixed

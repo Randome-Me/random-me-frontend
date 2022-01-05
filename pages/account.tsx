@@ -39,7 +39,10 @@ const Account = () => {
         <meta property="og:description" content={t("description")} />
       </Head>
 
-      <PageBackground src="/images/bg-account.svg">
+      <PageBackground
+        dark="/images/bg-account-dark.svg"
+        light="/images/bg-account.svg"
+      >
         <LoggedInLayout>
           <div
             className="flex

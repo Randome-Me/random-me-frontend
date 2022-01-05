@@ -43,7 +43,10 @@ const Home = () => {
         <meta property="og:description" content={t("description")} />
       </Head>
 
-      <PageBackground src="/images/bg-index.svg">
+      <PageBackground
+        dark="/images/bg-index-dark.svg"
+        light="/images/bg-index.svg"
+      >
         <LoggedInLayout>
           <div
             className="

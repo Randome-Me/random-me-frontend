@@ -20,7 +20,10 @@ const Topics = () => {
         <meta property="og:description" content={t("description")} />
       </Head>
 
-      <PageBackground src="/images/bg-topics.svg">
+      <PageBackground
+        dark="/images/bg-topics-dark.svg"
+        light="/images/bg-topics.svg"
+      >
         <LoggedInLayout>
           <CenteredSpanGlassLayout
             classNameInner="
