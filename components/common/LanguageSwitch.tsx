@@ -55,8 +55,8 @@ const LanguageSwitch: FC<LanguageSwitchProps> = ({ className }) => {
         focus:shadow-outline
         ${
           language === i18n.language
-            ? "bg-yellow-300 cursor-auto"
-            : "opacity-75"
+            ? "bg-yellow-300 cursor-auto dark:text-slate-800 dark:hover:text-yellow-400"
+            : "opacity-75 "
         }
         `}
           onClick={() => handleChangeLanguage(language)}
