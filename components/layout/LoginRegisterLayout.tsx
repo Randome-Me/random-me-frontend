@@ -1,7 +1,6 @@
 import Glass from "components/common/Glass"
 import LanguageSwitch from "components/common/LanguageSwitch"
 import PageBackground from "components/common/PageBackground"
-import ScreenCenterLayout from "components/layout/ScreenCenterLayout"
 
 interface LoginRegisterLayoutProps {
   topic: string
@@ -23,32 +22,40 @@ export default function LoginRegisterLayout({
       >
         <LanguageSwitch />
       </div>
-      <ScreenCenterLayout>
-        <h1 className="sr-only">{topic}</h1>
-        <main>
-          <Glass
-            className="
-          p-[2rem] xs:p-10 sm:p-14
-          space-y-4 md:space-y-10
-          "
-          >
-            <strong
+      <div
+        className="
+      h-screen
+      w-screen
+      flex
+      "
+      >
+        <div className="lg:w-[27rem] mx-auto my-auto">
+          <h1 className="sr-only">{topic}</h1>
+          <main>
+            <Glass
               className="
-              text-slate-700
-              text-4xl
-              sm:text-5xl
-              font-extrabold
-              font-Sen
-              flex
-              justify-center
+              p-[2rem] xs:p-10 sm:p-14
+              space-y-4 md:space-y-10
               "
             >
-              Random Me.
-            </strong>
-            {children}
-          </Glass>
-        </main>
-      </ScreenCenterLayout>
+              <strong
+                className="
+                  text-slate-700
+                  text-4xl
+                  sm:text-5xl
+                  font-extrabold
+                  font-Sen
+                  flex
+                  justify-center
+                  "
+              >
+                Random Me.
+              </strong>
+              {children}
+            </Glass>
+          </main>
+        </div>
+      </div>
     </PageBackground>
   )
 }

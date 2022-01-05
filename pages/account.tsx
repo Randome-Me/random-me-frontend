@@ -1,7 +1,6 @@
 import Glass from "components/common/Glass"
 import PageBackground from "components/common/PageBackground"
 import LoggedInLayout from "components/layout/LoggedInLayout"
-import ScreenCenterLayout from "components/layout/ScreenCenterLayout"
 import { useAppDispatch, useAppSelector } from "hooks"
 import Head from "next/head"
 import Image from "next/image"
@@ -42,7 +41,12 @@ const Account = () => {
 
       <PageBackground src="/images/bg-account.svg">
         <LoggedInLayout>
-          <ScreenCenterLayout>
+          <div
+            className="flex
+            justify-center
+            items-center
+            h-full"
+          >
             <Glass className="space-y-4">
               <div
                 className="
@@ -116,7 +120,7 @@ const Account = () => {
                 </button>
               )}
             </Glass>
-          </ScreenCenterLayout>
+          </div>
         </LoggedInLayout>
       </PageBackground>
     </>
