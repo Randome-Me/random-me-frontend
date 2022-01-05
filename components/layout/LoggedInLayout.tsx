@@ -3,6 +3,7 @@ import MobileSidebar from "components/common/MobileSidebar"
 import { useTranslation } from "react-i18next"
 import ThemeAndLanguageSwitch from "components/common/ThemeAndLanguageSwitch"
 import { useState } from "react"
+import GitHubRepos from "components/common/GitHubRepos"
 
 interface LoggedInLayoutProps {
   children?: React.ReactNode
@@ -55,13 +56,20 @@ export default function LoggedInLayout({ children }: LoggedInLayoutProps) {
         {!isHamburgerSidebarOpen && <ThemeAndLanguageSwitch />}
       </div>
       <div className="flex-1 max-h-[90vh]">{children}</div>
+      <div className="lg:hidden mt-2 mx-auto">
+        <GitHubRepos />
+      </div>
       <div
         className="
         lg:w-[14rem]
-        hidden lg:block
+        hidden lg:flex
+        flex-col
+        justify-between
+        py-[2rem]
         "
       >
         <ThemeAndLanguageSwitch />
+        <GitHubRepos />
       </div>
     </div>
   )

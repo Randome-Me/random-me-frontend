@@ -1,3 +1,4 @@
+import GitHubRepos from "components/common/GitHubRepos"
 import Glass from "components/common/Glass"
 import PageBackground from "components/common/PageBackground"
 import ThemeAndLanguageSwitch from "components/common/ThemeAndLanguageSwitch"
@@ -21,8 +22,10 @@ export default function LoginRegisterLayout({
         fixed
         bottom-4
         left-4
+        space-y-4
         "
       >
+        <GitHubRepos />
         <ThemeAndLanguageSwitch />
       </div>
       <div

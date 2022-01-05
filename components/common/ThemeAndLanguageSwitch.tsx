@@ -10,8 +10,6 @@ const ThemeAndLanguageSwitch: FC = () => {
         flex
         lg:justify-center
         items-center
-        lg:pt-[2rem]
-        pl-[2rem] lg:pl-0
         "
     >
       <Icon
