@@ -34,6 +34,7 @@ const createLocalUser = (_id: string): User => {
     selectedTopicId: null,
     topics: [],
     language: fallbackLng,
+    email: null,
   }
   return user
 }

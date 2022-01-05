@@ -17,5 +17,6 @@ export interface User {
   username: string
   selectedTopicId: string | null // the current selected topic
   topics: Topic[]
+  email: string | null
   // maybe user-specific random policy configs here if they're configurable?
 }

@@ -70,7 +70,9 @@ export default function Register() {
           selectedTopicId,
           topics
         )
-        dispatch(setUser({ _id, username, language, selectedTopicId, topics }))
+        dispatch(
+          setUser({ _id, username, language, selectedTopicId, topics, email })
+        )
         removeFromLocal("user")
       } else {
         const { data: user } = await register(

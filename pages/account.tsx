@@ -10,7 +10,7 @@ import { useTranslation, withTranslation } from "react-i18next"
 import { hideLoader, showLoader } from "store/slice/app"
 import { setUser } from "store/slice/user"
 import { createNullUser, loggedInUserDo } from "utils"
-import { logout } from "utils/axios/request/auth"
+import { forgotPassword, logout } from "utils/axios/request/auth"
 import { guestUserId } from "utils/constants"
 
 const Account = () => {
@@ -28,6 +28,17 @@ const Account = () => {
 
     await router.replace("/login")
     dispatch(setUser(createNullUser()))
+  }
+
+  const handleResetPassword = async () => {
+    dispatch(showLoader())
+    try {
+      const { data: message } = await forgotPassword(user.email)
+      alert(message)
+    } catch (err) {
+      alert(err.response.data.message)
+    }
+    dispatch(hideLoader())
   }
 
   return (
@@ -79,14 +90,14 @@ const Account = () => {
                   {user.username}
                 </h1>
                 {user._id !== guestUserId && (
-                  <a
-                    href="#"
+                  <span
+                    onClick={handleResetPassword}
                     className="
                 clickable-text-cyan
                 text-sm block"
                   >
                     {t("resetPassword")}
-                  </a>
+                  </span>
                 )}
               </div>
               {user._id === guestUserId ? (
