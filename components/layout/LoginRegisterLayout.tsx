@@ -1,6 +1,6 @@
 import Glass from "components/common/Glass"
-import LanguageSwitch from "components/common/LanguageSwitch"
 import PageBackground from "components/common/PageBackground"
+import ThemeAndLanguageSwitch from "components/common/ThemeAndLanguageSwitch"
 
 interface LoginRegisterLayoutProps {
   topic: string
@@ -23,7 +23,7 @@ export default function LoginRegisterLayout({
         left-4
         "
       >
-        <LanguageSwitch />
+        <ThemeAndLanguageSwitch />
       </div>
       <div
         className="
@@ -43,7 +43,7 @@ export default function LoginRegisterLayout({
             >
               <strong
                 className="
-                  text-slate-700
+                  text-slate-700 dark:text-yellow-400
                   text-4xl
                   sm:text-5xl
                   font-extrabold

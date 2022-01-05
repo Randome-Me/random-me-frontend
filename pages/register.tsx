@@ -147,6 +147,7 @@ export default function Register() {
                 <label
                   className="
               space-x-1
+              cursor-pointer
               "
                   htmlFor="withCurrentGuest"
                 >
@@ -156,13 +157,15 @@ export default function Register() {
                     id="withCurrentGuest"
                     className="
                 my-checkbox
-                "
+              cursor-pointer
+              "
                     type="checkbox"
                   />
                   <span
                     className="
                 text-sm
                 font-semibold
+                dark:text-slate-200
                 "
                   >
                     {t("withCurrentGuest")}

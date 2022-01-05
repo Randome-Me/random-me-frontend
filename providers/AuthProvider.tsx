@@ -19,7 +19,16 @@ interface AuthProviderProps {
   children: React.ReactNode
 }
 
-const logo = <Image alt="logo" src="/favicon.png" width={60} height={60} />
+const logo = (
+  <>
+    <div className="dark:hidden inline-block">
+      <Image alt="logo" src="/favicon.png" width={65} height={65} />
+    </div>
+    <div className="dark:inline-block hidden">
+      <Image alt="logo" src="/favicon-dark.png" width={65} height={65} />
+    </div>
+  </>
+)
 
 const AuthProvider = ({ children }: AuthProviderProps) => {
   const { i18n } = useTranslation()
@@ -57,7 +66,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 
   useEffect(() => {
     const onMount = async () => {
-      if (router.pathname === "/change-password") {
+      if (router.pathname === "/reset-password") {
         setCheckedMe(true)
         return
       }

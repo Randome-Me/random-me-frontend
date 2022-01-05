@@ -17,14 +17,13 @@ const LoaderLayout = ({ children }: LoaderLayoutProps) => {
         fixed
         h-screen
         w-screen
-        bg-cyan-300
+        bg-cyan-300/50 dark:bg-gray-900/50
         z-50
         flex
         flex-col
         justify-center
         items-center
         space-y-4 
-        bg-opacity-50
         ${isLoading ? "" : "hidden"}`}
         aria-hidden="true"
       >

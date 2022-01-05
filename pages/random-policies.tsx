@@ -104,7 +104,12 @@ const RandomPolicies = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <h3 className={h3Class + " underline decoration-yellow-400"}>
+                  <h3
+                    className={
+                      h3Class +
+                      " underline decoration-yellow-400 hover:decoration-yellow-300"
+                    }
+                  >
                     Upper Confidence Bound type 1 - UCB1
                   </h3>
                 </a>
@@ -124,7 +129,12 @@ const RandomPolicies = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <h3 className={h3Class + " underline decoration-yellow-400"}>
+                  <h3
+                    className={
+                      h3Class +
+                      " underline decoration-yellow-400 hover:decoration-yellow-300"
+                    }
+                  >
                     Epsilon Greedy
                   </h3>
                 </a>
@@ -140,7 +150,12 @@ const RandomPolicies = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <h3 className={h3Class + " underline decoration-yellow-400"}>
+                  <h3
+                    className={
+                      h3Class +
+                      " underline decoration-yellow-400 hover:decoration-yellow-300"
+                    }
+                  >
                     Softmax
                   </h3>
                 </a>

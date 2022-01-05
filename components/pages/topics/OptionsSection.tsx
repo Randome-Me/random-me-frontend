@@ -107,7 +107,8 @@ const OptionsSection = () => {
       flex 
       flex-col 
       text-center
-      space-y-4 xl:space-y-12"
+      space-y-4 xl:space-y-12
+      "
         >
           <h1
             className="
@@ -121,10 +122,11 @@ const OptionsSection = () => {
           <div
             className="
         w-full 
-        bg-slate-50 
-        text-cyan-600
+        bg-slate-50 dark:bg-slate-600
+        text-cyan-600 dark:text-slate-50
         rounded-lg 
-        overflow-y-auto"
+        overflow-y-auto
+        transition-colors"
           >
             <form
               onSubmit={handleOptionSubmit}
@@ -144,9 +146,10 @@ const OptionsSection = () => {
                 className="
               w-[8ch]
               bg-transparent
-              placeholder:text-cyan-800/75
-              border-0 border-b-2 border-slate-500/75
+              placeholder:text-cyan-800/75 dark:placeholder:text-slate-50/75
+              border-0 border-b-2 border-slate-500/75 dark:border-slate-50/75
               focus:ring-transparent focus:border-slate-500
+              dark:caret-slate-50
               "
                 placeholder={minBias + ""}
               />
@@ -160,16 +163,17 @@ const OptionsSection = () => {
               w-[10rem]
               xs:flex-1
               bg-transparent
-              placeholder:text-cyan-800/75
-              border-0 border-b-2 border-slate-500/75
+              placeholder:text-cyan-800/75 dark:placeholder:text-slate-50/75
+              border-0 border-b-2 border-slate-500/75 dark:border-slate-50/75
               focus:ring-transparent focus:border-slate-500
+              dark:caret-slate-50
             "
                 placeholder={t("addOptionPlaceholder")}
               />
               <button type="submit">
                 <Icon
                   icon="akar-icons:plus"
-                  className="w-6 h-6 text-slate-800/75"
+                  className="w-6 h-6 text-slate-800/75 dark:text-slate-50/75"
                 />
               </button>
             </form>
@@ -185,14 +189,18 @@ const OptionsSection = () => {
                 space-x-4 
                 px-4
                 py-3
-              even:bg-sky-100"
+              even:bg-sky-100 dark:even:bg-slate-800
+              "
                   >
                     <div className="flex items-center gap-3">
                       <span>{option.bias}</span>
                       <Icon
                         onClick={() => editWeight(option)}
-                        className="w-5 h-5 cursor-pointer text-slate-800/75
-                                hover:text-slate-800/50"
+                        className="
+                        w-5 h-5 cursor-pointer 
+                        text-slate-800/75 dark:text-slate-50/75
+                        hover:text-slate-800/50
+                        dark:hover:text-slate-100"
                         icon="clarity:edit-solid"
                       />
                     </div>
@@ -204,26 +212,27 @@ const OptionsSection = () => {
                     w-[10rem]
                     xs:flex-1
                     bg-transparent
-                    placeholder:text-cyan-800/75
-                    border-0 border-b-2 border-slate-500/75
-                    focus:ring-transparent focus:border-slate-500
                     disabled:border-0
                   "
                     />
                     <div
-                      className="flex item-center text-slate-800/75
+                      className="
+                      flex item-center 
+                      text-slate-800/75 dark:text-slate-50/75
                       space-x-2"
                     >
                       <Icon
                         onClick={() => editOptionName(option)}
                         className="w-5 h-5 cursor-pointer 
-                          hover:text-slate-800/50"
+                          hover:text-slate-800/50
+                          dark:hover:text-slate-100"
                         icon="clarity:edit-solid"
                       />
                       <Icon
                         onClick={() => deleteOption(option._id)}
                         className="w-5 h-5 cursor-pointer 
-                          hover:text-slate-800/50"
+                          hover:text-slate-800/50
+                          dark:hover:text-slate-100"
                         icon="fluent:delete-24-filled"
                       />
                     </div>

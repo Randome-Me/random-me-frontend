@@ -28,7 +28,8 @@ const Topics = () => {
           <CenteredSpanGlassLayout
             classNameInner="
           xl:grid
-          xl:grid-cols-5"
+          xl:grid-cols-5
+          space-y-4"
           >
             <div className="col-span-2">
               <TopicsSection />

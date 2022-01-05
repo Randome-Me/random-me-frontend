@@ -19,16 +19,32 @@ const ProbabilityTable = ({ probabilityInfo }: ProbabilityTableProps) => {
         className="
       capitalize 
       underline 
-      decoration-wavy
-    decoration-yellow-400"
+      decoration-double
+    decoration-yellow-500
+    hover:decoration-yellow-400
+    dark:text-slate-50"
       >
         {probabilityInfo.policyName}
       </h3>
       <table className="table-auto">
         <thead>
           <tr>
-            <th className="px-4 py-2">{t("probability")}</th>
-            <th className="px-4 py-2">{t("option")}</th>
+            <th
+              className="
+            px-4 py-2 
+            hover:text-yellow-500
+            dark:text-slate-200 dark:hover:text-yellow-400"
+            >
+              {t("probability")}
+            </th>
+            <th
+              className="
+            px-4 py-2 
+            hover:text-yellow-500
+            dark:text-slate-200 dark:hover:text-yellow-400"
+            >
+              {t("option")}
+            </th>
           </tr>
         </thead>
         <tbody className="font-medium">
@@ -37,7 +53,8 @@ const ProbabilityTable = ({ probabilityInfo }: ProbabilityTableProps) => {
               <td
                 className="
               border 
-              border-slate-800 
+              border-slate-800 dark:border-slate-200
+              dark:text-slate-200
               px-4 
               py-2"
               >
@@ -46,7 +63,8 @@ const ProbabilityTable = ({ probabilityInfo }: ProbabilityTableProps) => {
               <td
                 className="
               border 
-              border-slate-800 
+              border-slate-800 dark:border-slate-200
+              dark:text-slate-200
               px-4 
               py-2"
               >

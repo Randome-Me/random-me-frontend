@@ -12,10 +12,11 @@ const maxUsernameLength = 16
 const minPasswordLength = 8
 
 const loginInputContainerClass =
-  "w-full border-[1px] border-slate-800 rounded flex justify-center items-center focus-within:border-cyan-600 focus-within:ring-cyan-600 overflow-hidden"
-const loginInputIconClass = "mx-2 w-5 h-5 text-slate-800/75 hidden sm:inline"
+  "w-full border-[1px] border-slate-800 dark:border-slate-400 rounded flex justify-center items-center focus-within:border-cyan-600 dark:focus-within:border-yellow-400 focus-within:ring-cyan-600 overflow-hidden"
+const loginInputIconClass =
+  "mx-2 w-5 h-5 text-slate-800/75 hidden sm:inline dark:text-slate-50 "
 const loginInputClass =
-  "bg-transparent border-none flex-1 focus:ring-transparent focus:border-none"
+  "bg-transparent border-none flex-1 focus:ring-transparent focus:border-none dark:placeholder:text-slate-500 dark:text-slate-50 dark:caret-slate-50"
 
 export function LoginInputText({
   value,

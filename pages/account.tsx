@@ -50,7 +50,7 @@ const Account = () => {
             items-center
             h-full"
           >
-            <Glass className="space-y-4">
+            <Glass className="space-y-4 w-[27rem] max-w-[90vw]">
               <div
                 className="
               w-40 
@@ -72,7 +72,9 @@ const Account = () => {
                 <h1
                   className="
                 font-Sen
-                font-extrabold"
+                font-extrabold
+                dark:text-slate-50
+                text-center"
                 >
                   {user.username}
                 </h1>

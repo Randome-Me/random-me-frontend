@@ -191,8 +191,12 @@ export const setTheme = () => {
       window.matchMedia("(prefers-color-scheme: dark)").matches)
   ) {
     document.documentElement.classList.add("dark")
+    ;(document.getElementById("favicon") as HTMLLinkElement).href =
+      "/favicon-dark.png"
   } else {
     document.documentElement.classList.remove("dark")
+    ;(document.getElementById("favicon") as HTMLLinkElement).href =
+      "/favicon.png"
   }
 }
 

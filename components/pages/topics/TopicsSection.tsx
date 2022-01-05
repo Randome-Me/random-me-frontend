@@ -84,7 +84,7 @@ const TopicsSection = () => {
       </h1>
       <div
         className="
-      bg-cyan-600 
+      bg-cyan-600 dark:bg-slate-300 
       rounded-lg 
       overflow-hidden 
       overflow-y-auto"
@@ -103,16 +103,19 @@ const TopicsSection = () => {
               className="
                 flex-1
                 bg-transparent
-                placeholder-slate-50/50
-                border-0 border-b-2 border-slate-50/50
+                placeholder-slate-50/50 dark:placeholder:text-slate-500
+                border-0 border-b-2 border-slate-50/50 dark:border-slate-800
                 focus:ring-transparent focus:border-slate-50
-                caret-slate-50
-                text-slate-100
+                caret-slate-50 dark:caret-slate-800
+                text-slate-100 dark:text-slate-800
               "
               placeholder={t("addTopicPlaceholder")}
             />
             <button type="submit">
-              <Icon icon="akar-icons:plus" className="w-6 h-6 text-slate-50" />
+              <Icon
+                icon="akar-icons:plus"
+                className="w-6 h-6 text-slate-50 dark:text-slate-800"
+              />
             </button>
           </form>
         </div>
@@ -126,15 +129,14 @@ const TopicsSection = () => {
             text-lg 
             px-4 
             h-16 
-            text-slate-50
             cursor-pointer 
             transition-colors 
             flex 
             items-center
             ${
               selectedTopicId === topic._id
-                ? "bg-sky-100 text-cyan-600 cursor-default"
-                : ""
+                ? "bg-sky-100 dark:bg-slate-800 text-cyan-600 cursor-default dark:text-yellow-400"
+                : "text-slate-50 dark:text-slate-800"
             }`}
           >
             <span className="flex-1">

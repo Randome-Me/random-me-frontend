@@ -19,7 +19,7 @@ const ContinueAsGuest = () => {
   }
 
   return (
-    <span className="block text-center">
+    <span className="block text-center dark:text-slate-100">
       {t("or") + " "}
       <Link href="/">
         <a onClick={handleContinueAsGuest} className="clickable-text-cyan mr-2">

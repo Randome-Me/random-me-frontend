@@ -28,7 +28,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   }
 }
 
-const ChangePassword: FC<{ token: string }> = ({ token }) => {
+const ResetPassword: FC<{ token: string }> = ({ token }) => {
   const { t } = useTranslation("translation", { keyPrefix: "changePassword" })
   const router = useRouter()
   const dispatch = useAppDispatch()
@@ -113,4 +113,4 @@ const ChangePassword: FC<{ token: string }> = ({ token }) => {
   )
 }
 
-export default ChangePassword
+export default ResetPassword

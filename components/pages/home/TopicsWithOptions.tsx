@@ -52,18 +52,22 @@ const TopicsWithOptions: FC<TopicWithOptionsProps> = ({
               className="font-Kanit
         translate-y-2
         w-[7ch]
-        hidden md:block"
+        hidden md:block
+        dark:text-slate-50"
             >
               {t("topics")}
             </h3>
             <select
               onChange={handleSelectTopic}
               value={selectedTopicId}
-              className="form-select max-w-[90%]"
+              className="
+              form-select 
+              max-w-[90%]
+              "
             >
               {topicsWithOptions.map((topic) => (
                 <option
-                  className="bg-yellow-500"
+                  className="bg-yellow-400 dark:bg-yellow-600"
                   key={topic._id}
                   value={topic._id}
                 >
@@ -78,6 +82,8 @@ const TopicsWithOptions: FC<TopicWithOptionsProps> = ({
               self-center
               font-semibold
               underline
+              hover:decoration-yellow-500
+              dark:text-slate-200 dark:hover:text-slate-100 dark:hover:decoration-yellow-400
               hover:text-slate-700
               ml-[1ch]"
                 >
@@ -92,9 +98,12 @@ const TopicsWithOptions: FC<TopicWithOptionsProps> = ({
                 <a
                   className="font-Kanit
             underline
+            hover:decoration-yellow-500
+            dark:decoration-slate-200 
+            dark:hover:decoration-yellow-400
             translate-y-2"
                 >
-                  <h3 className="w-[7ch]">
+                  <h3 className="w-[7ch] dark:text-slate-50">
                     {t("policy")}
                     <Icon icon="bi:info-circle-fill" className="inline w-3" />
                   </h3>
@@ -107,22 +116,35 @@ const TopicsWithOptions: FC<TopicWithOptionsProps> = ({
               className="form-select max-w-[90%] self-center"
             >
               {policies.map((policy) => (
-                <option className="bg-yellow-500" key={policy} value={policy}>
+                <option
+                  className="bg-yellow-400 dark:bg-yellow-600"
+                  key={policy}
+                  value={policy}
+                >
                   {decodePolicy(policy)}
                 </option>
               ))}
             </select>
             <div className="mx-auto md:my-auto md:ml-[1ch] space-x-2">
               <input
+                id="showInfo"
                 type="checkbox"
                 onChange={() => setShowInfo(!showInfo)}
                 className="
             my-checkbox
+            cursor-pointer
             "
               />
-              <span className="self-center font-semibold hover:text-slate-700">
+              <label
+                htmlFor="showInfo"
+                className="
+              self-center
+              font-semibold
+              cursor-pointer
+              dark:text-slate-200 hover:text-slate-700"
+              >
                 {t("see probabilities")}
-              </span>
+              </label>
             </div>
           </div>
         </div>

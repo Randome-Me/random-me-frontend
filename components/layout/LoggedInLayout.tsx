@@ -2,6 +2,7 @@ import Sidebar from "components/common/Sidebar"
 import MobileSidebar from "components/common/MobileSidebar"
 import { useTranslation } from "react-i18next"
 import ThemeAndLanguageSwitch from "components/common/ThemeAndLanguageSwitch"
+import { useState } from "react"
 
 interface LoggedInLayoutProps {
   children?: React.ReactNode
@@ -9,6 +10,7 @@ interface LoggedInLayoutProps {
 
 export default function LoggedInLayout({ children }: LoggedInLayoutProps) {
   const { t } = useTranslation()
+  const [isHamburgerSidebarOpen, setIsHamburgerSidebarOpen] = useState(false)
 
   const routeMap = {
     "/": t("home.title"),
@@ -38,17 +40,25 @@ export default function LoggedInLayout({ children }: LoggedInLayoutProps) {
       <div
         className="
         lg:hidden flex 
+        justify-between
+        items-center
         z-10
-        h-[10vh]"
+        px-6
+        h-14"
       >
-        <MobileSidebar menuText={menuText} routeMap={routeMap} />
+        <MobileSidebar
+          isHamburgerSidebarOpen={isHamburgerSidebarOpen}
+          setIsHamburgerSidebarOpen={setIsHamburgerSidebarOpen}
+          menuText={menuText}
+          routeMap={routeMap}
+        />
+        {!isHamburgerSidebarOpen && <ThemeAndLanguageSwitch />}
       </div>
       <div className="flex-1 max-h-[90vh]">{children}</div>
       <div
         className="
         lg:w-[14rem]
-        h-[10vh] lg:h-auto
-        flex lg:block
+        hidden lg:block
         "
       >
         <ThemeAndLanguageSwitch />
