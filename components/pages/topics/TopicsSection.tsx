@@ -9,7 +9,7 @@ import {
   selectTopic,
   setTopicName,
 } from "store/slice/user"
-import { loggedInUserDo, uuid } from "utils"
+import { loggedInUserDo, passedTextLimit, uuid } from "utils"
 import {
   addTopicDB,
   removeTopicDB,
@@ -17,6 +17,7 @@ import {
   selectTopicDB,
   setTopicNameDB,
 } from "utils/axios/request/database"
+import { maxLengthTopicAndOptionText } from "utils/constants"
 
 const TopicsSection = () => {
   const { topics, selectedTopicId } = useAppSelector((state) => state.user)
@@ -45,6 +46,10 @@ const TopicsSection = () => {
       topics.find((t) => t._id === selectedTopicId).name
     )
     if (!name) return
+    if (!passedTextLimit(name)) {
+      alert(t("topicNameTooLong", { max: maxLengthTopicAndOptionText }))
+      return
+    }
 
     dispatch(setTopicName({ topicId: selectedTopicId, name }))
     loggedInUserDo(() => setTopicNameDB(selectedTopicId, name))
@@ -100,6 +105,7 @@ const TopicsSection = () => {
               onChange={(e) => setAddTopicText(e.target.value)}
               type="text"
               required
+              maxLength={maxLengthTopicAndOptionText}
               className="
                 flex-1
                 bg-transparent

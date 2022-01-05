@@ -5,7 +5,11 @@ import { BanditArm, ProbabilityOfEveryArm, RandomPolicy } from "types/mab"
 import { getProbabilityOfEveryArm } from "./MAB"
 import i18n, { fallbackLng } from "locales"
 import { t as translate } from "i18next"
-import { guestUserId, nullUserId } from "./constants"
+import {
+  guestUserId,
+  maxLengthTopicAndOptionText,
+  nullUserId,
+} from "./constants"
 import { pullDB } from "./axios/request/database"
 
 export const saveToLocal = (key: LocalStorageKey, data: any) => {
@@ -17,6 +21,13 @@ export const saveToLocal = (key: LocalStorageKey, data: any) => {
 
 export const getFromLocal = <T>(key: LocalStorageKey): T | null => {
   return JSON.parse(localStorage.getItem(key))
+}
+
+export const passedTextLimit = (
+  text: string,
+  limit = maxLengthTopicAndOptionText
+): boolean => {
+  return text.length <= limit
 }
 
 export const removeFromLocal = (key: LocalStorageKey) => {

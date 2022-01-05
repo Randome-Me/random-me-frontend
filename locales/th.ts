@@ -84,6 +84,8 @@ const th = {
       bias: "น้ำหนัก",
       addOptionPlaceholder: "เพิ่มตัวเลือก",
       emptyTopicAlert: "กรุณาเพิ่มหัวข้อก่อน",
+      optionNameTooLong: "ชื่อตัวเลือกต้องมีความยาวไม่เกิน {{max}} ตัวอักษร",
+      topicNameTooLong: "ชื่อหัวข้อต้องมีความยาวไม่เกิน {{max}} ตัวอักษร",
     },
     account: {
       title: "บัญชี",

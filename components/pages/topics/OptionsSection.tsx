@@ -9,14 +9,14 @@ import {
   addOption,
 } from "store/slice/user"
 import { BanditArm } from "types/mab"
-import { loggedInUserDo, uuid } from "utils"
+import { loggedInUserDo, passedTextLimit, uuid } from "utils"
 import {
   addOptionDB,
   removeOptionDB,
   setOptionBiasDB,
   setOptionNameDB,
 } from "utils/axios/request/database"
-import { maxBias, minBias } from "utils/constants"
+import { maxBias, maxLengthTopicAndOptionText, minBias } from "utils/constants"
 import BiasInputDatalist from "./BiasInputDatalist"
 
 const OptionsSection = () => {
@@ -39,6 +39,11 @@ const OptionsSection = () => {
 
     if (addOptionText.trim() === "") {
       alert(t("emptyOptionAlert"))
+      return
+    }
+
+    if (!passedTextLimit(addOptionText)) {
+      alert(t("optionNameTooLong", { max: maxLengthTopicAndOptionText }))
       return
     }
 
@@ -89,6 +94,10 @@ const OptionsSection = () => {
 
     const name = window.prompt(t("editOptionNamePrompt"), oldName)
     if (!name) return
+    if (!passedTextLimit(name)) {
+      alert(t("optionNameTooLong", { max: maxLengthTopicAndOptionText }))
+      return
+    }
 
     dispatch(setOptionName({ topicId: selectedTopicId, optionId, name }))
     loggedInUserDo(() => setOptionNameDB(selectedTopicId, optionId, name))
@@ -158,6 +167,7 @@ const OptionsSection = () => {
                 value={addOptionText}
                 onChange={(e) => setAddOptionText(e.target.value)}
                 type="text"
+                maxLength={maxLengthTopicAndOptionText}
                 required
                 className="
               w-[10rem]
@@ -207,6 +217,7 @@ const OptionsSection = () => {
                     <input
                       type="text"
                       value={option.name}
+                      maxLength={maxLengthTopicAndOptionText}
                       disabled
                       className="
                     w-[10rem]

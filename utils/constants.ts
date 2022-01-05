@@ -16,3 +16,5 @@ export const policies: RandomPolicy[] = [
   RandomPolicy.EPSILON_GREEDY,
   RandomPolicy.SOFTMAX,
 ]
+
+export const maxLengthTopicAndOptionText = 150

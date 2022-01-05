@@ -86,6 +86,10 @@ const en = {
       addOptionPlaceholder: "Add an option",
       emptyTopicAlert: "Please enter a topic name.",
       emptyOptionAlert: "Please enter an option name.",
+      optionNameTooLong:
+        "Option name is too long. Max length is {{max}} characters.",
+      topicNameTooLong:
+        "Topic name is too long. Max length is {{max}} characters.",
     },
     account: {
       title: "Account",
