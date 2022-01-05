@@ -13,7 +13,6 @@ export interface LoginPayload {
   password: string
   language: AvailableLanguages
 }
-
 export const login = (username: string, password: string) => {
   type ResponseData = User
   const payload: LoginPayload = {
@@ -71,11 +70,20 @@ export const registerWithCurrentGuest = (
   })
 }
 
+export interface ForgotPasswordPayload {
+  email: string
+  language: string
+}
 export const forgotPassword = (email: string) => {
   interface ResponseData {}
-  return axiosClientInstance.post<ResponseData>(`/accounts/forgot-password`, {
+  const payload: ForgotPasswordPayload = {
     email,
-  })
+    language: i18n.language as AvailableLanguages,
+  }
+  return axiosClientInstance.post<ResponseData>(
+    `/accounts/forgot-password`,
+    payload
+  )
 }
 
 export interface ResetPasswordBody {
@@ -83,7 +91,6 @@ export interface ResetPasswordBody {
   newPassword: string
   language: AvailableLanguages
 }
-
 export const resetPassword = ({
   token,
   language,

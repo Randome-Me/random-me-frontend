@@ -1,17 +1,24 @@
 import { NextApiRequest, NextApiResponse } from "next"
 import axiosServerInstance from "utils/axios/instance/server"
+import { ForgotPasswordPayload } from "utils/axios/request/auth"
 
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+interface Req extends NextApiRequest {
+  body: ForgotPasswordPayload
+}
+
+const handler = async (req: Req, res: NextApiResponse) => {
   const {
-    body: { email },
+    body: { email, language },
   } = req
+  const payload: ForgotPasswordPayload = {
+    email,
+    language,
+  }
 
   try {
     const { data, status } = await axiosServerInstance.post(
       "/accounts/forgot-password/",
-      {
-        email,
-      }
+      payload
     )
     res.status(status).json(data)
   } catch ({ response: { status, data } }) {
