@@ -25,6 +25,8 @@ export default function MobileSidebar({
         text-slate-50
           w-10 h-10
           cursor-pointer
+          ml-[2rem]
+          mt-[2.5vh]
           "
           icon="ci:hamburger"
         />

@@ -9,8 +9,7 @@ export default function ScreenCenterLayout({
     flex
     justify-center
     items-center
-    min-h-screen
-    "
+    h-full"
     >
       {children}
     </div>

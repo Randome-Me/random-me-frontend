@@ -11,7 +11,6 @@ const ThemeAndLanguageSwitch: FC = () => {
         lg:justify-center
         items-center
         lg:pt-[2rem]
-        mb-[2rem] lg:mb-0
         pl-[2rem] lg:pl-0
         "
     >

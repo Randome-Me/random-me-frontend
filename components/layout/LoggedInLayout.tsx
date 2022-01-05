@@ -39,15 +39,16 @@ export default function LoggedInLayout({ children }: LoggedInLayoutProps) {
         className="
         lg:hidden flex 
         z-10
-        h-[5rem]"
+        h-[10vh]"
       >
         <MobileSidebar menuText={menuText} routeMap={routeMap} />
       </div>
-      <div className="flex-1">{children}</div>
+      <div className="flex-1 max-h-[90vh]">{children}</div>
       <div
         className="
         lg:w-[14rem]
-        lg:h-[5rem]
+        h-[10vh] lg:h-auto
+        flex lg:block
         "
       >
         <ThemeAndLanguageSwitch />
