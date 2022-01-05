@@ -12,13 +12,13 @@ import { setUser } from "store/slice/user"
 import { getLocalUser, saveToLocal } from "utils"
 import { checkMe } from "utils/axios/request/auth"
 import { guestUserId, nullUserId } from "utils/constants"
+import Image from "next/image"
 
 interface AuthProviderProps {
   children: React.ReactNode
 }
 
-// TODO add logo
-const logo = <div></div>
+const logo = <Image alt="logo" src="/favicon.png" width={60} height={60} />
 
 const AuthProvider = ({ children }: AuthProviderProps) => {
   const { i18n } = useTranslation()
