@@ -10,7 +10,7 @@ import { useRouter } from "next/router"
 import { useTranslation, withTranslation } from "react-i18next"
 import { hideLoader, showLoader } from "store/slice/app"
 import { setUser } from "store/slice/user"
-import { createNullUser } from "utils"
+import { createNullUser, loggedInUserDo } from "utils"
 import { logout } from "utils/axios/request/auth"
 import { guestUserId } from "utils/constants"
 
@@ -21,11 +21,11 @@ const Account = () => {
   const router = useRouter()
 
   const handleLogout = async () => {
-    if (user._id !== guestUserId) {
+    await loggedInUserDo(async () => {
       dispatch(showLoader())
       await logout()
       dispatch(hideLoader())
-    }
+    })
 
     await router.replace("/login")
     dispatch(setUser(createNullUser()))

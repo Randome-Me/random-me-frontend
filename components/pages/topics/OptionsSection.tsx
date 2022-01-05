@@ -9,22 +9,18 @@ import {
   addOption,
 } from "store/slice/user"
 import { BanditArm } from "types/mab"
-import { uuid } from "utils"
+import { loggedInUserDo, uuid } from "utils"
 import {
   addOptionDB,
   removeOptionDB,
   setOptionBiasDB,
   setOptionNameDB,
 } from "utils/axios/request/database"
-import { guestUserId, maxBias, minBias } from "utils/constants"
+import { maxBias, minBias } from "utils/constants"
 import BiasInputDatalist from "./BiasInputDatalist"
 
 const OptionsSection = () => {
-  const {
-    topics,
-    selectedTopicId,
-    _id: userId,
-  } = useAppSelector((state) => state.user)
+  const { topics, selectedTopicId } = useAppSelector((state) => state.user)
   const dispatch = useAppDispatch()
   const { t } = useTranslation("translation", { keyPrefix: "topics" })
 
@@ -55,8 +51,9 @@ const OptionsSection = () => {
         bias,
       })
     )
-    if (userId !== guestUserId)
+    loggedInUserDo(() =>
       addOptionDB(optionId, selectedTopicId, addOptionText, bias)
+    )
 
     setAddOptionText("")
     biasInput.current.value = undefined
@@ -82,9 +79,9 @@ const OptionsSection = () => {
         weight: bias,
       })
     )
-    if (userId !== guestUserId) {
-      setOptionBiasDB(selectedTopicId, option._id, bias)
-    }
+    loggedInUserDo(() =>
+      setOptionBiasDB(selectedTopicId, option._id, bias as number)
+    )
   }
 
   const editOptionName = (option: BanditArm) => {
@@ -94,16 +91,12 @@ const OptionsSection = () => {
     if (!name) return
 
     dispatch(setOptionName({ topicId: selectedTopicId, optionId, name }))
-    if (userId !== guestUserId) {
-      setOptionNameDB(selectedTopicId, optionId, name)
-    }
+    loggedInUserDo(() => setOptionNameDB(selectedTopicId, optionId, name))
   }
 
   const deleteOption = (optionId: string) => {
     dispatch(removeOption({ topicId: selectedTopicId, optionId }))
-    if (userId !== guestUserId) {
-      removeOptionDB(selectedTopicId, optionId)
-    }
+    loggedInUserDo(() => removeOptionDB(selectedTopicId, optionId))
   }
 
   return (

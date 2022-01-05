@@ -9,7 +9,7 @@ import {
   selectTopic,
   setTopicName,
 } from "store/slice/user"
-import { uuid } from "utils"
+import { loggedInUserDo, uuid } from "utils"
 import {
   addTopicDB,
   removeTopicDB,
@@ -17,14 +17,9 @@ import {
   selectTopicDB,
   setTopicNameDB,
 } from "utils/axios/request/database"
-import { guestUserId } from "utils/constants"
 
 const TopicsSection = () => {
-  const {
-    topics,
-    selectedTopicId,
-    _id: userId,
-  } = useAppSelector((state) => state.user)
+  const { topics, selectedTopicId } = useAppSelector((state) => state.user)
   const dispatch = useAppDispatch()
   const { t } = useTranslation("translation", { keyPrefix: "topics" })
 
@@ -39,9 +34,7 @@ const TopicsSection = () => {
 
     const newTopicId = uuid()
     dispatch(addTopic({ newTopicId, name: addTopicText }))
-    if (userId !== guestUserId) {
-      addTopicDB(newTopicId, addTopicText)
-    }
+    loggedInUserDo(() => addTopicDB(newTopicId, addTopicText))
 
     setAddTopicText("")
   }
@@ -54,28 +47,22 @@ const TopicsSection = () => {
     if (!name) return
 
     dispatch(setTopicName({ topicId: selectedTopicId, name }))
-
-    if (userId !== guestUserId) {
-      setTopicNameDB(selectedTopicId, name)
-    }
+    loggedInUserDo(() => setTopicNameDB(selectedTopicId, name))
   }
 
   const deleteTopic = () => {
     dispatch(resetSelectedTopic())
     dispatch(removeTopic({ topicId: selectedTopicId }))
-    if (userId !== guestUserId) {
+    loggedInUserDo(() => {
       resetSelectTopicDB()
       removeTopicDB(selectedTopicId)
-    }
+    })
   }
 
   const handleSelectTopic = (topicId: string) => {
     if (topicId === selectedTopicId) return
-
     dispatch(selectTopic({ topicId }))
-    if (userId !== guestUserId) {
-      selectTopicDB(topicId)
-    }
+    loggedInUserDo(() => selectTopicDB(topicId))
   }
 
   return (

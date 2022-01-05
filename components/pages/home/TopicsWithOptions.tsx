@@ -6,12 +6,12 @@ import { useTranslation, withTranslation } from "react-i18next"
 import { changeTopicPolicy, selectTopic } from "store/slice/user"
 import { Topic } from "types"
 import { RandomPolicy } from "types/mab"
-import { decodePolicy } from "utils"
+import { decodePolicy, loggedInUserDo } from "utils"
 import {
   changeTopicPolicyDB,
   selectTopicDB,
 } from "utils/axios/request/database"
-import { guestUserId, policies } from "utils/constants"
+import { policies } from "utils/constants"
 import RandomMeButton from "./RandomMeButton"
 
 interface TopicWithOptionsProps {
@@ -29,24 +29,17 @@ const TopicsWithOptions: FC<TopicWithOptionsProps> = ({
 }) => {
   const { t } = useTranslation("translation", { keyPrefix: "home" })
   const dispatch = useAppDispatch()
-  const { selectedTopicId, _id: userId } = useAppSelector((state) => state.user)
+  const { selectedTopicId } = useAppSelector((state) => state.user)
 
   const handleSelectTopic = (e: ChangeEvent<HTMLSelectElement>) => {
-    dispatch(
-      selectTopic({
-        topicId: e.target.value,
-      })
-    )
-    if (userId !== guestUserId) {
-      selectTopicDB(e.target.value)
-    }
+    const topicId = e.target.value
+    dispatch(selectTopic({ topicId }))
+    loggedInUserDo(() => selectTopicDB(topicId))
   }
 
   const handleChangePolicy = (policy: RandomPolicy) => {
     dispatch(changeTopicPolicy(policy))
-    if (userId !== guestUserId) {
-      changeTopicPolicyDB(selectedTopicId, policy)
-    }
+    loggedInUserDo(() => changeTopicPolicyDB(selectedTopicId, policy))
   }
 
   return (
