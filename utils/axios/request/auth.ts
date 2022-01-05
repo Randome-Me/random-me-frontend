@@ -80,22 +80,19 @@ export const forgotPassword = (email: string) => {
 
 export interface ResetPasswordBody {
   token: string
-  password: string
-  confirmPassword: string
+  newPassword: string
   language: AvailableLanguages
 }
 
 export const resetPassword = ({
   token,
-  password,
-  confirmPassword,
   language,
+  newPassword,
 }: ResetPasswordBody) => {
   interface ResponseData {}
   const payload: ResetPasswordBody = {
     token,
-    password,
-    confirmPassword,
+    newPassword,
     language,
   }
   return axiosClientInstance.post<ResponseData>(

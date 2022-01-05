@@ -59,8 +59,7 @@ const ResetPassword: FC<{ token: string }> = ({ token }) => {
     dispatch(showLoader())
     await resetPassword({
       token,
-      password,
-      confirmPassword,
+      newPassword: password,
       language: i18n.language as AvailableLanguages,
     }).catch((err) => {
       alert(err.response.data.message)
