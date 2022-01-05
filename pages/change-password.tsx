@@ -5,6 +5,9 @@ import { useRouter } from "next/router"
 import { FC, FormEvent, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { GetServerSideProps } from "next"
+import { useAppDispatch } from "hooks"
+import { hideLoader, showLoader } from "store/slice/app"
+import { resetPassword } from "utils/axios/request/auth"
 
 export const getServerSideProps: GetServerSideProps = async ({
   query: { token },
@@ -26,11 +29,16 @@ export const getServerSideProps: GetServerSideProps = async ({
 const ChangePassword: FC<{ token: string }> = ({ token }) => {
   const { t } = useTranslation("translation", { keyPrefix: "changePassword" })
   const router = useRouter()
+  const dispatch = useAppDispatch()
 
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const goToLogin = async () => {
+    await router.replace("/login")
+  }
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     if (password.trim() === "") {
@@ -46,11 +54,12 @@ const ChangePassword: FC<{ token: string }> = ({ token }) => {
       return
     }
 
-    // TODO: call change password api
-  }
-
-  const goToLogin = () => {
-    router.replace("/login")
+    dispatch(showLoader())
+    await resetPassword({ token, password, confirmPassword }).catch((err) => {
+      alert(err.message)
+    })
+    dispatch(hideLoader())
+    await goToLogin()
   }
 
   return (

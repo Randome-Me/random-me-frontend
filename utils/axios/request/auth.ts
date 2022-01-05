@@ -91,9 +91,21 @@ export const forgotPassword = (email: string) => {
   })
 }
 
-// export const resetPassword = (password: string) => {
-//   interface ResponseData {}
-//   return axiosClientInstance.post<ResponseData>("/accounts/reset-password", {
-//     password,
-//   })
-// }
+export interface ResetPasswordBody {
+  token: string
+  password: string
+  confirmPassword: string
+}
+
+export const resetPassword = ({
+  token,
+  password,
+  confirmPassword,
+}: ResetPasswordBody) => {
+  interface ResponseData {}
+  return axiosClientInstance.post<ResponseData>("/accounts/reset-password", {
+    token,
+    password,
+    confirmPassword,
+  })
+}
