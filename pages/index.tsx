@@ -68,7 +68,9 @@ const Home = () => {
         topicId: e.target.value,
       })
     )
-    selectTopicDB(e.target.value)
+    if (userId !== guestUserId) {
+      selectTopicDB(e.target.value)
+    }
   }
 
   return (
