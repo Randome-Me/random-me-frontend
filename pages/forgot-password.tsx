@@ -23,17 +23,16 @@ const ForgotPassword = () => {
     }
 
     dispatch(showLoader())
-    let error = false
-    await forgotPassword(email).catch((err) => {
+    try {
+      const {
+        data: { message },
+      } = await forgotPassword(email)
+      alert(message)
+    } catch (err) {
       alert(err.response.data.message)
-      error = true
-    })
-    dispatch(hideLoader())
-    if (error) {
-      return
     }
     setEmail("")
-    alert(t("successAlert"))
+    dispatch(hideLoader())
   }
 
   return (

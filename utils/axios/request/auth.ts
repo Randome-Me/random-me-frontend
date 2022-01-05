@@ -75,7 +75,9 @@ export interface ForgotPasswordPayload {
   language: string
 }
 export const forgotPassword = (email: string) => {
-  interface ResponseData {}
+  interface ResponseData {
+    message: string
+  }
   const payload: ForgotPasswordPayload = {
     email,
     language: i18n.language as AvailableLanguages,
