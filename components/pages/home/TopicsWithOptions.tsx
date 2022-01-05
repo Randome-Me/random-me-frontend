@@ -44,7 +44,6 @@ const TopicsWithOptions: FC<TopicWithOptionsProps> = ({
 
   return (
     <>
-      <RandomMeButton />
       <div className="flex flex-col items-center">
         <div>
           <div className="flex item-center justify-center md:justify-start">
@@ -148,6 +147,9 @@ const TopicsWithOptions: FC<TopicWithOptionsProps> = ({
             </div>
           </div>
         </div>
+      </div>
+      <div className="flex justify-center">
+        <RandomMeButton />
       </div>
     </>
   )

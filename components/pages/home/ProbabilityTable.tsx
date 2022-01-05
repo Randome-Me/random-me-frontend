@@ -66,7 +66,9 @@ const ProbabilityTable = ({ probabilityInfo }: ProbabilityTableProps) => {
               border-slate-800 dark:border-slate-200
               dark:text-slate-200
               px-4 
-              py-2"
+              py-2
+              max-w-[10rem] sm:max-w-[16rem] md:max-w-[24rem] lg:max-w-[32rem]
+              break-words"
               >
                 {arm.name}
               </td>

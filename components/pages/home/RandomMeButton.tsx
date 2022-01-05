@@ -16,7 +16,6 @@ const RandomMeButton = () => {
       shadow-slate-50 
       transition-all 
       duration-300
-      mx-auto
       "
     >
       Random Me!

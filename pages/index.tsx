@@ -55,17 +55,20 @@ const Home = () => {
           >
             <Glass
               className="
-                max-h-[95vh] 
-                max-w-[95vw]
+                max-h-[90vh] 
+                max-w-[90vw]
                 overflow-y-auto
                 transition-all 
-                px-2
+                p-2 xs:p-6 sm:p-12 md:p-24
                 mx-auto 
                 lg:my-auto
-                xs:px-10
-                md:px-24"
+                "
             >
-              <main className="space-y-10">
+              <main
+                className="
+              space-y-4
+              md:space-y-10"
+              >
                 {topicsWithOptions.length > 0 && (
                   <TopicsWithOptions
                     selectedPolicy={selectedPolicy}
