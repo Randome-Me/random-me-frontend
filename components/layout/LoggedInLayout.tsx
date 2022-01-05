@@ -46,8 +46,8 @@ export default function LoggedInLayout({ children }: LoggedInLayoutProps) {
       <div className="flex-1">{children}</div>
       <div
         className="
-        w-[14rem]
-        h-[5rem]
+        lg:w-[14rem]
+        lg:h-[5rem]
         "
       >
         <ThemeAndLanguageSwitch />

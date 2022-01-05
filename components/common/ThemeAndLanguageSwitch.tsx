@@ -7,11 +7,12 @@ const ThemeAndLanguageSwitch: FC = () => {
   return (
     <div
       className="
-        hidden lg:flex
-        justify-center
+        flex
+        lg:justify-center
         items-center
         lg:pt-[2rem]
         mb-[2rem] lg:mb-0
+        pl-[2rem] lg:pl-0
         "
     >
       <Icon
