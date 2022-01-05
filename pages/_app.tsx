@@ -5,8 +5,14 @@ import { Provider } from "react-redux"
 import "locales"
 import AuthProvider from "providers/AuthProvider"
 import LoaderLayout from "components/layout/LoaderLayout"
+import { useEffect } from "react"
+import { setTheme } from "utils"
 
 function MyApp({ Component, pageProps }: AppProps) {
+  useEffect(() => {
+    setTheme()
+  }, [])
+
   return (
     <Provider store={store}>
       <LoaderLayout>

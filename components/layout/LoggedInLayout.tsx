@@ -1,10 +1,7 @@
 import Sidebar from "components/common/Sidebar"
 import MobileSidebar from "components/common/MobileSidebar"
-import LanguageSwitch from "components/common/LanguageSwitch"
 import { useTranslation } from "react-i18next"
-// import { useAppSelector } from "hooks"
-// import { useEffect } from "react"
-// import { useRouter } from "next/router"
+import ThemeAndLanguageSwitch from "components/common/ThemeAndLanguageSwitch"
 
 interface LoggedInLayoutProps {
   children?: React.ReactNode
@@ -12,8 +9,6 @@ interface LoggedInLayoutProps {
 
 export default function LoggedInLayout({ children }: LoggedInLayoutProps) {
   const { t } = useTranslation()
-  // const user = useAppSelector((state) => state.user)
-  // const router = useRouter()
 
   const routeMap = {
     "/": t("home.title"),
@@ -22,11 +17,6 @@ export default function LoggedInLayout({ children }: LoggedInLayoutProps) {
     "/random-policies": t("policies.title"),
   }
   const menuText = t("utils.menuText")
-
-  // useEffect(() => {
-  //   console.log("hi")
-  //   if (!user) router.replace("/login")
-  // }, [])
 
   return (
     <div
@@ -60,15 +50,7 @@ export default function LoggedInLayout({ children }: LoggedInLayoutProps) {
         h-[5rem]
         "
       >
-        <div
-          className="
-        lg:flex
-        justify-center
-        pt-[2rem]
-        "
-        >
-          <LanguageSwitch />
-        </div>
+        <ThemeAndLanguageSwitch />
       </div>
     </div>
   )

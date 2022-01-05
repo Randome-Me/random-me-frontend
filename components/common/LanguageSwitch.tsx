@@ -1,5 +1,6 @@
 import { useAppDispatch, useAppSelector } from "hooks"
 import { useRouter } from "next/router"
+import { FC } from "react"
 import { useTranslation } from "react-i18next"
 import { changeLanguage } from "store/slice/user"
 import { AvailableLanguages } from "types/internationalization"
@@ -8,10 +9,13 @@ import { guestUserId, nullUserId } from "utils/constants"
 
 const languages: AvailableLanguages[] = ["en", "th"]
 
-const LanguageSwitch = () => {
+interface LanguageSwitchProps {
+  className?: string
+}
+
+const LanguageSwitch: FC<LanguageSwitchProps> = ({ className }) => {
   const { i18n } = useTranslation()
   const dispatch = useAppDispatch()
-  const router = useRouter()
   const { _id: userId } = useAppSelector((state) => state.user)
 
   const handleChangeLanguage = async (language: AvailableLanguages) => {
@@ -26,11 +30,12 @@ const LanguageSwitch = () => {
 
   return (
     <div
-      className="
+      className={`
     inline-block
     bg-slate-50/50
     rounded
-    "
+    ${className}
+    `}
     >
       {languages.map((language) => (
         <button

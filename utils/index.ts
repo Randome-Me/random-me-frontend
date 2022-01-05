@@ -9,7 +9,10 @@ import { guestUserId, nullUserId } from "./constants"
 import { pullDB } from "./axios/request/database"
 
 export const saveToLocal = (key: LocalStorageKey, data: any) => {
-  localStorage.setItem(key, JSON.stringify(data))
+  if (typeof data === "object") {
+    data = JSON.stringify(data)
+  }
+  localStorage.setItem(key, data)
 }
 
 export const getFromLocal = <T>(key: LocalStorageKey): T | null => {
@@ -179,4 +182,31 @@ export const loggedInUserDo = async (callback: Function = () => {}) => {
   if (_id !== guestUserId) {
     await callback()
   }
+}
+
+export const setTheme = () => {
+  if (
+    localStorage.theme === "dark" ||
+    (!("theme" in localStorage) &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches)
+  ) {
+    document.documentElement.classList.add("dark")
+  } else {
+    document.documentElement.classList.remove("dark")
+  }
+}
+
+export const goDark = () => {
+  saveToLocal("theme", "dark")
+  setTheme()
+}
+
+export const goLight = () => {
+  saveToLocal("theme", "light")
+  setTheme()
+}
+
+export const removeTheme = () => {
+  removeFromLocal("theme")
+  setTheme()
 }

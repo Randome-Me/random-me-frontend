@@ -1,7 +1,7 @@
 import { AvailableLanguages } from "./internationalization"
 import { RandomPolicy, BanditArm } from "./mab"
 
-export type LocalStorageKey = "user"
+export type LocalStorageKey = "user" | "theme"
 
 export interface Topic {
   _id: string
