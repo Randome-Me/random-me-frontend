@@ -96,7 +96,9 @@ export const resetPassword = ({
   language,
   newPassword,
 }: ResetPasswordBody) => {
-  interface ResponseData {}
+  interface ResponseData {
+    message: string
+  }
   const payload: ResetPasswordBody = {
     token,
     newPassword,

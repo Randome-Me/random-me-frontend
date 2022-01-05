@@ -57,13 +57,18 @@ const ResetPassword: FC<{ token: string }> = ({ token }) => {
     }
 
     dispatch(showLoader())
-    await resetPassword({
-      token,
-      newPassword: password,
-      language: i18n.language as AvailableLanguages,
-    }).catch((err) => {
+    try {
+      const {
+        data: { message },
+      } = await resetPassword({
+        token,
+        newPassword: password,
+        language: i18n.language as AvailableLanguages,
+      })
+      alert(message)
+    } catch (err) {
       alert(err.response.data.message)
-    })
+    }
     dispatch(hideLoader())
     await goToLogin()
   }
