@@ -155,14 +155,14 @@ const OptionsSection = () => {
                 max={maxBias}
                 list={biasInputListId}
                 className="
-              w-[8ch]
+              w-[9ch]
               bg-transparent
               placeholder:text-cyan-800/75 dark:placeholder:text-slate-50/75
               border-0 border-b-2 border-slate-500/75 dark:border-slate-50/75
               focus:ring-transparent focus:border-slate-500
               dark:caret-slate-50
               "
-                placeholder={minBias + ""}
+                placeholder={t("bias")}
               />
               <BiasInputDatalist biasInputListId={biasInputListId} />
               <input
