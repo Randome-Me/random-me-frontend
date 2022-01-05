@@ -7,15 +7,15 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   } = req
 
   try {
-    const response = await axiosServerInstance.post(
+    const { data, status } = await axiosServerInstance.post(
       "/accounts/forgot-password/",
       {
         email,
       }
     )
-    res.status(response.status).json(response.data)
-  } catch (error) {
-    res.status(error.response.status).json(error.response.data)
+    res.status(status).json(data)
+  } catch ({ response: { status, data } }) {
+    res.status(status).json(data)
   }
 }
 

@@ -45,7 +45,8 @@ const en = {
       title: "Forgot Password",
       description: "Enter your email to reset your password.",
       emptyEmailAlert: "Please enter your email.",
-      successAlert: "How to reset your password is sent to your email.",
+      successAlert:
+        "How to reset your password is sent to your email.\nIf you don't see it in your inbox, please check your spam folder.",
     },
     changePassword: {
       title: "Change Password",

@@ -21,22 +21,21 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     })
 
   try {
-    const response = await axiosServerInstance.post("/auth/register/guest/", {
-      username,
-      email,
-      password,
-      confirmPassword,
-      language,
-      selectedTopicId,
-      topics,
-    })
-
-    res
-      .setHeader("Set-Cookie", response.headers["set-cookie"])
-      .status(response.status)
-      .json(response.data)
-  } catch (error) {
-    res.status(error.response.status).json(error.response.data)
+    const { status, data, headers } = await axiosServerInstance.post(
+      "/auth/register/guest/",
+      {
+        username,
+        email,
+        password,
+        confirmPassword,
+        language,
+        selectedTopicId,
+        topics,
+      }
+    )
+    res.setHeader("Set-Cookie", headers["set-cookie"]).status(status).json(data)
+  } catch ({ response: { status, data } }) {
+    res.status(status).json(data)
   }
 }
 

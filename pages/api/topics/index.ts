@@ -9,27 +9,35 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   } = req
 
   if (method === "POST") {
-    const response = await axiosServerInstance.post(
-      `/topics/`,
-      {
-        name,
-        _id: topicId,
-      },
-      { headers: { cookie } }
-    )
-    res.status(response.status).json(response.data)
+    const { status, data } = await axiosServerInstance
+      .post(
+        `/topics/`,
+        {
+          name,
+          _id: topicId,
+        },
+        { headers: { cookie } }
+      )
+      .catch(({ response: { status, data } }) => {
+        return { status, data }
+      })
+    res.status(status).json(data)
     return
   }
 
   if (method === "PATCH") {
-    const response = await axiosServerInstance.patch(
-      `/topics/`,
-      {
-        _id: topicId,
-      },
-      { headers: { cookie } }
-    )
-    res.status(response.status).json(response.data)
+    const { status, data } = await axiosServerInstance
+      .patch(
+        `/topics/`,
+        {
+          _id: topicId,
+        },
+        { headers: { cookie } }
+      )
+      .catch(({ response: { status, data } }) => {
+        return { status, data }
+      })
+    res.status(status).json(data)
     return
   }
 

@@ -1,3 +1,4 @@
+import { AxiosError } from "axios"
 import { NextApiRequest, NextApiResponse } from "next"
 import axiosServerInstance from "utils/axios/instance/server"
 
@@ -12,15 +13,18 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       message: "Method not allowed",
     })
 
-  const response = await axiosServerInstance.post("/auth/login/", {
-    username,
-    password,
-  })
-
-  res
-    .setHeader("Set-Cookie", response.headers["set-cookie"])
-    .status(response.status)
-    .json(response.data)
+  try {
+    const { status, data, headers } = await axiosServerInstance.post(
+      "/auth/login/",
+      {
+        username,
+        password,
+      }
+    )
+    res.setHeader("Set-Cookie", headers["set-cookie"]).status(status).json(data)
+  } catch ({ response: { status, data } }) {
+    res.status(status).json(data)
+  }
 }
 
 export default handler

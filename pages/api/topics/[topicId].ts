@@ -10,53 +10,69 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   } = req
 
   if (method === "POST") {
-    const response = await axiosServerInstance.post(
-      `/topics/${topicId}/`,
-      {
-        name,
-        bias,
-        _id: optionId,
-      },
-      {
-        headers: { cookie },
-      }
-    )
-    res.status(response.status).json(response.data)
+    const { status, data } = await axiosServerInstance
+      .post(
+        `/topics/${topicId}/`,
+        {
+          name,
+          bias,
+          _id: optionId,
+        },
+        {
+          headers: { cookie },
+        }
+      )
+      .catch(({ response: { status, data } }) => {
+        return { status, data }
+      })
+    res.status(status).json(data)
     return
   }
 
   if (method === "PATCH") {
-    const response = await axiosServerInstance.patch(
-      `/topics/${topicId}/`,
-      {
-        field,
-        value,
-      },
-      {
-        headers: { cookie },
-      }
-    )
-    res.status(response.status).json(response.data)
+    const { status, data } = await axiosServerInstance
+      .patch(
+        `/topics/${topicId}/`,
+        {
+          field,
+          value,
+        },
+        {
+          headers: { cookie },
+        }
+      )
+      .catch(({ response: { status, data } }) => {
+        return { status, data }
+      })
+    res.status(status).json(data)
     return
   }
 
   if (method === "PUT") {
-    const response = await axiosServerInstance.put(
-      `/topics/${topicId}/`,
-      {},
-      {
-        headers: { cookie },
-      }
-    )
-    res.status(response.status).json(response.data)
+    const { status, data } = await axiosServerInstance
+      .put(
+        `/topics/${topicId}/`,
+        {},
+        {
+          headers: { cookie },
+        }
+      )
+      .catch(({ response: { status, data } }) => {
+        return { status, data }
+      })
+    res.status(status).json(data)
     return
   }
 
   if (method === "DELETE") {
-    const response = await axiosServerInstance.delete(`/topics/${topicId}/`, {
-      headers: { cookie },
-    })
-    res.status(response.status).json(response.data)
+    const { status, data } = await axiosServerInstance
+      .delete(`/topics/${topicId}/`, {
+        headers: { cookie },
+      })
+      .catch(({ response: { status, data } }) => {
+        return { status, data }
+      })
+    res.status(status).json(data)
     return
   }
 

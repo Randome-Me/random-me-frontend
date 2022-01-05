@@ -10,7 +10,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   if (method === "PATCH") {
     try {
-      const { data } = await axiosServerInstance.patch(
+      const { data, status } = await axiosServerInstance.patch(
         "/accounts/language/",
         {
           language,
@@ -21,9 +21,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           },
         }
       )
-      res.status(200).json(data)
-    } catch (error) {
-      res.status(error.response.status).json(error.response.data)
+      res.status(status).json(data)
+    } catch ({ response: { status, data } }) {
+      res.status(status).json(data)
     }
     return
   }
