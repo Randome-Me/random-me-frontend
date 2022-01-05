@@ -7,7 +7,7 @@ const RandomMeButton = () => {
       className="
     text-slate-50 hover:text-yellow-300
       text-shadow-lg active:text-shadow-none
-      text-[2.5rem] sm:text-7xl md:text-8xl
+      text-[2.5rem] sm:text-7xl
       font-Sen 
       font-extrabold 
       tracking-tighter

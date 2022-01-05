@@ -51,23 +51,25 @@ const Home = () => {
           <div
             className="
           flex
-          lg:h-screen"
+          h-full lg:h-screen
+          "
           >
             <Glass
               className="
                 max-h-[90vh] 
-                max-w-[90vw]
+                w-[95vw] md:w-auto
                 overflow-y-auto
                 transition-all 
-                p-2 xs:p-6 sm:p-12 md:p-24
+                p-2 py-6 md:p-10 lg:p-12
                 mx-auto 
-                lg:my-auto
+                my-auto
                 "
             >
               <main
                 className="
               space-y-4
-              md:space-y-10"
+              md:space-y-7
+              "
               >
                 {topicsWithOptions.length > 0 && (
                   <TopicsWithOptions

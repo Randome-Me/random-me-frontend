@@ -63,7 +63,11 @@ const Account = () => {
             items-center
             h-full"
           >
-            <Glass className="space-y-4 w-[27rem] max-w-[90vw]">
+            <Glass
+              className="
+            space-y-4 w-[27rem] max-w-[90vw]
+            p-[1.4rem] py-6 md:p-10 lg:p-12"
+            >
               <div
                 className="
               w-40 
