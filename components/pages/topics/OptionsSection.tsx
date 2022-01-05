@@ -135,7 +135,8 @@ const OptionsSection = () => {
         text-cyan-600 dark:text-slate-50
         rounded-lg 
         overflow-y-auto
-        transition-colors"
+        transition-colors
+        "
           >
             <form
               onSubmit={handleOptionSubmit}
@@ -144,7 +145,8 @@ const OptionsSection = () => {
           items-center 
           space-x-2 sm:space-x-4 
           px-4 
-          h-16"
+          h-16
+          "
             >
               <input
                 type="number"
@@ -197,6 +199,7 @@ const OptionsSection = () => {
                 flex 
                 items-center 
                 space-x-4 
+                h-16
                 px-4
                 py-3
               even:bg-sky-100 dark:even:bg-slate-800
@@ -214,19 +217,15 @@ const OptionsSection = () => {
                         icon="clarity:edit-solid"
                       />
                     </div>
-                    <input
-                      type="text"
-                      value={option.name}
-                      maxLength={maxLengthTopicAndOptionText}
-                      disabled
+                    <span
                       className="
-                    w-[10rem]
-                    xs:flex-1
-                    bg-transparent
-                    disabled:border-0
-                    bug-input-color-light dark:bug-input-color-dark
-                  "
-                    />
+                      w-full
+                    overflow-x-auto
+                    text-left
+                      "
+                    >
+                      {option.name}
+                    </span>
                     <div
                       className="
                       flex item-center 

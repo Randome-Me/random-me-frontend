@@ -107,7 +107,7 @@ const TopicsSection = () => {
               required
               maxLength={maxLengthTopicAndOptionText}
               className="
-                flex-1
+              w-full
                 bg-transparent
                 placeholder-slate-50/50 dark:placeholder:text-slate-500
                 border-0 border-b-2 border-slate-50/50 dark:border-slate-800
