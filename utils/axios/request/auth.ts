@@ -1,3 +1,4 @@
+import i18n from "locales"
 import { AvailableLanguages } from "types/internationalization"
 import { Topic, User } from "types"
 import axiosClientInstance from "../instance/client"
@@ -7,12 +8,20 @@ export const checkMe = () => {
   return axiosClientInstance.get<ResponseData>("auth/me")
 }
 
+export interface LoginPayload {
+  username: string
+  password: string
+  language: AvailableLanguages
+}
+
 export const login = (username: string, password: string) => {
   type ResponseData = User
-  return axiosClientInstance.post<ResponseData>("auth/login", {
+  const payload: LoginPayload = {
     username,
     password,
-  })
+    language: i18n.language as AvailableLanguages,
+  }
+  return axiosClientInstance.post<ResponseData>("auth/login", payload)
 }
 
 export const logout = () => {
@@ -73,6 +82,7 @@ export interface ResetPasswordBody {
   token: string
   password: string
   confirmPassword: string
+  language: AvailableLanguages
 }
 
 export const resetPassword = ({
@@ -81,9 +91,14 @@ export const resetPassword = ({
   confirmPassword,
 }: ResetPasswordBody) => {
   interface ResponseData {}
-  return axiosClientInstance.post<ResponseData>("/accounts/reset-password", {
+  const payload: ResetPasswordBody = {
     token,
     password,
     confirmPassword,
-  })
+    language: i18n.language as AvailableLanguages,
+  }
+  return axiosClientInstance.post<ResponseData>(
+    "/accounts/reset-password",
+    payload
+  )
 }
