@@ -7,7 +7,6 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { User } from "types"
 
 const initialState: User = createNullUser()
-// const initialState: User = null
 
 export const userSlice = createSlice({
   name: "user",
@@ -16,7 +15,7 @@ export const userSlice = createSlice({
     setUser: (
       state,
       {
-        payload: { _id, selectedTopicId, topics, username, language },
+        payload: { _id, selectedTopicId, topics, username, language, email },
       }: PayloadAction<User>
     ) => {
       state._id = _id
@@ -24,6 +23,7 @@ export const userSlice = createSlice({
       state.topics = topics
       state.username = username
       state.language = language
+      state.email = email
     },
     selectTopic: (
       state,
