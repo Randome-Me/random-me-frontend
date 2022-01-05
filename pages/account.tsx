@@ -33,7 +33,9 @@ const Account = () => {
   const handleResetPassword = async () => {
     dispatch(showLoader())
     try {
-      const { data: message } = await forgotPassword(user.email)
+      const {
+        data: { message },
+      } = await forgotPassword(user.email)
       alert(message)
     } catch (err) {
       alert(err.response.data.message)
