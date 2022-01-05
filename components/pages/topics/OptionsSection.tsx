@@ -224,6 +224,7 @@ const OptionsSection = () => {
                     xs:flex-1
                     bg-transparent
                     disabled:border-0
+                    bug-input-color-light dark:bug-input-color-dark
                   "
                     />
                     <div
