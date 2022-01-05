@@ -2,10 +2,28 @@ import { LoginInputPassword } from "components/common/LoginInput"
 import LoginRegisterLayout from "components/layout/LoginRegisterLayout"
 import Head from "next/head"
 import { useRouter } from "next/router"
-import { FormEvent, useEffect, useState } from "react"
+import { FC, FormEvent, useState } from "react"
 import { useTranslation } from "react-i18next"
+import { GetServerSideProps } from "next"
 
-const ChangePassword = ({ query: { token } }) => {
+export const getServerSideProps: GetServerSideProps = async ({
+  query: { token },
+}) => {
+  if (token) {
+    return {
+      props: { token },
+    }
+  }
+
+  return {
+    redirect: {
+      destination: "/login",
+    },
+    props: {},
+  }
+}
+
+const ChangePassword: FC<{ token: string }> = ({ token }) => {
   const { t } = useTranslation("translation", { keyPrefix: "changePassword" })
   const router = useRouter()
 
@@ -28,19 +46,12 @@ const ChangePassword = ({ query: { token } }) => {
       return
     }
 
-    // TODO: extract query params and call change password api
+    // TODO: call change password api
   }
 
   const goToLogin = () => {
     router.replace("/login")
   }
-
-  useEffect(() => {
-    if (!token) {
-      alert(t("noTokenAlert"))
-      goToLogin()
-    }
-  }, [])
 
   return (
     <>
@@ -84,10 +95,6 @@ const ChangePassword = ({ query: { token } }) => {
       </LoginRegisterLayout>
     </>
   )
-}
-
-ChangePassword.getInitialProps = ({ query }) => {
-  return { query }
 }
 
 export default ChangePassword
