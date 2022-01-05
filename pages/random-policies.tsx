@@ -12,15 +12,17 @@ const RandomPolicies = () => {
   text-slate-50
   font-Kanit
   mb-6
-  text-6xl
+  text-4xl md:text-5xl lg:text-6xl
   `
   const h2Class = `
   text-slate-100
   mb-4
+  text-2xl md:text-3xl
   `
   const h3Class = `
   text-yellow-400
   mb-2
+  text-xl md:text-2xl
   `
   const pClass = `
   text-slate-50
