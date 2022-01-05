@@ -4,7 +4,7 @@ import PageBackground from "components/common/PageBackground"
 import ScreenCenterLayout from "components/layout/ScreenCenterLayout"
 
 interface LoginRegisterLayoutProps {
-  topic: "Login" | "Register"
+  topic: string
   children: React.ReactNode
 }
 

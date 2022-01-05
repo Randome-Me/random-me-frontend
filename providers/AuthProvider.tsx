@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from "hooks"
 import { useRouter } from "next/router"
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 import {
   hideLoader,
@@ -27,7 +27,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   const router = useRouter()
 
   const firstLoad = useRef(true)
-  const checkedMe = useRef(false)
+  const [checkedMe, setCheckedMe] = useState(false)
 
   const showCheckMeLoader = () => {
     dispatch(setLoaderBefore(logo))
@@ -56,9 +56,14 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 
   useEffect(() => {
     const onMount = async () => {
+      if (router.pathname === "/change-password") {
+        setCheckedMe(true)
+        return
+      }
+
       showCheckMeLoader()
       const userDB = await checkMe()
-      checkedMe.current = true
+      setCheckedMe(true)
 
       if (userDB) {
         dispatch(setUser(userDB))
@@ -97,7 +102,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     onMount()
   }, [])
 
-  return <>{checkedMe.current && <>{children}</>}</>
+  return <>{checkedMe && <>{children}</>}</>
 }
 
 export default AuthProvider
