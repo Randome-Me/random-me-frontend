@@ -1,11 +1,11 @@
-import { AvailableLanguages } from "types/internationalization"
-import { changeLanguage } from "store/slice/user"
+import { Logo } from "./../components/common/Logo"
+import { changeLanguage, setUser } from "store/slice/user"
 import { LocalStorageKey, Topic, User } from "types"
 import { Arm } from "./MAB/Arm"
 import store from "store"
 import { BanditArm, ProbabilityOfEveryArm, RandomPolicy } from "types/mab"
 import { getProbabilityOfEveryArm } from "./MAB"
-import i18n, { fallbackLng } from "locales"
+import { fallbackLng } from "locales"
 import { t as translate } from "i18next"
 import {
   guestUserId,
@@ -14,6 +14,15 @@ import {
   nullUserId,
 } from "./constants"
 import { pullDB } from "./axios/request/database"
+import {
+  setLoaderBefore,
+  showLoader,
+  unsetLoaderBefore,
+  hideLoader,
+  setCheckedMe,
+} from "store/slice/app"
+import router from "next/router"
+import { checkMe } from "./axios/request/auth"
 
 export const saveToLocal = (key: LocalStorageKey, data: any) => {
   if (typeof data === "object") {
@@ -233,4 +242,69 @@ export const goLight = () => {
 export const removeTheme = () => {
   removeFromLocal("theme")
   setTheme()
+}
+
+const showCheckMeLoader = () => {
+  store.dispatch(setLoaderBefore(Logo))
+  store.dispatch(showLoader())
+}
+
+const hideCheckMeLoader = () => {
+  store.dispatch(unsetLoaderBefore())
+  store.dispatch(hideLoader())
+}
+
+export const onPageMount = async () => {
+  if (store.getState().app.checkedMe) {
+    return
+  }
+
+  if (router.pathname === "/reset-password") {
+    store.dispatch(setCheckedMe())
+    return
+  }
+
+  showCheckMeLoader()
+  const {
+    data: userDB,
+  }: {
+    data: User | null
+  } = await checkMe().catch(() => ({
+    data: null,
+  }))
+  store.dispatch(setCheckedMe())
+
+  if (userDB) {
+    store.dispatch(setUser(userDB))
+    if (router.pathname === "/login" || router.pathname === "/register") {
+      await router.replace("/")
+    }
+    hideCheckMeLoader()
+    return
+  }
+
+  const localUser = getLocalUser()
+
+  if (!localUser) {
+    if (router.pathname === "/register") {
+      hideCheckMeLoader()
+      return
+    }
+    await router.replace("/login")
+    hideCheckMeLoader()
+    return
+  }
+
+  if (localUser._id === nullUserId) {
+    await router.replace("/login")
+    hideCheckMeLoader()
+    return
+  }
+
+  // anonymous user is saved
+  store.dispatch(setUser(localUser))
+  if (router.pathname === "/login" || router.pathname === "/register") {
+    await router.replace("/")
+  }
+  hideCheckMeLoader()
 }

@@ -6,7 +6,7 @@ import Head from "next/head"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import { RandomPolicy } from "types/mab"
-import { getProbabilities } from "utils"
+import { getProbabilities, onPageMount } from "utils"
 import { useTranslation } from "react-i18next"
 import { withTranslation } from "react-i18next"
 import ProbabilityTable from "components/pages/home/ProbabilityTable"
@@ -33,6 +33,10 @@ const Home = () => {
     setProbabilityInfo(getProbabilities())
     setTopicsWithOptions(topics.filter((topic) => topic.options.length > 0))
   }, [topics, selectedTopicId])
+
+  useEffect(() => {
+    onPageMount()
+  }, [])
 
   return (
     <>

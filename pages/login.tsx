@@ -4,9 +4,15 @@ import ContinueAsGuest from "components/pages/login/ContinueAsGuest"
 import LoginForm from "components/pages/login/LoginForm"
 // import LoginSocialMedia from "components/pages/login/LoginSocialMedia"
 import { useTranslation, withTranslation } from "react-i18next"
+import { useEffect } from "react"
+import { onPageMount } from "utils"
 
 const Login = () => {
   const { t } = useTranslation("translation", { keyPrefix: "login" })
+
+  useEffect(() => {
+    onPageMount()
+  }, [])
 
   return (
     <>

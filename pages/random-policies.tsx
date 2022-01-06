@@ -3,7 +3,9 @@ import CenteredSpanGlassLayout from "components/layout/CenteredSpanGlassLayout"
 import LoggedInLayout from "components/layout/LoggedInLayout"
 import Head from "next/head"
 import Link from "next/link"
+import { useEffect } from "react"
 import { useTranslation, withTranslation } from "react-i18next"
+import { onPageMount } from "utils"
 
 const RandomPolicies = () => {
   const { t } = useTranslation("translation", { keyPrefix: "policies" })
@@ -27,6 +29,11 @@ const RandomPolicies = () => {
   const pClass = `
   text-slate-50
   `
+
+  useEffect(() => {
+    onPageMount()
+  }, [])
+
   return (
     <>
       <Head>

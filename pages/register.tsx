@@ -14,7 +14,7 @@ import { hideLoader, showLoader } from "store/slice/app"
 import { setUser } from "store/slice/user"
 import { User } from "types"
 import { AvailableLanguages } from "types/internationalization"
-import { getLocalUser, removeFromLocal } from "utils"
+import { getLocalUser, onPageMount, removeFromLocal } from "utils"
 import { register, registerWithCurrentGuest } from "utils/axios/request/auth"
 import { guestUserId } from "utils/constants"
 
@@ -93,6 +93,8 @@ export default function Register() {
   }
 
   useEffect(() => {
+    onPageMount()
+
     const user = getLocalUser()
     if (user && user._id === guestUserId) {
       setCurrentGuest(user)
