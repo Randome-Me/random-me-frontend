@@ -208,7 +208,7 @@ export const createDefaultTopic = (_id: string, name: string): Topic => {
 
 export const loggedInUserDo = async (callback: Function = () => {}) => {
   const { _id } = store.getState().user
-  if (_id !== guestUserId) {
+  if (_id !== guestUserId && _id !== nullUserId) {
     await callback()
   }
 }

@@ -23,6 +23,7 @@ const LanguageSwitch: FC<LanguageSwitchProps> = ({ className }) => {
     inline-block
     bg-slate-50/50
     rounded
+    select-none
     ${className}
     `}
     >
