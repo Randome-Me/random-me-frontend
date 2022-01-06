@@ -115,6 +115,10 @@ input::-webkit-inner-spin-button {
   /* Chrome, Edge, and Safari */
   *::-webkit-scrollbar {
     width: 6px;
+    height: 6px;
+  }
+
+  span::-webkit-scrollbar {
     height: 2px;
   }
 
