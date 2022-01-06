@@ -3,9 +3,10 @@ import LoginRegisterLayout from "components/layout/LoginRegisterLayout"
 import { useAppDispatch } from "hooks"
 import Head from "next/head"
 import Link from "next/link"
-import { FormEvent, useState } from "react"
+import { FormEvent, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { hideLoader, showLoader } from "store/slice/app"
+import { getPageTitle, onPageMount } from "utils"
 import { forgotPassword } from "utils/axios/request/auth"
 
 const ForgotPassword = () => {
@@ -35,12 +36,19 @@ const ForgotPassword = () => {
     dispatch(hideLoader())
   }
 
+  useEffect(() => {
+    onPageMount()
+  }, [])
+
   return (
     <>
       <Head>
-        <title>{t("title")} | Random Me</title>
+        <title>{getPageTitle("forgotPassword.title")}</title>
         <meta name="description" content={t("description")} />
-        <meta property="og:title" content={t("title")} />
+        <meta
+          property="og:title"
+          content={getPageTitle("forgotPassword.title")}
+        />
         <meta property="og:description" content={t("description")} />
       </Head>
 

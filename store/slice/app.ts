@@ -4,8 +4,10 @@ const initialState: {
   isLoading: boolean
   loaderBefore?: React.ReactNode
   loaderAfter?: React.ReactNode
+  checkedMe: boolean
 } = {
   isLoading: false,
+  checkedMe: false,
 }
 
 export const appSlice = createSlice({
@@ -30,6 +32,9 @@ export const appSlice = createSlice({
     showLoader: (state) => {
       state.isLoading = true
     },
+    setCheckedMe: (state) => {
+      state.checkedMe = true
+    },
   },
 })
 
@@ -40,6 +45,7 @@ export const {
   setLoaderAfter,
   unsetLoaderAfter,
   showLoader,
+  setCheckedMe,
 } = appSlice.actions
 
 const appReducer = appSlice.reducer

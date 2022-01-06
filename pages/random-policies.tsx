@@ -3,7 +3,9 @@ import CenteredSpanGlassLayout from "components/layout/CenteredSpanGlassLayout"
 import LoggedInLayout from "components/layout/LoggedInLayout"
 import Head from "next/head"
 import Link from "next/link"
+import { useEffect } from "react"
 import { useTranslation, withTranslation } from "react-i18next"
+import { getPageTitle, onPageMount } from "utils"
 
 const RandomPolicies = () => {
   const { t } = useTranslation("translation", { keyPrefix: "policies" })
@@ -27,12 +29,17 @@ const RandomPolicies = () => {
   const pClass = `
   text-slate-50
   `
+
+  useEffect(() => {
+    onPageMount()
+  }, [])
+
   return (
     <>
       <Head>
-        <title>{t("title")} | Random Me</title>
+        <title>{getPageTitle("policies.title")}</title>
         <meta name="description" content={t("description")} />
-        <meta property="og:title" content={t("title")} />
+        <meta property="og:title" content={getPageTitle("policies.title")} />
         <meta property="og:description" content={t("description")} />
       </Head>
 

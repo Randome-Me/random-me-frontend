@@ -2,7 +2,7 @@ import { LoginInputPassword } from "components/common/LoginInput"
 import LoginRegisterLayout from "components/layout/LoginRegisterLayout"
 import Head from "next/head"
 import { useRouter } from "next/router"
-import { FC, FormEvent, useState } from "react"
+import { FC, FormEvent, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { GetServerSideProps } from "next"
 import { useAppDispatch } from "hooks"
@@ -10,6 +10,7 @@ import { hideLoader, showLoader } from "store/slice/app"
 import { resetPassword } from "utils/axios/request/auth"
 import i18n from "locales"
 import { AvailableLanguages } from "types/internationalization"
+import { getPageTitle, onPageMount } from "utils"
 
 export const getServerSideProps: GetServerSideProps = async ({
   query: { token },
@@ -73,12 +74,19 @@ const ResetPassword: FC<{ token: string }> = ({ token }) => {
     await goToLogin()
   }
 
+  useEffect(() => {
+    onPageMount()
+  }, [])
+
   return (
     <>
       <Head>
-        <title>{t("title")} | Random Me</title>
+        <title>{getPageTitle("changePassword.title")}</title>
         <meta name="description" content={t("description")} />
-        <meta property="og:title" content={t("title")} />
+        <meta
+          property="og:title"
+          content={getPageTitle("changePassword.title")}
+        />
         <meta property="og:description" content={t("description")} />
       </Head>
 

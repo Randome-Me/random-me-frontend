@@ -6,17 +6,23 @@ import OptionsSection from "components/pages/topics/OptionsSection"
 import CenteredSpanGlassLayout from "components/layout/CenteredSpanGlassLayout"
 import { useTranslation, withTranslation } from "react-i18next"
 import { useAppSelector } from "hooks"
+import { useEffect } from "react"
+import { getPageTitle, onPageMount } from "utils"
 
 const Topics = () => {
   const { t } = useTranslation("translation", { keyPrefix: "topics" })
   const { selectedTopicId } = useAppSelector((state) => state.user)
 
+  useEffect(() => {
+    onPageMount()
+  }, [])
+
   return (
     <>
       <Head>
-        <title>{t("title")} | Random Me</title>
+        <title>{getPageTitle("topics.title")}</title>
         <meta name="description" content={t("description")} />
-        <meta property="og:title" content={t("title")} />
+        <meta property="og:title" content={getPageTitle("topics.title")} />
         <meta property="og:description" content={t("description")} />
       </Head>
 
