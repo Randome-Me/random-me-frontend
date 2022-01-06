@@ -11,7 +11,7 @@ import {
   changeTopicPolicyDB,
   selectTopicDB,
 } from "utils/axios/request/database"
-import { policies } from "utils/constants"
+import { policies, ROUTES } from "utils/constants"
 import RandomMeButton from "./RandomMeButton"
 
 interface TopicWithOptionsProps {
@@ -75,7 +75,7 @@ const TopicsWithOptions: FC<TopicWithOptionsProps> = ({
               ))}
             </select>
             <div className="hidden md:flex">
-              <Link href="/topics">
+              <Link href={ROUTES.topics}>
                 <a
                   className="
               self-center
@@ -93,7 +93,7 @@ const TopicsWithOptions: FC<TopicWithOptionsProps> = ({
           </div>
           <div className="flex flex-col justify-center md:flex-row item-center">
             <div className="hidden md:flex">
-              <Link href="/random-policies">
+              <Link href={ROUTES.randomPolicies}>
                 <a
                   className="font-Kanit
             underline

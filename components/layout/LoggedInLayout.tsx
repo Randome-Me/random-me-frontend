@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next"
 import ThemeAndLanguageSwitch from "components/common/ThemeAndLanguageSwitch"
 import { useState } from "react"
 import GitHubRepos from "components/common/GitHubRepos"
+import { ROUTES } from "utils/constants"
 
 interface LoggedInLayoutProps {
   children?: React.ReactNode
@@ -14,10 +15,10 @@ export default function LoggedInLayout({ children }: LoggedInLayoutProps) {
   const [isHamburgerSidebarOpen, setIsHamburgerSidebarOpen] = useState(false)
 
   const routeMap = {
-    "/": t("home.title"),
-    "/topics": t("topics.title"),
-    "/account": t("account.title"),
-    "/random-policies": t("policies.title"),
+    [ROUTES.home]: t("home.title"),
+    [ROUTES.topics]: t("topics.title"),
+    [ROUTES.account]: t("account.title"),
+    [ROUTES.randomPolicies]: t("policies.title"),
   }
   const menuText = t("utils.menuText")
 

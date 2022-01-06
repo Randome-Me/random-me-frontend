@@ -10,6 +10,7 @@ import { useTranslation, withTranslation } from "react-i18next"
 import { hideLoader, showLoader } from "store/slice/app"
 import { setUser } from "store/slice/user"
 import { login } from "utils/axios/request/auth"
+import { ROUTES } from "utils/constants"
 
 const LoginForm = () => {
   const { t } = useTranslation("translation", { keyPrefix: "login" })
@@ -37,7 +38,7 @@ const LoginForm = () => {
       dispatch(setUser(user))
       setPassword("")
       setUsername("")
-      await router.replace("/")
+      await router.replace(ROUTES.home)
       dispatch(hideLoader())
     } catch (error) {
       alert(error.response.data.message)
@@ -66,10 +67,10 @@ const LoginForm = () => {
           {t("login")}
         </button>
         <div className="flex justify-between">
-          <Link href="/register">
+          <Link href={ROUTES.register}>
             <a className="clickable-text-cyan text-sm">{t("register")}</a>
           </Link>
-          <Link href="/forgot-password">
+          <Link href={ROUTES.forgotPassword}>
             <a className="clickable-text-cyan text-sm">{t("forgotPassword")}</a>
           </Link>
         </div>

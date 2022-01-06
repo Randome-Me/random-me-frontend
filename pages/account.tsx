@@ -18,7 +18,7 @@ import {
   onPageMount,
 } from "utils"
 import { forgotPassword, logout } from "utils/axios/request/auth"
-import { guestUserId, nullUserId } from "utils/constants"
+import { guestUserId, nullUserId, ROUTES } from "utils/constants"
 
 const handleLogout = async () => {
   await loggedInUserDo(async () => {
@@ -27,7 +27,7 @@ const handleLogout = async () => {
     store.dispatch(hideLoader())
   })
 
-  await router.replace("/login")
+  await router.replace(ROUTES.login)
   store.dispatch(setUser(createNullUser()))
 }
 
@@ -102,7 +102,7 @@ const Account = () => {
           </div>
           {user._id === guestUserId ? (
             <div>
-              <Link href="/login">
+              <Link href={ROUTES.login}>
                 <a>
                   <button
                     className="
@@ -113,7 +113,7 @@ const Account = () => {
                   </button>
                 </a>
               </Link>
-              <Link href="/register">
+              <Link href={ROUTES.register}>
                 <a>
                   <button
                     className="

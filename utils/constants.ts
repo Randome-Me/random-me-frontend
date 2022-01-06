@@ -27,3 +27,17 @@ export const languageOpposites: {
   en: "th",
   th: "en",
 }
+
+/**
+ * All possible routes within the /pages
+ */
+export const ROUTES = {
+  account: "/account",
+  forgotPassword: "/forgot-password",
+  home: "/",
+  login: "/login",
+  randomPolicies: "/random-policies",
+  register: "/register",
+  resetPassword: "/reset-password",
+  topics: "/topics",
+}

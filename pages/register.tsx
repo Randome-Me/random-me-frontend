@@ -16,7 +16,7 @@ import { User } from "types"
 import { AvailableLanguages } from "types/internationalization"
 import { getLocalUser, getPageTitle, onPageMount, removeFromLocal } from "utils"
 import { register, registerWithCurrentGuest } from "utils/axios/request/auth"
-import { guestUserId } from "utils/constants"
+import { guestUserId, ROUTES } from "utils/constants"
 
 export default function Register() {
   const { t } = useTranslation("translation", { keyPrefix: "register" })
@@ -85,7 +85,7 @@ export default function Register() {
         dispatch(setUser(user))
       }
 
-      await router.replace("/")
+      await router.replace(ROUTES.home)
     } catch (err) {
       alert(err.response.data.message)
     }
@@ -144,7 +144,7 @@ export default function Register() {
               {t("title")}
             </button>
             <div className="flex justify-between">
-              <Link href="/login">
+              <Link href={ROUTES.login}>
                 <a className="clickable-text-cyan text-sm">{t("login")}</a>
               </Link>
               {currentGuest !== null && (

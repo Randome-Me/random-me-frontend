@@ -8,6 +8,7 @@ import { useTranslation } from "react-i18next"
 import { hideLoader, showLoader } from "store/slice/app"
 import { getPageTitle, onPageMount } from "utils"
 import { forgotPassword } from "utils/axios/request/auth"
+import { ROUTES } from "utils/constants"
 
 const ForgotPassword = () => {
   const { t } = useTranslation("translation", { keyPrefix: "forgotPassword" })
@@ -69,7 +70,7 @@ const ForgotPassword = () => {
             {t("send")}
           </button>
         </form>
-        <Link href="/login">
+        <Link href={ROUTES.login}>
           <a className="clickable-text-cyan text-sm">{t("login")}</a>
         </Link>
       </LoginRegisterLayout>

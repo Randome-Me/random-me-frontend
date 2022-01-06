@@ -11,6 +11,7 @@ import { resetPassword } from "utils/axios/request/auth"
 import i18n from "locales"
 import { AvailableLanguages } from "types/internationalization"
 import { getPageTitle, onPageMount } from "utils"
+import { ROUTES } from "utils/constants"
 
 export const getServerSideProps: GetServerSideProps = async ({
   query: { token },
@@ -23,7 +24,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 
   return {
     redirect: {
-      destination: "/login",
+      destination: ROUTES.login,
     },
     props: {},
   }
@@ -38,7 +39,7 @@ const ResetPassword: FC<{ token: string }> = ({ token }) => {
   const [confirmPassword, setConfirmPassword] = useState("")
 
   const goToLogin = async () => {
-    await router.replace("/login")
+    await router.replace(ROUTES.login)
   }
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {

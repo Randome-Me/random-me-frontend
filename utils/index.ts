@@ -12,6 +12,7 @@ import {
   languageOpposites,
   maxLengthTopicAndOptionText,
   nullUserId,
+  ROUTES,
 } from "./constants"
 import { pullDB } from "./axios/request/database"
 import {
@@ -259,7 +260,13 @@ export const onPageMount = async () => {
     return
   }
 
-  if (router.pathname === "/reset-password") {
+  const { pathname } = router
+
+  if (pathname === ROUTES.resetPassword) {
+    // the store here currently stores null user but
+    // this is safe to do because there's only a <Link> back to login
+    // and clicking on _continue as guest_ will load the guest to store
+    // or clicking login is obviously safe
     store.dispatch(setCheckedMe())
     return
   }
@@ -276,8 +283,10 @@ export const onPageMount = async () => {
 
   if (userDB) {
     store.dispatch(setUser(userDB))
-    if (router.pathname === "/login" || router.pathname === "/register") {
-      await router.replace("/")
+    if (
+      [ROUTES.login, ROUTES.register, ROUTES.forgotPassword].includes(pathname)
+    ) {
+      await router.replace(ROUTES.home)
     }
     hideCheckMeLoader()
     return
@@ -286,26 +295,17 @@ export const onPageMount = async () => {
   const localUser = getLocalUser()
 
   if (!localUser) {
-    if (router.pathname === "/register") {
+    if (pathname === ROUTES.register) {
       hideCheckMeLoader()
       return
     }
-    await router.replace("/login")
-    hideCheckMeLoader()
-    return
-  }
-
-  if (localUser._id === nullUserId) {
-    await router.replace("/login")
+    await router.replace(ROUTES.login)
     hideCheckMeLoader()
     return
   }
 
   // anonymous user is saved
   store.dispatch(setUser(localUser))
-  if (router.pathname === "/login" || router.pathname === "/register") {
-    await router.replace("/")
-  }
   hideCheckMeLoader()
 }
 

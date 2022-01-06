@@ -12,6 +12,7 @@ import { withTranslation } from "react-i18next"
 import ProbabilityTable from "components/pages/home/ProbabilityTable"
 import { Topic } from "types"
 import TopicsWithOptions from "components/pages/home/TopicsWithOptions"
+import { ROUTES } from "utils/constants"
 
 const Home = () => {
   const { selectedTopicId, topics } = useAppSelector((state) => state.user)
@@ -92,7 +93,7 @@ const Home = () => {
                       dangerouslySetInnerHTML={{ __html: t("noTopics") }}
                     ></h4>
                     <br />
-                    <Link href="/topics">
+                    <Link href={ROUTES.topics}>
                       <a
                         className="
                       clickable-text-cyan

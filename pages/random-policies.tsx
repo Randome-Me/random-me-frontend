@@ -6,6 +6,7 @@ import Link from "next/link"
 import { useEffect } from "react"
 import { useTranslation, withTranslation } from "react-i18next"
 import { getPageTitle, onPageMount } from "utils"
+import { ROUTES } from "utils/constants"
 
 const RandomPolicies = () => {
   const { t } = useTranslation("translation", { keyPrefix: "policies" })
@@ -78,7 +79,7 @@ const RandomPolicies = () => {
                   <span
                     dangerouslySetInnerHTML={{ __html: t("multinomialText") }}
                   ></span>
-                  <Link href="/topics">
+                  <Link href={ROUTES.topics}>
                     <a className="underline font-medium">{t("topicsPage")}</a>
                   </Link>
                   {t("multinomialText2")}

@@ -19,9 +19,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <link rel="shortcut icon" id="favicon" href="/favicon.png" />
       </Head>
       <LoaderLayout>
-        {/* <AuthProvider> */}
         <Component {...pageProps} />
-        {/* </AuthProvider> */}
       </LoaderLayout>
     </Provider>
   )
