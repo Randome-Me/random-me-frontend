@@ -33,7 +33,7 @@ export default function Sidebar({ routeMap, menuText }: SidebarProps) {
                     className="
                     before:content-['\200B']
                     inline-block w-[2px]
-                    h-full
+                    h-8 lg:h-full
                     bg-sky-100
                     transition-colors"
                     aria-hidden="true"
@@ -51,6 +51,8 @@ export default function Sidebar({ routeMap, menuText }: SidebarProps) {
                     font-medium
                     transition-colors
                     hover:text-yellow-300
+                    flex
+                    items-center
                     ${
                       currentPath === route ? "text-yellow-400" : "text-sky-100"
                     }`}
