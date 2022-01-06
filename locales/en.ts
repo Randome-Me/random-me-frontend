@@ -127,7 +127,7 @@ const en = {
       ucb1Text2:
         "The reward of <em>1</em> is the result of you answering that <em>you like the option that the Random Me app gives you</em>, else <em>0</em>. So bear in mind that your answers are taken into account by the policies.",
       epsilonGreedyText:
-        "Epsilon Greedy or <em>&epsilon;-greedy</em> is a policy that performs exploration with probability of <em>1 - &epsilon;</em> using Equal Weight policy else selects the option with the highest estimated reward.",
+        "Epsilon Greedy or <em>&epsilon;-greedy</em> is a policy that performs exploration with probability of <em>1 - &epsilon;</em> using Equal Weight policy else selects the option with the highest estimated reward. The &epsilon; parameter is a number between 0 and 1.",
       softmaxText:
         'Softmax is a function that, erm, just read <a class="underline font-medium" href="https://en.wikipedia.org/wiki/Softmax_function" target="_blank" rel="noopener noreferrer">this wikipedia</a>.',
     },
