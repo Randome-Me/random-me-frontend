@@ -10,7 +10,7 @@ interface LoaderLayoutProps {
 }
 
 const LoaderLayout = ({ children }: LoaderLayoutProps) => {
-  const { isLoading, loaderAfter, loaderBefore } = useAppSelector(
+  const { isLoading, loaderAfter, loaderBefore, checkedMe } = useAppSelector(
     (state) => state.app
   )
   const user = useAppSelector((state) => state.user)
@@ -29,13 +29,17 @@ const LoaderLayout = ({ children }: LoaderLayoutProps) => {
         fixed
         h-screen
         w-screen
-        bg-cyan-300/50 dark:bg-gray-900/50
         z-50
         flex
         flex-col
         justify-center
         items-center
         space-y-4 
+        ${
+          checkedMe
+            ? "bg-cyan-300/50 dark:bg-gray-900/50"
+            : "bg-cyan-300 dark:bg-gray-900"
+        }
         ${isLoading ? "" : "hidden"}`}
         aria-hidden="true"
       >
