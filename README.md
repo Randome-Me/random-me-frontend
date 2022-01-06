@@ -2,7 +2,7 @@
 
 ![image](https://user-images.githubusercontent.com/69001162/148414469-e477156f-c207-40cc-b8e9-a4de883b3714.png)
 
-A simple yet powerful web app to help you _randomly select_ one from your provided options by fancy random policies, backed up by user authentication and database.  
+A simple yet powerful web app to help you _randomly select_ one of your provided options by fancy random policies, backed up by user authentication and database.  
 Enjoy! [Random Me](https://random-me-frontend.vercel.app/) 🎉
 
 ## 👍🏻 Features
