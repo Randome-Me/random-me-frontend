@@ -1,13 +1,8 @@
-import { useAppDispatch, useAppSelector } from "hooks"
-import { useRouter } from "next/router"
 import { FC } from "react"
 import { useTranslation } from "react-i18next"
-import { changeLanguage } from "store/slice/user"
-import { AvailableLanguages } from "types/internationalization"
+import { loggedInUserDo, switchLanguage } from "utils"
 import { changeLanguageDB } from "utils/axios/request/database"
-import { guestUserId, nullUserId } from "utils/constants"
-
-const languages: AvailableLanguages[] = ["en", "th"]
+import { languages } from "utils/constants"
 
 interface LanguageSwitchProps {
   className?: string
@@ -15,21 +10,15 @@ interface LanguageSwitchProps {
 
 const LanguageSwitch: FC<LanguageSwitchProps> = ({ className }) => {
   const { i18n } = useTranslation()
-  const dispatch = useAppDispatch()
-  const { _id: userId } = useAppSelector((state) => state.user)
 
-  const handleChangeLanguage = async (language: AvailableLanguages) => {
-    if (i18n.language === language) return
-
-    dispatch(changeLanguage({ language }))
-    i18n.changeLanguage(language)
-    if (userId !== guestUserId && userId !== nullUserId) {
-      await changeLanguageDB(language)
-    }
+  const handleSwitchLanguage = async () => {
+    const language = switchLanguage()
+    loggedInUserDo(() => changeLanguageDB(language))
   }
 
   return (
     <div
+      onClick={handleSwitchLanguage}
       className={`
     inline-block
     bg-slate-50/50
@@ -55,11 +44,10 @@ const LanguageSwitch: FC<LanguageSwitchProps> = ({ className }) => {
         focus:shadow-outline
         ${
           language === i18n.language
-            ? "bg-yellow-300 cursor-auto dark:text-slate-800 dark:hover:text-yellow-400"
+            ? "bg-yellow-300 dark:text-slate-800 dark:hover:text-yellow-400"
             : "opacity-75 "
         }
         `}
-          onClick={() => handleChangeLanguage(language)}
         >
           {{ en: "EN", th: "ไทย" }[language]}
         </button>

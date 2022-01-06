@@ -1,3 +1,4 @@
+import { AvailableLanguages } from "types/internationalization"
 import { RandomPolicy } from "types/mab"
 
 // must be sorted
@@ -18,3 +19,11 @@ export const policies: RandomPolicy[] = [
 ]
 
 export const maxLengthTopicAndOptionText = 150
+
+export const languages: AvailableLanguages[] = ["en", "th"]
+export const languageOpposites: {
+  [key in AvailableLanguages]: AvailableLanguages
+} = {
+  en: "th",
+  th: "en",
+}

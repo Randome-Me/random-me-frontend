@@ -1,3 +1,5 @@
+import { AvailableLanguages } from "types/internationalization"
+import { changeLanguage } from "store/slice/user"
 import { LocalStorageKey, Topic, User } from "types"
 import { Arm } from "./MAB/Arm"
 import store from "store"
@@ -7,6 +9,7 @@ import i18n, { fallbackLng } from "locales"
 import { t as translate } from "i18next"
 import {
   guestUserId,
+  languageOpposites,
   maxLengthTopicAndOptionText,
   nullUserId,
 } from "./constants"
@@ -80,13 +83,18 @@ export const createOption = (
   }
 }
 
+/**
+ * Change language in the user store
+ * @returns The language to change to
+ */
 export const switchLanguage = () => {
-  i18n.changeLanguage(
-    {
-      en: "th",
-      th: "en",
-    }[i18n.language]
+  const languageToChangeTo = languageOpposites[store.getState().user.language]
+  store.dispatch(
+    changeLanguage({
+      language: languageToChangeTo,
+    })
   )
+  return languageToChangeTo
 }
 
 export const decodePolicy = (policy: RandomPolicy) => {
