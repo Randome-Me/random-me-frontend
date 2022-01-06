@@ -10,7 +10,7 @@ import { hideLoader, showLoader } from "store/slice/app"
 import { resetPassword } from "utils/axios/request/auth"
 import i18n from "locales"
 import { AvailableLanguages } from "types/internationalization"
-import { onPageMount } from "utils"
+import { getPageTitle, onPageMount } from "utils"
 
 export const getServerSideProps: GetServerSideProps = async ({
   query: { token },
@@ -81,9 +81,12 @@ const ResetPassword: FC<{ token: string }> = ({ token }) => {
   return (
     <>
       <Head>
-        <title>{t("title")} | Random Me</title>
+        <title>{getPageTitle("changePassword.title")}</title>
         <meta name="description" content={t("description")} />
-        <meta property="og:title" content={t("title")} />
+        <meta
+          property="og:title"
+          content={getPageTitle("changePassword.title")}
+        />
         <meta property="og:description" content={t("description")} />
       </Head>
 

@@ -11,7 +11,12 @@ import { useTranslation, withTranslation } from "react-i18next"
 import store from "store"
 import { hideLoader, showLoader } from "store/slice/app"
 import { setUser } from "store/slice/user"
-import { createNullUser, loggedInUserDo, onPageMount } from "utils"
+import {
+  createNullUser,
+  getPageTitle,
+  loggedInUserDo,
+  onPageMount,
+} from "utils"
 import { forgotPassword, logout } from "utils/axios/request/auth"
 import { guestUserId, nullUserId } from "utils/constants"
 
@@ -138,9 +143,9 @@ const Account = () => {
   return (
     <>
       <Head>
-        <title>{t("title")} | Random Me</title>
+        <title>{getPageTitle("account.title")}</title>
         <meta name="description" content={t("description")} />
-        <meta property="og:title" content={t("title")} />
+        <meta property="og:title" content={getPageTitle("account.title")} />
         <meta property="og:description" content={t("description")} />
       </Head>
 

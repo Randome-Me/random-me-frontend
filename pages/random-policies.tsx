@@ -5,7 +5,7 @@ import Head from "next/head"
 import Link from "next/link"
 import { useEffect } from "react"
 import { useTranslation, withTranslation } from "react-i18next"
-import { onPageMount } from "utils"
+import { getPageTitle, onPageMount } from "utils"
 
 const RandomPolicies = () => {
   const { t } = useTranslation("translation", { keyPrefix: "policies" })
@@ -37,9 +37,9 @@ const RandomPolicies = () => {
   return (
     <>
       <Head>
-        <title>{t("title")} | Random Me</title>
+        <title>{getPageTitle("policies.title")}</title>
         <meta name="description" content={t("description")} />
-        <meta property="og:title" content={t("title")} />
+        <meta property="og:title" content={getPageTitle("policies.title")} />
         <meta property="og:description" content={t("description")} />
       </Head>
 

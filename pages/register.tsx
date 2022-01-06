@@ -14,7 +14,7 @@ import { hideLoader, showLoader } from "store/slice/app"
 import { setUser } from "store/slice/user"
 import { User } from "types"
 import { AvailableLanguages } from "types/internationalization"
-import { getLocalUser, onPageMount, removeFromLocal } from "utils"
+import { getLocalUser, getPageTitle, onPageMount, removeFromLocal } from "utils"
 import { register, registerWithCurrentGuest } from "utils/axios/request/auth"
 import { guestUserId } from "utils/constants"
 
@@ -104,9 +104,9 @@ export default function Register() {
   return (
     <>
       <Head>
-        <title>{t("title")} | Random Me</title>
+        <title>{getPageTitle("register.title")}</title>
         <meta name="description" content={t("description")} />
-        <meta property="og:title" content={t("title")} />
+        <meta property="og:title" content={getPageTitle("register.title")} />
         <meta property="og:description" content={t("description")} />
       </Head>
 

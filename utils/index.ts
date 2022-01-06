@@ -308,3 +308,7 @@ export const onPageMount = async () => {
   }
   hideCheckMeLoader()
 }
+
+export const getPageTitle = (i18nKey: string) => {
+  return `${translate(i18nKey)} | Random Me`
+}
