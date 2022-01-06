@@ -38,7 +38,7 @@ const LoaderLayout = ({ children }: LoaderLayoutProps) => {
         ${
           checkedMe
             ? "bg-cyan-300/50 dark:bg-gray-900/50"
-            : "bg-cyan-300 dark:bg-gray-900"
+            : "bg-cyan-600 dark:bg-gray-900"
         }
         ${isLoading ? "" : "hidden"}`}
         aria-hidden="true"
