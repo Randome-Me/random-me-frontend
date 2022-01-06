@@ -62,7 +62,7 @@ const en = {
     },
     home: {
       title: "Random",
-      description: "Let's randomize your life decisions with Random Me!",
+      description: "Let's use Random Me to help with your life decisions!",
       topics: "Topics",
       "add option": "Add Option",
       policy: "Policy",
