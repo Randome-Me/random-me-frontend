@@ -100,7 +100,7 @@ const Account = () => {
               </span>
             )}
           </div>
-          {user._id === guestUserId ? (
+          {/* {user._id === guestUserId ? (
             <div>
               <Link href={ROUTES.login}>
                 <a>
@@ -134,7 +134,7 @@ const Account = () => {
             >
               {t("logout")}
             </button>
-          )}
+          )} */}
         </Glass>
       )
     }

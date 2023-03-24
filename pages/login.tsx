@@ -23,7 +23,10 @@ const Login = () => {
       </Head>
 
       <LoginRegisterLayout topic={t("title")}>
-        <LoginForm />
+        {/* <LoginForm /> */}
+        <div className="text-center">
+          Login (backend stuff) not available for now.
+        </div>
         <ContinueAsGuest />
       </LoginRegisterLayout>
     </>
